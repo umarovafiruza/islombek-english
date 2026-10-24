@@ -1093,7 +1093,15 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
   font-size: 1rem;
   line-height: 1.7;
   color: var(--ink);
-  white-space: pre-line;
+}
+.lis-transcript-p {
+  margin: 0 0 14px;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.lis-transcript-p:last-child {
+  margin-bottom: 0;
 }
 .lis-transcript-line {
   margin-bottom: 8px;
@@ -2736,90 +2744,90 @@ var LISTENING_DATA = [
   {
     id: "lis_a1_1",
     level: "A1",
-    title: "At the Coffee Shop",
-    uz: "Qahvaxonada",
+    title: "My Morning at the Coffee Shop",
+    uz: "Qahvaxonadagi tongim",
     audioSrc: "",
-    transcript: "Barista: Good morning! What can I get for you today?\nCustomer: Hello! Can I have a large cappuccino and a blueberry muffin, please?\nBarista: Sure! Do you want whole milk or oat milk?\nCustomer: Oat milk, please. And could you heat up the muffin?\nBarista: Of course. That will be six dollars and fifty cents.\nCustomer: Here is seven dollars, keep the change!\nBarista: Thank you very much! Have a great day!",
+    transcript: "Every weekday morning, I visit my favorite coffee shop near my office. Today, I ordered a large cappuccino and a fresh blueberry muffin. I always ask for oat milk because it is light and healthy. The barista kindly warmed up the muffin for me, and the total cost was six dollars and fifty cents. I paid with a seven-dollar note and told the barista to keep the change. It is always a wonderful way to begin my morning.",
     questions: [
       {
-        q: "What does the customer order to drink?",
+        q: "What does the speaker order to drink?",
         options: ["Espresso", "Cappuccino", "Hot chocolate", "Green tea"],
         correct: 1,
-        exp: "Customer: 'Can I have a large cappuccino...'"
+        exp: "Speaker: 'Today, I ordered a large cappuccino...'"
       },
       {
-        q: "What kind of milk does the customer prefer?",
+        q: "What kind of milk does the speaker prefer?",
         options: ["Soy milk", "Whole milk", "Oat milk", "Almond milk"],
         correct: 2,
-        exp: "Customer: 'Oat milk, please.'"
+        exp: "Speaker: 'I always ask for oat milk...'"
       },
       {
         q: "How much is the total cost?",
         options: ["$5.50", "$6.00", "$6.50", "$7.00"],
         correct: 2,
-        exp: "Barista: 'That will be six dollars and fifty cents ($6.50).'"
+        exp: "Speaker: 'the total cost was six dollars and fifty cents ($6.50).'"
       },
       {
-        q: "What does the customer say about the change?",
+        q: "What does the speaker say about the change?",
         options: ["Give me receipt", "Keep the change", "I have coins", "Give back two dollars"],
         correct: 1,
-        exp: "Customer: 'keep the change!' (Qaytimi kerak emas)."
+        exp: "Speaker: 'told the barista to keep the change'."
       }
     ]
   },
   {
     id: "lis_a1_2",
     level: "A1",
-    title: "Asking for Directions",
-    uz: "Yo'l so'rash",
+    title: "Directions to the Pharmacy",
+    uz: "Dorixonaga borish yo'li",
     audioSrc: "",
-    transcript: "Tourist: Excuse me, is there a pharmacy near here?\nLocal: Yes, there is one on Green Street. Walk straight for two blocks, then turn right at the traffic lights.\nTourist: Turn right at the traffic lights?\nLocal: Yes, exactly. The pharmacy is next to the big supermarket. You cannot miss it.\nTourist: Is it far to walk?\nLocal: No, only about five minutes from here.\nTourist: Thank you so much for your help!\nLocal: You are welcome. Have a nice day!",
+    transcript: "If you are looking for a pharmacy near here, there is an excellent one located on Green Street. To get there, simply walk straight ahead for two blocks, and then turn right at the traffic lights. The pharmacy is located right next to the large supermarket, so you cannot miss it. It is very close and takes only about five minutes to walk there from here. It is open every day, so you will easily find everything you need.",
     questions: [
       {
-        q: "What is the tourist looking for?",
+        q: "What is the speaker giving directions to?",
         options: ["A supermarket", "A bus stop", "A pharmacy", "A bank"],
         correct: 2,
-        exp: "Tourist: 'is there a pharmacy near here?'"
+        exp: "Speaker: 'If you are looking for a pharmacy near here...'"
       },
       {
-        q: "Where should the tourist turn right?",
+        q: "Where should one turn right?",
         options: ["At the bookstore", "At the traffic lights", "At the park gate", "At the hotel"],
         correct: 1,
-        exp: "Local: 'turn right at the traffic lights'."
+        exp: "Speaker: 'turn right at the traffic lights'."
       },
       {
         q: "How far is the pharmacy on foot?",
         options: ["About five minutes", "Twenty minutes", "One hour", "Right across the street"],
         correct: 0,
-        exp: "Local: 'only about five minutes from here'."
+        exp: "Speaker: 'takes only about five minutes to walk there'."
       }
     ]
   },
   {
     id: "lis_a1_3",
     level: "A1",
-    title: "Meeting a New Classmate",
-    uz: "Yangi kursdosh bilan tanishuv",
+    title: "My First Day at University",
+    uz: "Universitetdagi birinchi kunim",
     audioSrc: "",
-    transcript: "Sarah: Hi! Is this seat free?\nAlex: Yes, it is. Go ahead and sit down.\nSarah: Thanks! My name is Sarah. I just moved here from Canada.\nAlex: Nice to meet you, Sarah. I am Alex. I have lived in this city for three years.\nSarah: Are you studying computer science too?\nAlex: Yes, this is my second year. If you ever need help with notes, just let me know!\nSarah: That is very kind of you, Alex! See you in class.",
+    transcript: "Hello! My name is Sarah, and I recently moved to this city all the way from Canada. Today is my very first day at the university, where I am studying computer science. In my morning lecture, I sat down next to Alex, a friendly student who is currently in his second year. He has lived in this city for three years and kindly offered to share his lecture notes with me whenever I need help. Starting my studies in a new country feels exciting.",
     questions: [
       {
         q: "Where is Sarah from?",
         options: ["Australia", "Canada", "England", "United States"],
         correct: 1,
-        exp: "Sarah: 'I just moved here from Canada.'"
+        exp: "Sarah: 'I recently moved to this city all the way from Canada.'"
       },
       {
-        q: "What are Sarah and Alex studying?",
+        q: "What is Sarah studying at university?",
         options: ["Medicine", "History", "Computer science", "Economics"],
         correct: 2,
-        exp: "Sarah: 'Are you studying computer science too?' - Alex: 'Yes...'"
+        exp: "Sarah: 'I am studying computer science.'"
       },
       {
         q: "What year of study is Alex in?",
         options: ["First year", "Second year", "Third year", "Final year"],
         correct: 1,
-        exp: "Alex: 'this is my second year.'"
+        exp: "Sarah: 'Alex, a friendly student who is currently in his second year.'"
       }
     ]
   },
@@ -2828,96 +2836,96 @@ var LISTENING_DATA = [
   {
     id: "lis_a2_1",
     level: "A2",
-    title: "At the Train Station",
-    uz: "Poyezd vokzalida",
+    title: "Booking a Train Ticket",
+    uz: "Poyezd chiptasini xarid qilish",
     audioSrc: "",
-    transcript: "Passenger: Good afternoon. I need a return ticket to Manchester for tomorrow morning.\nClerk: Certainly. The express train leaves at eight fifteen, and the standard train leaves at eight forty-five.\nPassenger: What is the difference in price?\nClerk: The express is forty-five pounds and takes two hours. The standard is thirty pounds and takes two and a half hours.\nPassenger: I will take the standard ticket, please. I am not in a hurry.\nClerk: Here you go. Your train departs from platform four. Safe travels!",
+    transcript: "This afternoon, I went to the station to purchase a return ticket to Manchester for tomorrow morning. The station clerk explained two options: an express train departing at eight fifteen, and a standard train leaving at eight forty-five. The express costs forty-five pounds and takes two hours, whereas the standard train costs thirty pounds and takes two and a half hours. Since I am not in a hurry, I decided to buy the standard ticket and save fifteen pounds. My train will depart from platform four tomorrow.",
     questions: [
       {
-        q: "Where does the passenger want to travel?",
+        q: "Where is the traveler going?",
         options: ["London", "Manchester", "Liverpool", "Edinburgh"],
         correct: 1,
-        exp: "Passenger: 'I need a return ticket to Manchester...'"
+        exp: "Speaker: 'purchase a return ticket to Manchester...'"
       },
       {
-        q: "Why does the passenger choose the standard train?",
-        options: ["It is faster", "It leaves earlier", "It is cheaper and he is not in a hurry", "Platform four is closer"],
+        q: "Why does the traveler choose the standard train?",
+        options: ["It is faster", "It leaves earlier", "It is cheaper and they are not in a hurry", "Platform four is closer"],
         correct: 2,
-        exp: "Passenger: 'I will take the standard ticket, please. I am not in a hurry.'"
+        exp: "Speaker: 'Since I am not in a hurry, I decided to buy the standard ticket and save fifteen pounds.'"
       },
       {
         q: "How long does the express train take?",
         options: ["90 minutes", "Two hours", "Two and a half hours", "Three hours"],
         correct: 1,
-        exp: "Clerk: 'The express ... takes two hours.'"
+        exp: "Speaker: 'The express costs forty-five pounds and takes two hours...'"
       },
       {
         q: "Which platform does the train depart from?",
         options: ["Platform one", "Platform two", "Platform four", "Platform eight"],
         correct: 2,
-        exp: "Clerk: 'Your train departs from platform four.'"
+        exp: "Speaker: 'My train will depart from platform four tomorrow.'"
       }
     ]
   },
   {
     id: "lis_a2_2",
     level: "A2",
-    title: "Doctor's Appointment",
-    uz: "Shifokor qabulida",
+    title: "My Visit to the Doctor",
+    uz: "Shifokor ko'rigidagi xulosalar",
     audioSrc: "",
-    transcript: "Doctor: Come in, please. What seems to be the problem today?\nPatient: I have had a severe sore throat and a bad headache since Tuesday.\nDoctor: Let me check your temperature. Yes, you have a slight fever of thirty-eight degrees. Have you taken any medicine yet?\nPatient: Only some paracetamol yesterday evening, but it didn't help much.\nDoctor: You have a viral throat infection. Drink plenty of warm water, take this medicine twice a day after meals, and rest in bed for three days.\nPatient: Thank you, doctor. When should I come back if I don't feel better?\nDoctor: If the fever persists after five days, call the clinic immediately.",
+    transcript: "On Tuesday morning, I woke up with a severe sore throat and a painful headache. When my symptoms did not improve with paracetamol, I visited the doctor at our local clinic. The doctor checked my temperature and confirmed a slight fever of thirty-eight degrees, diagnosing a viral throat infection. The doctor advised me to drink plenty of warm water, take the prescribed medicine twice a day after meals, and rest in bed for three days. If the fever persists after five days, I must call the clinic again.",
     questions: [
       {
-        q: "What symptoms does the patient have?",
+        q: "What symptoms did the speaker experience?",
         options: ["Stomachache and toothache", "Sore throat and headache", "Broken arm and fever", "Ear pain and cough"],
         correct: 1,
-        exp: "Patient: 'severe sore throat and a bad headache'."
+        exp: "Speaker: 'woke up with a severe sore throat and a painful headache'."
       },
       {
-        q: "What is the patient's temperature?",
+        q: "What was the speaker's body temperature?",
         options: ["36.6 degrees", "37.5 degrees", "38 degrees", "39.5 degrees"],
         correct: 2,
-        exp: "Doctor: 'slight fever of thirty-eight (38) degrees'."
+        exp: "Speaker: 'confirmed a slight fever of thirty-eight (38) degrees'."
       },
       {
-        q: "How often should the patient take the medicine?",
+        q: "How often should the medicine be taken?",
         options: ["Once a week", "Twice a day after meals", "Three times before sleeping", "Every two hours"],
         correct: 1,
-        exp: "Doctor: 'take this medicine twice a day after meals'."
+        exp: "Speaker: 'take the prescribed medicine twice a day after meals'."
       },
       {
-        q: "How many days should the patient rest in bed?",
+        q: "How many days of bed rest were advised?",
         options: ["One day", "Three days", "One week", "Ten days"],
         correct: 1,
-        exp: "Doctor: 'rest in bed for three days'."
+        exp: "Speaker: 'rest in bed for three days'."
       }
     ]
   },
   {
     id: "lis_a2_3",
     level: "A2",
-    title: "Planning a Weekend Trip",
-    uz: "Dam olish kuni rejalari",
+    title: "Our Weekend Mountain Hike",
+    uz: "Tog'dagi dam olish kuni rejasi",
     audioSrc: "",
-    transcript: "Emma: David, are we still going hiking in the mountains this Saturday?\nDavid: I checked the weather forecast this morning. It says heavy rain is expected on Saturday afternoon.\nEmma: Oh, that's disappointing. What about Sunday instead?\nDavid: Sunday looks much better! Sunny and around twenty degrees.\nEmma: Perfect. Let's leave early on Sunday at eight in the morning so we can enjoy the view before it gets crowded.\nDavid: Agreed. I will prepare the sandwiches and bring water bottles.",
+    transcript: "Originally, we planned to go hiking in the mountains this Saturday. However, when I checked the weather forecast this morning, it predicted heavy rain on Saturday afternoon. Therefore, we agreed to reschedule our trip to Sunday instead. Sunday's forecast looks wonderful: bright sunshine and mild temperatures around twenty degrees. We plan to leave home early at eight in the morning so we can reach the peak before the trails get crowded, and I volunteered to prepare the sandwiches and water bottles.",
     questions: [
       {
-        q: "Why can't they go hiking on Saturday?",
+        q: "Why was Saturday's hike postponed?",
         options: ["David has to work", "Heavy rain is expected", "The mountain park is closed", "Emma feels sick"],
         correct: 1,
-        exp: "David: 'heavy rain is expected on Saturday afternoon'."
+        exp: "Speaker: 'it predicted heavy rain on Saturday afternoon'."
       },
       {
         q: "What will the weather be like on Sunday?",
         options: ["Snowy and cold", "Very windy", "Sunny and around twenty degrees", "Foggy"],
         correct: 2,
-        exp: "David: 'Sunday looks much better! Sunny and around twenty degrees.'"
+        exp: "Speaker: 'bright sunshine and mild temperatures around twenty degrees'."
       },
       {
-        q: "What time do they agree to leave on Sunday?",
+        q: "What time do they plan to leave on Sunday?",
         options: ["6:00 AM", "8:00 AM", "10:30 AM", "12:00 PM"],
         correct: 1,
-        exp: "Emma: 'leave early on Sunday at eight in the morning'."
+        exp: "Speaker: 'leave home early at eight in the morning'."
       }
     ]
   },
@@ -2926,96 +2934,96 @@ var LISTENING_DATA = [
   {
     id: "lis_b1_1",
     level: "B1",
-    title: "Job Interview",
-    uz: "Ish suhbati",
+    title: "My Project Manager Interview",
+    uz: "Loyiha boshqaruvchisi suhbati",
     audioSrc: "",
-    transcript: "Interviewer: Welcome to our company, Jessica. To begin, could you tell us why you are interested in this project manager position?\nJessica: Thank you for inviting me. For the past three years, I have led a software team of eight designers and developers. I noticed that your company is expanding its mobile applications division, and my background aligns directly with your goals.\nInterviewer: That's impressive. What do you consider your greatest strength when facing tight deadlines?\nJessica: I prioritize transparent communication. When unexpected roadblocks appear, I immediately coordinate with stakeholders to adjust our milestones rather than compromising product quality.\nInterviewer: Excellent answer. How do you handle disagreements within your team?\nJessica: I encourage open discussion where each member explains their perspective. We evaluate the data objectively and decide based on what serves the user experience best.",
+    transcript: "This morning, I attended an important job interview for a project manager position. Over the past three years, I have successfully led a software team of eight designers and developers. During the interview, I explained how my background in expanding mobile applications directly aligns with the company's new division. When asked about handling tight deadlines, I emphasized that transparent communication is my highest priority when unexpected roadblocks appear. Furthermore, to resolve internal team disagreements, I always facilitate open discussions where we evaluate data objectively to serve the user experience best.",
     questions: [
       {
-        q: "What role is Jessica interviewing for?",
+        q: "What role was the speaker interviewing for?",
         options: ["Software Tester", "Project Manager", "Financial Analyst", "Marketing Director"],
         correct: 1,
-        exp: "Interviewer: 'interested in this project manager position'."
+        exp: "Speaker: 'interview for a project manager position'."
       },
       {
-        q: "How large was the team Jessica previously managed?",
+        q: "How large was the team the speaker previously managed?",
         options: ["Three people", "Five people", "Eight people", "Twenty people"],
         correct: 2,
-        exp: "Jessica: 'led a software team of eight designers and developers'."
+        exp: "Speaker: 'led a software team of eight designers and developers'."
       },
       {
-        q: "What does Jessica prioritize when facing tight deadlines?",
+        q: "What does the speaker prioritize when facing tight deadlines?",
         options: ["Working all night", "Transparent communication", "Hiring freelancers", "Cutting core features"],
         correct: 1,
-        exp: "Jessica: 'I prioritize transparent communication.'"
+        exp: "Speaker: 'transparent communication is my highest priority'."
       },
       {
-        q: "How does Jessica resolve team disagreements?",
+        q: "How does the speaker resolve team disagreements?",
         options: ["By voting blindly", "By evaluating data objectively through open discussion", "By asking upper management to decide", "By ignoring minor disagreements"],
         correct: 1,
-        exp: "Jessica: 'encourage open discussion ... evaluate the data objectively'."
+        exp: "Speaker: 'evaluate data objectively to serve the user experience best'."
       }
     ]
   },
   {
     id: "lis_b1_2",
     level: "B1",
-    title: "Hotel Complaint and Solution",
-    uz: "Mehmonxonada e'tiroz va yechim",
+    title: "Resolving a Hotel Room Problem",
+    uz: "Mehmonxonadagi muammoning yechimi",
     audioSrc: "",
-    transcript: "Guest: Excuse me, I am staying in room three hundred and twelve, and I need to report a couple of issues.\nReceptionist: I am very sorry to hear that, sir. What seems to be wrong?\nGuest: The air conditioner is making a loud buzzing noise, and there is no hot water in the shower. I have an important conference presentation tomorrow morning, and I cannot sleep with this noise.\nReceptionist: We sincerely apologize for this inconvenience. The plumbing maintenance team has already gone home for the night, so allow me to upgrade you immediately to our executive suite on the fifth floor at no extra charge.\nGuest: That sounds reasonable. Thank you for resolving it so quickly.\nReceptionist: You are very welcome. We have also included complimentary breakfast at our rooftop restaurant tomorrow morning.",
+    transcript: "Last night, I checked into room three hundred and twelve for an important conference presentation. Unfortunately, the air conditioner was making a loud buzzing noise, and there was no hot water in the shower. I went down to the reception desk to report the problems calmly. Because the plumbing maintenance team had already gone home for the night, the receptionist immediately upgraded me to an executive suite on the fifth floor at no extra charge. They even included a complimentary breakfast at their rooftop restaurant the next morning.",
     questions: [
       {
         q: "What problems did the guest experience in room 312?",
         options: ["Broken TV and missing keys", "Noisy air conditioner and no hot water", "Dirty bedsheets and cold room", "Broken elevator and no Wi-Fi"],
         correct: 1,
-        exp: "Guest: 'air conditioner is making a loud buzzing noise, and there is no hot water'."
+        exp: "Speaker: 'air conditioner was making a loud buzzing noise, and there was no hot water'."
       },
       {
-        q: "Why can't the maintenance team fix the issues immediately?",
-        options: ["They don't have tools", "They have already gone home for the night", "They are on strike", "The manager forbade repairs at night"],
+        q: "Why couldn't the maintenance team fix the issues that night?",
+        options: ["They don't have tools", "They had already gone home for the night", "They are on strike", "The manager forbade repairs at night"],
         correct: 1,
-        exp: "Receptionist: 'The plumbing maintenance team has already gone home for the night'."
+        exp: "Speaker: 'the plumbing maintenance team had already gone home for the night'."
       },
       {
-        q: "How does the receptionist resolve the problem?",
+        q: "How did the receptionist resolve the problem?",
         options: ["Offers a 10% refund", "Upgrades the guest to an executive suite on the fifth floor for free", "Calls a plumber from another city", "Gives the guest earplugs"],
         correct: 1,
-        exp: "Receptionist: 'upgrade you immediately to our executive suite on the fifth floor at no extra charge'."
+        exp: "Speaker: 'upgraded me to an executive suite on the fifth floor at no extra charge'."
       },
       {
-        q: "What additional courtesy does the hotel provide?",
+        q: "What additional courtesy did the hotel provide?",
         options: ["Free airport taxi", "Complimentary rooftop breakfast", "Free laundry service", "Dinner voucher"],
         correct: 1,
-        exp: "Receptionist: 'complimentary breakfast at our rooftop restaurant'."
+        exp: "Speaker: 'complimentary breakfast at their rooftop restaurant'."
       }
     ]
   },
   {
     id: "lis_b1_3",
     level: "B1",
-    title: "Healthy Sleep Habits",
-    uz: "Sog'lom uyqu odatlari",
+    title: "The Science of Restorative Sleep",
+    uz: "Sog'lom uyqu ilmi",
     audioSrc: "",
-    transcript: "Host: Welcome back to Wellness Daily. Today we are talking with neurologist Dr. Linda Carter about quality sleep.\nDr. Carter: Thank you. Many people believe they can function well on five hours of sleep, but research demonstrates that chronic sleep deprivation severely impairs decision-making and immune function.\nHost: What is the single biggest obstacle to deep sleep in modern life?\nDr. Carter: Blue light exposure from smartphones and laptops within sixty minutes before bed. Blue light suppresses melatonin production, signaling to your brain that it is still daytime. Simply turning off digital screens an hour before sleeping can improve sleep quality by over thirty percent.",
+    transcript: "Good evening. As a neurologist specializing in sleep health, I frequently meet individuals who believe they can function well on just five hours of sleep. However, extensive clinical research demonstrates that chronic sleep deprivation severely impairs decision-making and weakens immune defenses. The single biggest obstacle to deep restorative sleep in modern life is blue light exposure from smartphones and laptops within sixty minutes before bed. Blue light suppresses melatonin production, signaling to your brain that it is daytime. Simply turning off digital screens an hour before sleeping can improve overall sleep quality by over thirty percent.",
     questions: [
       {
         q: "What does research say about regularly sleeping only five hours?",
         options: ["It improves creativity", "It severely impairs decision-making and immunity", "It has no negative consequences", "It strengthens physical endurance"],
         correct: 1,
-        exp: "Dr. Carter: 'chronic sleep deprivation severely impairs decision-making and immune function'."
+        exp: "Speaker: 'chronic sleep deprivation severely impairs decision-making and weakens immune defenses'."
       },
       {
         q: "What effect does blue light from screens have on the human body?",
         options: ["It increases body temperature", "It suppresses melatonin production", "It causes rapid heart rate", "It accelerates digestion"],
         correct: 1,
-        exp: "Dr. Carter: 'Blue light suppresses melatonin production...'."
+        exp: "Speaker: 'Blue light suppresses melatonin production...'."
       },
       {
         q: "By how much can turning off screens an hour before bed improve sleep quality?",
         options: ["By 10%", "By 20%", "By over 30%", "By 50%"],
         correct: 2,
-        exp: "Dr. Carter: 'improve sleep quality by over thirty percent'."
+        exp: "Speaker: 'improve overall sleep quality by over thirty percent'."
       }
     ]
   },
@@ -3027,7 +3035,7 @@ var LISTENING_DATA = [
     title: "The Future of Remote Work",
     uz: "Masofaviy ishning kelajagi",
     audioSrc: "",
-    transcript: "Speaker: Over the past five years, the global workforce has undergone a profound transformation. While proponents of remote work emphasize greater flexibility and reduced commuting time, executives often express concern regarding company culture and spontaneous collaboration. Emerging data suggests that the optimal approach is neither fully remote nor strictly office-based, but rather a structured hybrid model. Under this paradigm, employees spend two days collaborating in person on strategic planning and team workshops, while dedicating the remaining three days to deep, uninterrupted individual focus at home.",
+    transcript: "Over the past five years, the global workforce has undergone a profound transformation. While proponents of remote work emphasize greater flexibility and reduced commuting time, executives often express concern regarding company culture and spontaneous collaboration. Emerging organizational data suggests that the optimal approach is neither fully remote nor strictly office-based, but rather a structured hybrid model. Under this paradigm, employees spend two days collaborating in person on strategic planning and team workshops, while dedicating the remaining three days to deep, uninterrupted individual focus at home.",
     questions: [
       {
         q: "What do supporters of remote work highlight as its primary benefits?",
@@ -3061,25 +3069,25 @@ var LISTENING_DATA = [
     title: "Renewable Energy in Urban Architecture",
     uz: "Qayta tiklanuvchi energiya va shaharsozlik",
     audioSrc: "",
-    transcript: "Lecturer: Modern architecture is shifting from passive energy consumption to active generation. Consider solar glass: transparent photovoltaic panels that serve simultaneously as thermal insulation windows and clean electricity generators. In northern European pilot projects, commercial skyscrapers equipped with solar facade panels produce up to forty percent of their own operational electricity. When combined with smart battery storage systems and heat-recycling ventilation, modern high-rises are transforming from ecological burdens into decentralized micro-power plants.",
+    transcript: "Modern architecture is shifting from passive energy consumption to active generation. Consider solar glass: transparent photovoltaic panels that serve simultaneously as thermal insulation windows and clean electricity generators. In northern European pilot projects, commercial skyscrapers equipped with solar facade panels produce up to forty percent of their own operational electricity. When combined with smart battery storage systems and heat-recycling ventilation, modern high-rises are transforming from ecological burdens into decentralized micro-power plants.",
     questions: [
       {
         q: "What dual functionality does solar glass provide in modern buildings?",
         options: ["Bulletproof protection and decorative lighting", "Thermal insulation and clean electricity generation", "Soundproofing and automated self-cleaning", "Air filtration and rainwater collection"],
         correct: 1,
-        exp: "Lecturer: 'serve simultaneously as thermal insulation windows and clean electricity generators'."
+        exp: "Speaker: 'serve simultaneously as thermal insulation windows and clean electricity generators'."
       },
       {
         q: "How much electricity do pilot commercial skyscrapers produce via solar facades?",
         options: ["Approximately 15%", "Around 25%", "Up to 40%", "Over 80%"],
         correct: 2,
-        exp: "Lecturer: 'produce up to forty percent of their own operational electricity'."
+        exp: "Speaker: 'produce up to forty percent of their own operational electricity'."
       },
       {
         q: "What transformation are modern skyscrapers undergoing according to the lecture?",
         options: ["They are becoming taller and narrower", "From ecological burdens into decentralized micro-power plants", "From private offices into public parks", "Replacing steel with carbon fiber entirely"],
         correct: 1,
-        exp: "Lecturer: 'transforming from ecological burdens into decentralized micro-power plants'."
+        exp: "Speaker: 'transforming from ecological burdens into decentralized micro-power plants'."
       }
     ]
   },
@@ -3089,25 +3097,25 @@ var LISTENING_DATA = [
     title: "Artificial Intelligence in Creative Arts",
     uz: "Sun'iy intellekt va ijodiyot",
     audioSrc: "",
-    transcript: "Panelist: The debate surrounding artificial intelligence in creative fields is frequently framed as a zero-sum competition between human artists and algorithmic generators. However, historical precedents show that technological innovations typically expand creative possibilities rather than eradicating them. Just as the invention of photography prompted painters to invent Impressionism and abstract art, generative AI is compelling human creators to move beyond technical execution and focus on philosophical depth, emotional nuance, and authentic storytelling.",
+    transcript: "The debate surrounding artificial intelligence in creative fields is frequently framed as a zero-sum competition between human artists and algorithmic generators. However, historical precedents show that technological innovations typically expand creative possibilities rather than eradicating them. Just as the invention of photography prompted painters to invent Impressionism and abstract art, generative AI is compelling human creators to move beyond technical execution and focus on philosophical depth, emotional nuance, and authentic storytelling.",
     questions: [
       {
         q: "How is the debate regarding AI in creative fields frequently framed?",
         options: ["As a temporary fad that will disappear", "As an expensive luxury only available to corporations", "As a zero-sum competition between human artists and algorithms", "As an exclusively technical matter without artistic merit"],
         correct: 2,
-        exp: "Panelist: 'framed as a zero-sum competition between human artists and algorithmic generators'."
+        exp: "Speaker: 'framed as a zero-sum competition between human artists and algorithmic generators'."
       },
       {
         q: "What historical parallel illustrates how technology reshapes artistic expression?",
         options: ["The invention of the printing press", "The invention of photography", "The development of oil paints", "The emergence of motion pictures"],
         correct: 1,
-        exp: "Panelist: 'Just as the invention of photography prompted painters to invent Impressionism...'."
+        exp: "Speaker: 'Just as the invention of photography prompted painters to invent Impressionism...'."
       },
       {
         q: "According to the speaker, what should human creators prioritize in the age of generative AI?",
         options: ["Speed of rendering and image resolution", "Philosophical depth, emotional nuance, and authentic storytelling", "Mastering prompt engineering algorithms only", "Copyright lawsuits against technology firms"],
         correct: 1,
-        exp: "Panelist: 'focus on philosophical depth, emotional nuance, and authentic storytelling'."
+        exp: "Speaker: 'focus on philosophical depth, emotional nuance, and authentic storytelling'."
       }
     ]
   }
@@ -3872,8 +3880,8 @@ var LISTENING_DATA = [
     var phrase = "Hello! I am ready to read and listen with you. Speak fast and clear!";
     var u = new SpeechSynthesisUtterance(phrase);
     u.lang = "en-US";
-    u.rate = 0.97;
-    u.pitch = 1.14; // Bright, youthful 19-20 year old female tone
+    u.rate = 0.95;
+    u.pitch = 1.0;
     if (v) { u.voice = v; u.lang = v.lang; }
     window.speechSynthesis.speak(u);
   }
@@ -3905,8 +3913,8 @@ var LISTENING_DATA = [
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(INTRO_TEXT);
       u.lang = "en-US";
-      u.rate = 0.97;
-      u.pitch = 1.14; // 19-20 yoshli opa intonatsiyasi
+      u.rate = 0.95;
+      u.pitch = 1.0;
       var v = pickVoice();
       if (v) { u.voice = v; u.lang = v.lang; }
       u.onend = go; u.onerror = go;
@@ -4231,9 +4239,29 @@ var LISTENING_DATA = [
   var LIS_PLAY_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
   var LIS_PAUSE_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
 
+  var lisSpeechKeepAlive = null;
+
+  function clearLisKeepAlive() {
+    if (lisSpeechKeepAlive) {
+      clearInterval(lisSpeechKeepAlive);
+      lisSpeechKeepAlive = null;
+    }
+  }
+
+  function startLisKeepAlive() {
+    clearLisKeepAlive();
+    lisSpeechKeepAlive = setInterval(function () {
+      if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 9000);
+  }
+
   function stopLisAudio() {
     clearInterval(lisTimerInterval);
     lisTimerInterval = null;
+    clearLisKeepAlive();
     if (lisAudio) {
       try { lisAudio.pause(); } catch (e) {}
       lisAudio = null;
@@ -4276,16 +4304,18 @@ var LISTENING_DATA = [
       return;
     }
     window.speechSynthesis.cancel();
+    clearLisKeepAlive();
 
-    // Clean speaker labels for natural flow
+    // Clean speaker labels and format into clean natural continuous monologue text
     var cleanText = activeLisTopic.transcript
       .replace(/^[A-Za-z\s]+:\s*/gm, "")
-      .replace(/\n+/g, " ");
+      .replace(/\n+/g, " ")
+      .trim();
 
     var u = new SpeechSynthesisUtterance(cleanText);
     u.lang = "en-US";
-    u.rate = lisRate * 0.97;
-    u.pitch = 1.14; // 19-20 yoshli opa intonatsiyasi
+    u.rate = Math.max(0.75, Math.min(1.3, lisRate * 0.95));
+    u.pitch = 1.0;
     var v = pickVoice();
     if (v) { u.voice = v; u.lang = v.lang; }
 
@@ -4297,9 +4327,11 @@ var LISTENING_DATA = [
       lisStatusTitle.textContent = "Audio yangramoqda (" + shortName + ")...";
       lisStatusSub.textContent = "Diqqat bilan tinglang";
       startLisAudioTimer();
+      startLisKeepAlive();
     };
 
     u.onend = function () {
+      clearLisKeepAlive();
       lisCurrentSeconds = lisDurationSeconds;
       updateLisPlayerUI();
       stopLisAudio();
@@ -4308,6 +4340,7 @@ var LISTENING_DATA = [
     };
 
     u.onerror = function () {
+      clearLisKeepAlive();
       stopLisAudio();
       lisStatusTitle.textContent = "To'xtatildi";
       lisStatusSub.textContent = "Qayta urinib ko'ring";
@@ -4418,13 +4451,13 @@ var LISTENING_DATA = [
   });
 
   function renderTranscript(text) {
-    var lines = text.split("\n");
-    return lines.map(function (line) {
-      var m = line.match(/^([A-Za-z\s]+):\s*(.*)$/);
+    var paragraphs = text.split(/\n+/).map(function (p) { return p.trim(); }).filter(Boolean);
+    return paragraphs.map(function (p) {
+      var m = p.match(/^([A-Za-z\s]+):\s*(.*)$/);
       if (m) {
-        return '<div class="lis-transcript-line"><span class="lis-transcript-speaker">' + escapeHtml(m[1]) + ':</span> ' + escapeHtml(m[2]) + '</div>';
+        return '<p class="lis-transcript-p"><span class="lis-transcript-speaker">' + escapeHtml(m[1]) + ':</span> ' + escapeHtml(m[2]) + '</p>';
       }
-      return '<div class="lis-transcript-line">' + escapeHtml(line) + '</div>';
+      return '<p class="lis-transcript-p">' + escapeHtml(p) + '</p>';
     }).join("");
   }
 
@@ -4744,7 +4777,7 @@ var LISTENING_DATA = [
     var u = new SpeechSynthesisUtterance(text);
     u.lang = "en-US";
     u.rate = 0.92;
-    u.pitch = 1.05;
+    u.pitch = 1.0;
     var v = pickVoice();
     if (v) { u.voice = v; u.lang = v.lang; }
     window.speechSynthesis.speak(u);
