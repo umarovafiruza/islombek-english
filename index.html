@@ -1,0 +1,4082 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fast and Clear</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+/* Layout: a quiet list of ten topics; picking one opens a full-screen teleprompter with a fixed focus line. */
+:root {
+  --bg: #ffffff;
+  --ink: #111214;
+  --muted: #6a6d75;
+  --line: #e6e7ea;
+  --accent: #2b3fd6;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+  -webkit-font-smoothing: antialiased;
+}
+body { overflow-x: clip; }
+body.locked { overflow: hidden; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Home ---------- */
+.home { max-width: 60rem; margin: 0 auto; padding-block: clamp(40px, 9vw, 96px) 64px; }
+.brand { font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; }
+.home h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  text-wrap: balance;
+}
+.lead { max-width: 34rem; color: var(--muted); font-size: 1.0625rem; margin: 0 0 clamp(36px, 7vw, 64px); }
+.levels { display: flex; gap: clamp(16px, 5vw, 36px); flex-wrap: wrap; margin: 0 0 28px; }
+.level { background: none; border: 0; border-bottom: 2px solid transparent; min-height: 44px; padding: 6px 0 8px; text-align: left; color: var(--muted); }
+.level .code { display: block; font-family: var(--font-display); font-size: clamp(2rem, 6vw, 2.75rem); line-height: 1; letter-spacing: -0.01em; }
+.level .lab { display: block; font-size: 0.8125rem; margin-top: 4px; }
+.level:hover { color: var(--ink); }
+.level[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.topics { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; column-gap: 48px; border-top: 1px solid var(--line); }
+.topic {
+  width: 100%;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  background: none; border: 0; border-bottom: 1px solid var(--line);
+  padding: 20px 0; text-align: left;
+  transition: padding-left .2s ease;
+}
+.topic .t { min-width: 0; }
+.topic .name { overflow-wrap: anywhere; }
+.topic .name { display: block; font-weight: 600; font-size: 1.1875rem; letter-spacing: -0.01em; }
+.topic .uz { display: block; color: var(--muted); font-size: 0.9375rem; margin-top: 2px; }
+.topic .meta { color: var(--muted); font-size: 0.8125rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.topic:hover { padding-left: 10px; }
+.topic:hover .name { color: var(--accent); }
+@media (min-width: 720px) { .topics { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1400px) { .home { max-width: 76rem; } .lead { font-size: 1.1875rem; max-width: 38rem; } }
+@media (prefers-reduced-motion: reduce) { .topic { transition: none; } .topic:hover { padding-left: 0; } }
+
+/* ---------- Reader ---------- */
+.reader {
+  position: fixed; inset: 0; z-index: 20; height: 100%; height: 100dvh; max-width: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 12px; }
+.link { display: inline-flex; align-items: center; flex: none; min-height: 44px; background: none; border: 0; padding: 0 8px 0 0; font-size: 1rem; font-weight: 500; border-bottom: 1px solid transparent; }
+.link:hover { border-bottom-color: var(--ink); }
+.now { flex: 1 1 auto; text-align: right; min-width: 0; }
+.now .n { font-weight: 600; font-size: 0.9375rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.now .s { color: var(--muted); font-size: 0.8125rem; }
+.progress { height: 2px; background: var(--line); flex: none; }
+.progress i { display: block; height: 100%; width: 0; background: var(--accent); }
+
+.stage {
+  position: relative; flex: 1; min-height: 0; overflow: hidden; cursor: pointer;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 82%, transparent 100%);
+}
+.track {
+  position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; will-change: transform;
+  font-size: clamp(1.3rem, 6.4vw, 2.25rem); max-width: 14em; text-align: center;
+}
+.line {
+  margin: 0; padding: 0.32em 0;
+  font-size: 1em;
+  line-height: 1.28; font-weight: 500; letter-spacing: -0.015em;
+  text-wrap: pretty; opacity: 0.1;
+}
+
+.done {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-content: center; justify-items: center; gap: 20px; text-align: center;
+  background: rgba(255,255,255,0.94);
+}
+.done h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; }
+.done p { margin: 0; color: var(--muted); }
+.row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+.btn {
+  border: 1px solid var(--ink); background: var(--ink); color: #fff;
+  border-radius: 999px; min-height: 48px; padding: 0 24px; font-weight: 500; font-size: 1rem; white-space: nowrap;
+}
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+.controls { display: flex; align-items: center; gap: 20px; padding-block: 14px 10px; border-top: 1px solid var(--line); }
+.controls .btn { min-width: 8.5rem; }
+.speed { flex: 1; min-width: 0; display: grid; gap: 6px; }
+.speed .cap { display: flex; justify-content: space-between; gap: 12px; font-size: 0.8125rem; color: var(--muted); }
+.speed .ends { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: -4px; }
+.speed output { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; cursor: pointer;
+  --fill: 50%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 4px;
+  background: linear-gradient(to right, var(--ink) var(--fill), var(--line) var(--fill));
+}
+input[type=range]::-moz-range-track { height: 4px; border-radius: 4px; background: var(--line); }
+input[type=range]::-moz-range-progress { height: 4px; border-radius: 4px; background: var(--ink); }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); border: 0; margin-top: -10px;
+}
+input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); border: 0; }
+@media (max-width: 520px) {
+  .controls { gap: 14px; }
+  .controls .btn { min-width: 0; padding-inline: 16px; }
+  .rec-badge .rec-txt { display: none; }
+  .diktafon-toggle-btn { padding-inline: 12px; font-size: 0.8125rem; }
+}
+
+/* ---------- Screen sizes ---------- */
+/* Tablet and laptop */
+@media (min-width: 700px) {
+  .track { font-size: clamp(2.25rem, 4.2vw, 3rem); }
+  .controls { gap: 28px; }
+  .speed { max-width: 30rem; }
+}
+/* Large monitor */
+@media (min-width: 1400px) {
+  .track { font-size: clamp(3rem, 2.6vw, 4rem); }
+  .reader { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); }
+  .speed { max-width: 36rem; }
+}
+/* Small phone: controls stack, button spans the row */
+@media (max-width: 440px) {
+  .controls { flex-wrap: wrap; gap: 8px 10px; padding-block: 8px 6px; }
+  .speed { order: 1; flex: 1 1 100%; }
+  .controls .btn { order: 2; flex: 1 1 calc(50% - 5px); min-width: 0; padding-inline: 12px; }
+  .diktafon-toggle-btn { order: 3; flex: 1 1 calc(50% - 5px); justify-content: center; padding-inline: 8px; }
+  .now .n { max-width: 42vw; margin-left: auto; }
+}
+/* Landscape phone: keep the text area as tall as possible */
+@media (max-height: 560px) {
+  .track { font-size: clamp(1.25rem, 6.5vh, 2rem); }
+  .bar { padding-bottom: 2px; }
+  .now .s { display: none; }
+  .controls { flex-wrap: nowrap; gap: 14px; padding-block: 4px; }
+  .speed, .controls .btn, .diktafon-toggle-btn { order: 0; flex: initial; }
+  .speed { flex: 1; min-width: 0; }
+  .controls .btn { min-width: 7rem; min-height: 40px; }
+  .diktafon-toggle-btn { min-height: 40px; padding: 0 12px; }
+  .speed .ends { display: none; }
+  input[type=range] { height: 36px; }
+}
+
+/* ---------- Dictaphone & Recordings UI ---------- */
+.recordings-section {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 0 0 32px;
+  transition: all 0.2s ease;
+}
+.rec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.rec-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rec-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #edf0ff;
+  color: var(--accent);
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+}
+.rec-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.rec-sub {
+  margin: 2px 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rec-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rec-badge-count {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f0f1f4;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.rec-toggle-collapse {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.rec-toggle-collapse:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.rec-body {
+  margin-top: 18px;
+}
+.rec-body[hidden] {
+  display: none;
+}
+.rec-empty {
+  text-align: center;
+  padding: 22px 16px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+}
+.rec-list {
+  display: grid;
+  gap: 12px;
+}
+.rec-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.rec-card:hover {
+  border-color: #d0d2d8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.rec-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.rec-card-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rec-card-title {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+.rec-card-level {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #edf0ff;
+  color: var(--accent);
+}
+.rec-card-date {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rec-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rec-btn-icon {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: grid;
+  place-content: center;
+  transition: all 0.15s ease;
+}
+.rec-btn-icon:hover {
+  color: var(--ink);
+  background: #f0f1f4;
+}
+.rec-btn-icon.delete:hover {
+  color: #d32f2f;
+  background: #ffebee;
+}
+
+/* Custom Audio Player */
+.custom-audio-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f6f7f9;
+  border-radius: 999px;
+  padding: 4px 14px 4px 6px;
+}
+.cap-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.cap-btn:hover {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+.cap-progress-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.cap-slider {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.cap-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: #d8dadf;
+}
+.cap-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 0;
+  margin-top: -4px;
+  transition: transform 0.1s ease;
+}
+.cap-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+.cap-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: #d8dadf;
+}
+.cap-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 0;
+}
+.cap-time {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Reader Dictaphone Badge & Controls */
+.rec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #f2f3f6;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  user-select: none;
+  transition: all 0.2s ease;
+}
+.rec-badge.active {
+  background: #fff0f0;
+  border-color: #ffd1d1;
+  color: #c92a2a;
+}
+.rec-badge.paused {
+  background: #fff9db;
+  border-color: #ffe066;
+  color: #b08800;
+}
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background 0.2s ease;
+}
+.rec-badge.active .rec-dot {
+  background: #e03131;
+  animation: recPulse 1.2s infinite ease-in-out;
+}
+.rec-badge.paused .rec-dot {
+  background: #fab005;
+}
+@keyframes recPulse {
+  0% { transform: scale(0.9); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+  100% { transform: scale(0.9); opacity: 1; }
+}
+.rec-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.rec-waves {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+.rec-badge.active .rec-waves {
+  display: flex;
+}
+.rec-waves span {
+  width: 2px;
+  height: 4px;
+  background: #e03131;
+  border-radius: 1px;
+  animation: recWave 0.8s infinite ease-in-out;
+}
+.rec-waves span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.rec-waves span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes recWave {
+  0%, 100% { height: 4px; }
+  50% { height: 12px; }
+}
+
+.diktafon-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.diktafon-toggle-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.diktafon-toggle-btn.enabled {
+  color: var(--ink);
+  background: #f7f7f9;
+  border-color: #d0d2d8;
+}
+.diktafon-toggle-btn.enabled svg {
+  color: #c92a2a;
+}
+
+/* Done Audio Box */
+.done-audio-box {
+  width: 100%;
+  max-width: 24rem;
+  margin: 4px 0 10px;
+}
+.done-audio-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+.done-audio-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+}
+.done-audio-label {
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.done-audio-storage-info {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+/* ---------- Navigation Modes (Speaking / Listening) & Voice Panel ---------- */
+.nav-modes-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 28px;
+}
+.nav-modes {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f2f5;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid var(--line);
+}
+.mode-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 38px;
+}
+.mode-btn:hover {
+  color: var(--ink);
+}
+.mode-btn.active {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.mode-btn svg {
+  flex-shrink: 0;
+}
+
+/* Voice Panel */
+.nav-voice-panel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  padding: 4px 8px 4px 12px;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+.voice-badge-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.voice-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #12b886;
+  flex-shrink: 0;
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+@keyframes pulseGreen {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.voice-select {
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  outline: none;
+  max-width: 210px;
+  text-overflow: ellipsis;
+}
+.voice-select:hover, .voice-select:focus {
+  background: #f0f1f4;
+  border-color: var(--line);
+}
+.voice-test-btn {
+  background: #edf0ff;
+  border: 1px solid #d4dcff;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 28px;
+  white-space: nowrap;
+}
+.voice-test-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.voice-test-btn:active {
+  transform: scale(0.96);
+}
+
+.lis-player-controls-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.lis-voice-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f2f5;
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.lis-voice-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Listening Topics List Customization */
+.lis-meta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.lis-badge-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e6fcf5;
+  color: #0ca678;
+  border: 1px solid #c3fae8;
+}
+
+/* ---------- Listening Reader Full View ---------- */
+.listening-reader {
+  position: fixed; inset: 0; z-index: 20; height: 100%; height: 100dvh; max-width: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.listening-reader[hidden] {
+  display: none !important;
+}
+.lis-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  max-width: 52rem;
+  width: 100%;
+  margin: 0 auto;
+}
+.lis-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 52rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 4px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Audio Player Card */
+.lis-player-card {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+.lis-player-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.lis-player-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lis-audio-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #edf0ff;
+  color: var(--accent);
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.lis-audio-icon.playing {
+  background: var(--accent);
+  color: #fff;
+  animation: pulseIcon 1.5s infinite;
+}
+@keyframes pulseIcon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.lis-status-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.lis-status-sub {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.lis-speed-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f2f5;
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+.lis-speed-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding-left: 4px;
+}
+.lis-speed-btn {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 28px;
+}
+.lis-speed-btn:hover {
+  color: var(--ink);
+}
+.lis-speed-btn.active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.lis-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-block: 4px;
+}
+.lis-ctrl-btn {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  min-height: 40px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.lis-ctrl-btn:hover {
+  border-color: var(--ink);
+  background: #f0f1f4;
+}
+.lis-main-play-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.lis-main-play-btn:hover {
+  background: var(--accent);
+  transform: scale(1.06);
+}
+
+.lis-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lis-time {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-weight: 500;
+  min-width: 42px;
+}
+.lis-progress-bar {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 28px;
+  margin: 0;
+  cursor: pointer;
+}
+.lis-progress-bar::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #d8dadf;
+}
+.lis-progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 0;
+  margin-top: -5.5px;
+  transition: transform 0.1s ease;
+}
+.lis-progress-bar::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+.lis-progress-bar::-moz-range-track {
+  height: 5px;
+  border-radius: 3px;
+  background: #d8dadf;
+}
+.lis-progress-bar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 0;
+}
+
+/* Quiz Section */
+.lis-quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lis-quiz-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+.lis-quiz-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 400;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.lis-quiz-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.lis-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lis-q-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.15s ease;
+}
+.lis-q-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.lis-q-num {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-weight: 700;
+  background: #f0f1f4;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.lis-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .lis-options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.lis-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fcfcfd;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  min-height: 48px;
+}
+.lis-opt:hover:not(.disabled) {
+  border-color: var(--ink);
+  background: #f8f9fa;
+}
+.lis-opt.selected {
+  border-color: var(--accent);
+  background: #f3f5ff;
+  color: var(--accent);
+  font-weight: 500;
+}
+.lis-opt-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eef0f3;
+  color: var(--ink);
+  display: grid;
+  place-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.lis-opt.selected .lis-opt-letter {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Checked status classes */
+.lis-opt.correct {
+  border-color: #2b8a3e !important;
+  background: #ebfbee !important;
+  color: #2b8a3e !important;
+  font-weight: 600;
+}
+.lis-opt.correct .lis-opt-letter {
+  background: #2b8a3e !important;
+  color: #fff !important;
+}
+.lis-opt.wrong {
+  border-color: #c92a2a !important;
+  background: #fff5f5 !important;
+  color: #c92a2a !important;
+  font-weight: 600;
+}
+.lis-opt.wrong .lis-opt-letter {
+  background: #c92a2a !important;
+  color: #fff !important;
+}
+.lis-opt.dimmed {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Explanation */
+.lis-exp-box {
+  background: #f8f9fb;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  color: #3b404d;
+  margin-top: 4px;
+  animation: fadeIn 0.3s ease;
+}
+.lis-exp-box strong {
+  color: var(--accent);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Action bar & Result Card */
+.lis-action-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+.lis-action-bar .btn {
+  min-width: 14rem;
+}
+@media (max-width: 600px) {
+  .lis-action-bar .btn {
+    width: 100%;
+  }
+}
+
+.lis-result-card {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: fadeIn 0.3s ease;
+}
+.lis-result-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.lis-result-score-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #e6fcf5;
+  color: #0ca678;
+  display: grid;
+  place-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  border: 2px solid #b2f2bb;
+}
+.lis-result-score-badge.low {
+  background: #fff5f5;
+  color: #c92a2a;
+  border-color: #ffc9c9;
+}
+.lis-result-heading {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lis-result-desc {
+  margin: 4px 0 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.lis-result-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .lis-player-card { padding: 16px; border-radius: 16px; }
+  .lis-player-top { flex-direction: column; align-items: stretch; gap: 12px; }
+  .lis-speed-group { justify-content: space-between; }
+  .lis-q-card { padding: 16px; }
+  .lis-result-card { padding: 18px 16px; }
+  .lis-result-actions .btn { flex: 1 1 100%; }
+}
+
+/* Transcript Box */
+.lis-transcript-box {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease;
+}
+.lis-transcript-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.lis-transcript-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.lis-transcript-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f1f2f5;
+  color: var(--muted);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.lis-transcript-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  white-space: pre-line;
+}
+.lis-transcript-line {
+  margin-bottom: 8px;
+}
+.lis-transcript-speaker {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+</style>
+
+<main class="home" id="home">
+  <div class="nav-modes-wrap">
+    <div class="nav-modes" role="tablist" aria-label="Bo'lim tanlash">
+      <button class="mode-btn active" id="tabSpeaking" type="button" role="tab" aria-selected="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        Speaking (O'qish)
+      </button>
+      <button class="mode-btn" id="tabListening" type="button" role="tab" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        Listening (Tinglash)
+      </button>
+    </div>
+  </div>
+
+  <div id="speakingSection">
+    <p class="brand">Speaking practice</p>
+    <h1>Fast and Clear</h1>
+    <p class="lead">Darajangizni va mavzuni tanlang. Opa mashqni boshlab beradi, matn esa silliq yuqoriga suriladi. Siz uni ovoz chiqarib o'qiysiz.</p>
+    <div class="levels" id="levels" role="group" aria-label="Daraja"></div>
+
+    <section class="recordings-section" id="recordingsSection">
+      <div class="rec-header">
+        <div class="rec-title-wrap">
+          <div class="rec-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </div>
+          <div>
+            <h2 class="rec-title">Ovozli yozuvlarim</h2>
+            <p class="rec-sub">Oxirgi 5 ta audio saqlanadi. Yangisi qo'shilganda eng eskisi avtomatik o'chadi.</p>
+          </div>
+        </div>
+        <div class="rec-header-actions">
+          <span class="rec-badge-count" id="recBadgeCount">0 / 5 audio</span>
+          <button class="rec-toggle-collapse" id="recToggleCollapse" type="button" aria-expanded="true">Yashirish</button>
+        </div>
+      </div>
+      <div class="rec-body" id="recBody">
+        <div class="rec-list" id="recList"></div>
+      </div>
+    </section>
+
+    <ul class="topics" id="topics"></ul>
+  </div>
+
+  <div id="listeningSection" hidden>
+    <p class="brand">Listening comprehension</p>
+    <h1>Listen &amp; Learn</h1>
+    <p class="lead">Inglizcha suhbat yoki hikoyani diqqat bilan tinglang va savollarga javob bering. Quloq solish mahoratingizni sinang.</p>
+    <div class="levels" id="lisLevels" role="group" aria-label="Listening darajasi"></div>
+    <ul class="topics" id="lisTopics"></ul>
+  </div>
+</main>
+
+<section class="reader" id="reader" hidden aria-label="O'qish">
+  <div class="bar">
+    <button class="link" id="back" type="button">Mavzular</button>
+    <div class="rec-badge" id="recBadge" title="Diktafon holati">
+      <span class="rec-dot"></span>
+      <span class="rec-txt" id="recTxt">Diktafon</span>
+      <span class="rec-timer" id="recTimer">00:00</span>
+      <div class="rec-waves"><span></span><span></span><span></span></div>
+    </div>
+    <div class="now"><div class="n" id="rname"></div><div class="s" id="rstatus"></div></div>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="stage" id="stage">
+    <div class="track" id="track"></div>
+  </div>
+  <div class="done" id="done" hidden>
+    <h2>Tugadi</h2>
+    <p id="doneSub">Yaxshi o'qidingiz. Yana bir bor urinib ko'ring.</p>
+    <div class="done-audio-box" id="doneAudioBox" hidden></div>
+    <div class="row">
+      <button class="btn" id="again" type="button">Qayta o'qish</button>
+      <button class="btn ghost" id="other" type="button">Boshqa mavzu</button>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn" id="toggle" type="button">To'xtatish</button>
+    <button class="diktafon-toggle-btn enabled" id="recToggle" type="button" title="Diktafonni yoqish / o'chirish">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <span id="recToggleLabel">Diktafon: Yoqilgan</span>
+    </button>
+    <div class="speed">
+      <div class="cap"><label for="speed">Tezlik</label><output id="speedOut" for="speed"></output></div>
+      <input id="speed" type="range" min="30" max="250" step="5" value="80">
+      <div class="ends"><span>Sekin</span><span>Tez</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="listening-reader" id="listeningReader" hidden aria-label="Listening Mashqi">
+  <div class="lis-bar">
+    <button class="link" id="lisBack" type="button">Mavzular</button>
+    <div class="now">
+      <div class="n" id="lisTitle"></div>
+      <div class="s" id="lisLevelBadge"></div>
+    </div>
+  </div>
+
+  <div class="lis-scrollable">
+    <div class="lis-player-card">
+      <div class="lis-player-top">
+        <div class="lis-player-status-wrap">
+          <div class="lis-audio-icon" id="lisAudioIcon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </div>
+          <div>
+            <div class="lis-status-title" id="lisStatusTitle">Tinglashga tayyor</div>
+            <div class="lis-status-sub" id="lisStatusSub">Eshitish uchun 'Play' tugmasini bosing</div>
+          </div>
+        </div>
+        <div class="lis-player-controls-top">
+          <div class="lis-voice-wrap">
+            <span class="lis-voice-label">Opa ovozi:</span>
+            <select id="lisVoiceSelect" class="voice-select" title="Opa ovozini tanlang"></select>
+          </div>
+          <div class="lis-speed-group">
+            <span class="lis-speed-label">Tezlik:</span>
+            <button type="button" class="lis-speed-btn" data-rate="0.8">0.8x</button>
+            <button type="button" class="lis-speed-btn active" data-rate="1.0">1.0x</button>
+            <button type="button" class="lis-speed-btn" data-rate="1.2">1.2x</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lis-controls-row">
+        <button type="button" class="lis-ctrl-btn" id="lisRewindBtn" title="5 soniya orqaga">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          <span>-5s</span>
+        </button>
+        <button type="button" class="lis-main-play-btn" id="lisPlayBtn" aria-label="Play / Pause">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+        </button>
+        <button type="button" class="lis-ctrl-btn" id="lisForwardBtn" title="5 soniya oldinga">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <span>+5s</span>
+        </button>
+      </div>
+
+      <div class="lis-progress-wrap">
+        <span class="lis-time" id="lisCurrentTime">00:00</span>
+        <input type="range" class="lis-progress-bar" id="lisProgressBar" min="0" max="100" value="0" step="0.5" aria-label="Audio vaqti">
+        <span class="lis-time" id="lisTotalTime">00:00</span>
+      </div>
+    </div>
+
+    <!-- Quiz Section -->
+    <div class="lis-quiz-container">
+      <div class="lis-quiz-header">
+        <h2 class="lis-quiz-title">Savollarga javob bering</h2>
+        <p class="lis-quiz-sub">Har bir savol uchun bitta to'g'ri javobni tanlang. Audioni istalgancha qayta eshitishingiz mumkin.</p>
+      </div>
+
+      <div class="lis-questions" id="lisQuestions"></div>
+
+      <div class="lis-action-bar" id="lisActionBar">
+        <button type="button" class="btn" id="lisSubmitBtn">Javoblarni tekshirish</button>
+      </div>
+
+      <div class="lis-result-card" id="lisResultCard" hidden>
+        <div class="lis-result-header">
+          <div class="lis-result-score-badge" id="lisResultScoreBadge">0/0</div>
+          <div>
+            <h3 class="lis-result-heading" id="lisResultHeading">Natija</h3>
+            <p class="lis-result-desc" id="lisResultDesc"></p>
+          </div>
+        </div>
+        <div class="lis-result-actions">
+          <button type="button" class="btn ghost" id="lisRetryBtn">Qayta yechish</button>
+          <button type="button" class="btn" id="lisToggleTranscriptBtn">Transkriptni ko'rish</button>
+        </div>
+      </div>
+
+      <div class="lis-transcript-box" id="lisTranscriptBox" hidden>
+        <div class="lis-transcript-head">
+          <div class="lis-transcript-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Audio transkripti (Matn)
+          </div>
+          <span class="lis-transcript-tag">To'liq matn</span>
+        </div>
+        <div class="lis-transcript-content" id="lisTranscriptContent"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* Set this to an audio file path or data: URI to use a recorded voice instead of browser speech. */
+var INTRO_AUDIO = "";
+var INTRO_TEXT = "Speak fast and clear.";
+
+var TOPICS = [
+ {
+  "title": "When You Feel Sad",
+  "uz": "Qayg'uli paytda",
+  "t": {
+   "A1": [
+    "Hello, my friend.",
+    "I see you.",
+    "Today you feel sad.",
+    "That is okay.",
+    "Sad days come.",
+    "Sad days go.",
+    "You are not bad.",
+    "You are not weak.",
+    "You are a person.",
+    "A good person.",
+    "Take a deep breath.",
+    "In, and out.",
+    "Say with me:",
+    "I am okay.",
+    "Tomorrow is new.",
+    "You are strong.",
+    "I am here."
+   ],
+   "A2": [
+    "Hi, my dear friend.",
+    "Today feels very heavy.",
+    "Maybe nothing went well.",
+    "Maybe you cried.",
+    "That is okay.",
+    "Feelings are not weak.",
+    "They are just feelings.",
+    "Like rain, they pass.",
+    "Last week was hard,",
+    "but you got through.",
+    "You were strong then.",
+    "You are strong now.",
+    "Please be gentle today.",
+    "Make a warm drink.",
+    "Call someone you trust.",
+    "The sun will come.",
+    "I believe in you."
+   ],
+   "B1": [
+    "I don't know exactly",
+    "what happened today.",
+    "But I can tell",
+    "you're hurting right now.",
+    "It's okay to feel",
+    "sad without a reason.",
+    "You don't have to",
+    "explain it to anyone.",
+    "Feelings aren't problems",
+    "that need quick fixes.",
+    "Sometimes you just need",
+    "to let them be.",
+    "Let yourself cry",
+    "if you want to.",
+    "Tears can clean",
+    "a heavy heart.",
+    "You've survived bad days",
+    "before, haven't you?",
+    "And you'll survive this.",
+    "Be patient with yourself.",
+    "Light will come back."
+   ],
+   "B2": [
+    "Sadness isn't a flaw,",
+    "it's a signal.",
+    "Your mind is saying",
+    "something needs attention.",
+    "Maybe you're grieving",
+    "something you lost.",
+    "Maybe you're simply",
+    "overwhelmed by everything.",
+    "Whatever the reason,",
+    "you don't owe anyone",
+    "a quick recovery.",
+    "Healing rarely follows",
+    "a schedule.",
+    "Allow yourself to feel",
+    "it without judgment.",
+    "Pretending to be fine",
+    "is exhausting.",
+    "Be honest, at least,",
+    "with yourself tonight.",
+    "This heaviness will pass,",
+    "though it feels endless."
+   ]
+  }
+ },
+ {
+  "title": "You Are Not Alone",
+  "uz": "Siz yolg'iz emassiz",
+  "t": {
+   "A1": [
+    "You are not alone.",
+    "Many people feel this.",
+    "I feel this too.",
+    "Your friends love you.",
+    "Your family loves you.",
+    "Call a friend today.",
+    "Say hello to someone.",
+    "They want to talk.",
+    "You are important.",
+    "You matter.",
+    "People need you.",
+    "Do not hide.",
+    "Open the door.",
+    "Someone is there.",
+    "You are not alone."
+   ],
+   "A2": [
+    "You are not alone,",
+    "even when lonely.",
+    "Many people around you",
+    "feel lonely sometimes.",
+    "They don't say it.",
+    "Send a message today.",
+    "Write, I miss you.",
+    "You'll make someone smile.",
+    "Someone thinks of you.",
+    "Right now, maybe.",
+    "Believe it, please.",
+    "You are not alone,",
+    "and you never were."
+   ],
+   "B1": [
+    "Loneliness can be loud,",
+    "even in a crowd.",
+    "If you feel that",
+    "right now, listen:",
+    "You are not broken.",
+    "Not a burden either.",
+    "Most people are carrying",
+    "something heavy too.",
+    "They just hide it",
+    "behind a smile.",
+    "Maybe you could",
+    "be the first one",
+    "to say I'm struggling.",
+    "You might be surprised",
+    "how many people care.",
+    "Reach out today.",
+    "Even a short message",
+    "can change your evening.",
+    "And if nobody answers,",
+    "I'm still here."
+   ],
+   "B2": [
+    "Isolation convinces us",
+    "that we're uniquely broken.",
+    "It lies to us.",
+    "In reality, nearly everyone",
+    "has felt unseen",
+    "at some point.",
+    "The difference is",
+    "who admits it.",
+    "Opening up takes courage,",
+    "yet it often brings",
+    "unexpected relief.",
+    "Think of one person",
+    "you could trust.",
+    "You don't need",
+    "perfect words.",
+    "Something simple works:",
+    "I've been struggling.",
+    "Chances are, they'll answer",
+    "with warmth, not judgment.",
+    "And you'll remember",
+    "you were never",
+    "truly alone."
+   ]
+  }
+ },
+ {
+  "title": "Be Proud of Yourself",
+  "uz": "O'zingiz bilan faxrlaning",
+  "t": {
+   "A1": [
+    "Look at you.",
+    "You are here.",
+    "You get up.",
+    "You try every day.",
+    "That is big.",
+    "You learn English.",
+    "That is brave.",
+    "Every word counts.",
+    "You speak, you grow.",
+    "Proud of you.",
+    "Say it loud:",
+    "I am proud.",
+    "I am learning.",
+    "I am doing well.",
+    "Good job today."
+   ],
+   "A2": [
+    "Think about last year.",
+    "You could not speak.",
+    "You were afraid, right?",
+    "Now you are here.",
+    "You open this page.",
+    "You read out loud.",
+    "That takes courage.",
+    "Many people never try.",
+    "But you tried today.",
+    "Be proud of that.",
+    "I am proud too.",
+    "Say it to yourself:",
+    "I did well today.",
+    "Tomorrow, do it again."
+   ],
+   "B1": [
+    "Have you noticed",
+    "how far you've come?",
+    "A year ago,",
+    "you couldn't say",
+    "a full sentence.",
+    "Today, you're reading",
+    "out loud, in English.",
+    "That didn't happen",
+    "by accident.",
+    "It happened because",
+    "you kept showing up,",
+    "even on bad days.",
+    "Don't ignore that.",
+    "Give yourself credit.",
+    "You've earned it.",
+    "I'm genuinely proud",
+    "of your effort."
+   ],
+   "B2": [
+    "Take a moment to",
+    "acknowledge your progress.",
+    "Not the perfect version",
+    "you imagine someday,",
+    "but the real one",
+    "sitting here today.",
+    "You've been practicing",
+    "a difficult skill,",
+    "often without applause.",
+    "That requires discipline,",
+    "not just talent.",
+    "Every awkward sentence",
+    "has built something",
+    "inside you: confidence.",
+    "You can't feel it,",
+    "but others see it.",
+    "So please, stop",
+    "downplaying your effort.",
+    "You've earned",
+    "a moment of pride."
+   ]
+  }
+ },
+ {
+  "title": "Don't Give Up",
+  "uz": "Taslim bo'lmang",
+  "t": {
+   "A1": [
+    "Do not stop.",
+    "Not today.",
+    "It is hard.",
+    "I know.",
+    "But you can.",
+    "One more try.",
+    "Just one more.",
+    "Learning is slow.",
+    "That is normal.",
+    "Every day, a little.",
+    "A little is good.",
+    "You are close.",
+    "Really close.",
+    "Keep going.",
+    "Keep going, friend."
+   ],
+   "A2": [
+    "You want to quit.",
+    "I understand that.",
+    "You worked so hard,",
+    "and nothing changed yet.",
+    "It feels unfair.",
+    "But look closer.",
+    "You know more words.",
+    "You speak better now.",
+    "Change is quiet.",
+    "It grows like trees.",
+    "You cannot see roots,",
+    "but they are growing.",
+    "Please do not quit.",
+    "Rest if you must,",
+    "but come back tomorrow."
+   ],
+   "B1": [
+    "If you feel like",
+    "giving up today,",
+    "listen to me first.",
+    "Progress is never straight.",
+    "There will be days",
+    "when you feel stuck.",
+    "That doesn't mean",
+    "you're failing.",
+    "It means you're human.",
+    "Think about a baby.",
+    "She falls many times",
+    "before she walks.",
+    "Nobody laughs at her.",
+    "Nobody says she's hopeless.",
+    "Treat yourself the same.",
+    "Fall, get up, repeat.",
+    "You're closer than",
+    "you think you are."
+   ],
+   "B2": [
+    "There's a moment",
+    "in every challenge",
+    "when quitting looks",
+    "reasonable, even wise.",
+    "Usually, that's exactly",
+    "when growth is happening.",
+    "The discomfort you feel",
+    "means you are stretching.",
+    "Nobody improves",
+    "while staying comfortable.",
+    "You don't have to",
+    "feel motivated today.",
+    "Motivation comes and goes.",
+    "Discipline is showing up",
+    "anyway, even for",
+    "ten quiet minutes.",
+    "Persist, and one day,",
+    "you'll look back and",
+    "barely recognize yourself."
+   ]
+  }
+ },
+ {
+  "title": "When You Are Tired",
+  "uz": "Charchagan paytda",
+  "t": {
+   "A1": [
+    "You are tired.",
+    "Your body says stop.",
+    "Okay, stop.",
+    "Sit down.",
+    "Close your eyes.",
+    "Breathe slowly.",
+    "Drink some tea.",
+    "Rest is good.",
+    "Rest is not lazy.",
+    "You work hard.",
+    "You need sleep.",
+    "Sleep well tonight.",
+    "Tomorrow you feel better.",
+    "Good night, friend."
+   ],
+   "A2": [
+    "You have worked hard.",
+    "Your head is full.",
+    "Your day was long.",
+    "Nobody said thank you.",
+    "I will say it:",
+    "Thank you for trying.",
+    "Now, slow down.",
+    "Put your phone away.",
+    "Wash your face.",
+    "Wear soft clothes.",
+    "Breathe in slowly,",
+    "breathe out slowly.",
+    "You don't need more.",
+    "Tonight, just rest.",
+    "Tomorrow will be lighter."
+   ],
+   "B1": [
+    "You've been running",
+    "for so long.",
+    "No wonder you're tired.",
+    "You don't have to",
+    "be productive today.",
+    "You don't have to",
+    "prove anything to anyone.",
+    "Rest isn't a reward",
+    "you must earn.",
+    "It's something you deserve.",
+    "Turn off the lights.",
+    "Let your shoulders drop.",
+    "Breathe in slowly.",
+    "If your mind races,",
+    "just watch your thoughts.",
+    "They will pass by.",
+    "Tomorrow can wait."
+   ],
+   "B2": [
+    "Exhaustion isn't always",
+    "about lack of sleep.",
+    "Sometimes it comes from",
+    "carrying too much",
+    "for too long.",
+    "Expectations, duties,",
+    "unspoken worries.",
+    "If that's you tonight,",
+    "give yourself permission",
+    "to put it down.",
+    "The world will continue",
+    "without your effort",
+    "for a few hours.",
+    "Resting isn't quitting;",
+    "it's how you continue.",
+    "Close your eyes,",
+    "unclench your jaw,",
+    "and breathe deeply.",
+    "You've done enough today."
+   ]
+  }
+ },
+ {
+  "title": "A New Morning",
+  "uz": "Yangi tong",
+  "t": {
+   "A1": [
+    "Good morning, friend.",
+    "A new day starts.",
+    "Open the window.",
+    "See the sun.",
+    "Feel the air.",
+    "Today is new.",
+    "Yesterday is gone.",
+    "Today is yours.",
+    "Make your tea.",
+    "Smile a little.",
+    "Say it now:",
+    "Today is good.",
+    "I can do it.",
+    "Let us start."
+   ],
+   "A2": [
+    "A new day begins.",
+    "Yesterday is finished.",
+    "You cannot change it.",
+    "But today is empty.",
+    "It waits for you.",
+    "Wash, smile, and stretch.",
+    "Drink some water.",
+    "Then say to yourself:",
+    "Today I will try.",
+    "I will learn something.",
+    "I will be kind.",
+    "I will speak English.",
+    "Even a little bit.",
+    "Good morning, you."
+   ],
+   "B1": [
+    "Every morning gives you",
+    "a small second chance.",
+    "It doesn't matter",
+    "how yesterday went.",
+    "Maybe you made mistakes.",
+    "Maybe you wasted time.",
+    "Today is untouched.",
+    "You can write",
+    "anything on this page.",
+    "Start with something small:",
+    "stretch, drink water,",
+    "open the window.",
+    "Then name one thing",
+    "you're looking forward to.",
+    "Even a tiny thing,",
+    "like a good coffee,",
+    "is enough to begin."
+   ],
+   "B2": [
+    "However yesterday ended,",
+    "this morning is blank,",
+    "a canvas waiting quietly.",
+    "You can't rewrite",
+    "the past, but you",
+    "can shape what's next.",
+    "Start gently,",
+    "with no big promises.",
+    "Perhaps just decide",
+    "on one meaningful thing",
+    "you'll do today.",
+    "Something that future you",
+    "will thank you for.",
+    "Take a deep breath,",
+    "feel the morning light,",
+    "and begin, one",
+    "step at a time."
+   ]
+  }
+ },
+ {
+  "title": "Your Own Pace",
+  "uz": "O'z sur'atingizda",
+  "t": {
+   "A1": [
+    "You are slow?",
+    "That is fine.",
+    "Others are fast.",
+    "So what?",
+    "You are you.",
+    "You have your road.",
+    "Your road is yours.",
+    "Walk slowly.",
+    "Walk happy.",
+    "A turtle wins too.",
+    "Do not look around.",
+    "Look at yourself.",
+    "You are growing.",
+    "Slowly, but well."
+   ],
+   "A2": [
+    "Don't compare yourself.",
+    "Your friend speaks well.",
+    "Your cousin has money.",
+    "Someone is always faster.",
+    "But you don't know",
+    "their whole story.",
+    "They have bad days.",
+    "You have your road.",
+    "Your road is different.",
+    "Every plant grows",
+    "in its own time.",
+    "Flowers don't hurry.",
+    "Neither should you.",
+    "Walk your own way."
+   ],
+   "B1": [
+    "Feeling behind is common.",
+    "Social media shows",
+    "everyone's best moments.",
+    "You see their success,",
+    "but not their struggle.",
+    "You compare your struggle",
+    "with their highlights.",
+    "That race isn't fair.",
+    "Your timeline is yours.",
+    "Some people bloom early,",
+    "others bloom later.",
+    "Neither is better.",
+    "What matters is that",
+    "you keep growing.",
+    "So take your time.",
+    "You're exactly where",
+    "you need to be."
+   ],
+   "B2": [
+    "We often measure ourselves",
+    "against people whose",
+    "lives differ entirely.",
+    "Different starting points,",
+    "different resources,",
+    "different challenges.",
+    "Comparison like that",
+    "is rarely accurate,",
+    "and almost never kind.",
+    "Your journey has",
+    "its own rhythm.",
+    "Maybe slower, maybe",
+    "winding, but real.",
+    "Progress that feels",
+    "invisible is still",
+    "progress, nonetheless.",
+    "Trust your timing,",
+    "and keep moving."
+   ]
+  }
+ },
+ {
+  "title": "When You Feel Afraid",
+  "uz": "Qo'rqqan paytda",
+  "t": {
+   "A1": [
+    "You feel afraid.",
+    "It is okay.",
+    "Everyone feels fear.",
+    "Brave people too.",
+    "Fear is a feeling.",
+    "It is not you.",
+    "Put your hand here.",
+    "Feel your heart.",
+    "Boom, boom, boom.",
+    "It is slow now.",
+    "You are safe.",
+    "Safe, right now.",
+    "Take one step.",
+    "Just one.",
+    "You can do it."
+   ],
+   "A2": [
+    "You are scared today.",
+    "Maybe about the future.",
+    "Maybe about speaking.",
+    "Your heart is fast.",
+    "That is normal.",
+    "Fear means something",
+    "is important to you.",
+    "Don't fight it.",
+    "Say, I am scared,",
+    "but I will try.",
+    "Count to five slowly.",
+    "Put your feet down.",
+    "Feel the floor.",
+    "You are safe here.",
+    "Now take one step."
+   ],
+   "B1": [
+    "Maybe something scary",
+    "is waiting for you.",
+    "A test, a talk,",
+    "a big decision.",
+    "Your mind is imagining",
+    "the worst outcomes.",
+    "But those are just",
+    "thoughts, not facts.",
+    "Courage doesn't mean",
+    "having no fear.",
+    "It means moving forward",
+    "while you're afraid.",
+    "You've done hard things",
+    "before, remember?",
+    "Take a slow breath.",
+    "Do the next thing.",
+    "I believe you can."
+   ],
+   "B2": [
+    "Fear tends to exaggerate.",
+    "It turns small risks",
+    "into imagined disasters.",
+    "Notice what it's saying,",
+    "and then ask yourself:",
+    "Is this actually true?",
+    "Often, the honest answer",
+    "is, I'm not sure.",
+    "Uncertainty isn't danger.",
+    "Remember a time",
+    "you doubted yourself",
+    "and surprised yourself.",
+    "You handled it,",
+    "didn't you?",
+    "Courage isn't loud.",
+    "Sometimes it's simply",
+    "taking one step",
+    "while your hands shake."
+   ]
+  }
+ },
+ {
+  "title": "Love Yourself",
+  "uz": "O'zingizni seving",
+  "t": {
+   "A1": [
+    "Be kind to you.",
+    "You are a friend.",
+    "Be a good friend",
+    "to yourself.",
+    "Say good things.",
+    "Say nice words.",
+    "Look in the mirror.",
+    "Say, hello, you.",
+    "I like you.",
+    "You are enough.",
+    "Just like this.",
+    "You are enough."
+   ],
+   "A2": [
+    "You are very hard",
+    "on yourself, I think.",
+    "You never praise yourself.",
+    "You're kind to others.",
+    "Be kind to yourself.",
+    "You are human too.",
+    "Everyone makes mistakes.",
+    "That does not change",
+    "your value at all.",
+    "Look in the mirror.",
+    "Smile, even a little.",
+    "Say, I accept you.",
+    "It sounds strange,",
+    "but it helps.",
+    "Try it."
+   ],
+   "B1": [
+    "Would you speak",
+    "to a friend",
+    "the way you speak",
+    "to yourself?",
+    "Probably not.",
+    "You'd be gentle.",
+    "You'd say, it's okay,",
+    "you did your best.",
+    "So why not offer",
+    "yourself the same kindness?",
+    "Self-love isn't selfish.",
+    "It's the foundation",
+    "of everything else.",
+    "Start with small things:",
+    "eat well, sleep enough,",
+    "and forgive yourself",
+    "for yesterday's mistakes.",
+    "You deserve that care."
+   ],
+   "B2": [
+    "Self-love isn't about",
+    "believing you're perfect.",
+    "It's about accepting",
+    "your flaws without",
+    "turning them into",
+    "weapons against yourself.",
+    "You can improve,",
+    "and still deserve",
+    "kindness right now.",
+    "Those two ideas",
+    "aren't opposites.",
+    "Speak to yourself",
+    "the way a wise",
+    "friend would speak:",
+    "honestly, but warmly.",
+    "Over time, that voice",
+    "becomes your own.",
+    "And it changes everything."
+   ]
+  }
+ },
+ {
+  "title": "Small Steps",
+  "uz": "Kichik qadamlar",
+  "t": {
+   "A1": [
+    "Small steps count.",
+    "One word today.",
+    "Two words tomorrow.",
+    "Ten words soon.",
+    "Small is good.",
+    "Small is big.",
+    "Do one thing.",
+    "Just one thing.",
+    "Open a book.",
+    "Read one page.",
+    "Say one sentence.",
+    "That is enough.",
+    "You did it.",
+    "Well done, friend."
+   ],
+   "A2": [
+    "Big dreams are scary.",
+    "So make them small.",
+    "Don't learn English",
+    "in one month.",
+    "Learn five words today.",
+    "Say them out loud.",
+    "Use them in sentences.",
+    "Tomorrow, five more.",
+    "In a month,",
+    "you will have one",
+    "hundred and fifty words.",
+    "Small steps add up.",
+    "You can start now.",
+    "You already started."
+   ],
+   "B1": [
+    "Big changes seem impossible",
+    "when you look at",
+    "the whole mountain.",
+    "So look at",
+    "the next step.",
+    "Today, that might be",
+    "reading this text.",
+    "Tomorrow, it might be",
+    "talking to a stranger.",
+    "Next month, you could",
+    "have a real conversation.",
+    "None of these steps",
+    "feels huge by itself.",
+    "But together, they change",
+    "your whole life.",
+    "Just keep walking."
+   ],
+   "B2": [
+    "We overestimate what",
+    "we achieve daily,",
+    "and underestimate what",
+    "a year can bring.",
+    "That's why tiny,",
+    "consistent actions matter.",
+    "Ten minutes of speaking,",
+    "every single day,",
+    "beats one exhausting",
+    "weekend of effort.",
+    "Don't wait until",
+    "you feel ready.",
+    "Readiness usually follows",
+    "action, not the reverse.",
+    "So begin imperfectly,",
+    "improve as you go.",
+    "A year from now,",
+    "you'll be grateful",
+    "you started today."
+   ]
+  }
+ }
+];
+
+var LISTENING_DATA = [
+  /* ---------- Level A1 ---------- */
+  {
+    id: "lis_a1_1",
+    level: "A1",
+    title: "At the Coffee Shop",
+    uz: "Qahvaxonada",
+    audioSrc: "",
+    transcript: "Barista: Good morning! What can I get for you today?\nCustomer: Hello! Can I have a large cappuccino and a blueberry muffin, please?\nBarista: Sure! Do you want whole milk or oat milk?\nCustomer: Oat milk, please. And could you heat up the muffin?\nBarista: Of course. That will be six dollars and fifty cents.\nCustomer: Here is seven dollars, keep the change!\nBarista: Thank you very much! Have a great day!",
+    questions: [
+      {
+        q: "What does the customer order to drink?",
+        options: ["Espresso", "Cappuccino", "Hot chocolate", "Green tea"],
+        correct: 1,
+        exp: "Customer: 'Can I have a large cappuccino...'"
+      },
+      {
+        q: "What kind of milk does the customer prefer?",
+        options: ["Soy milk", "Whole milk", "Oat milk", "Almond milk"],
+        correct: 2,
+        exp: "Customer: 'Oat milk, please.'"
+      },
+      {
+        q: "How much is the total cost?",
+        options: ["$5.50", "$6.00", "$6.50", "$7.00"],
+        correct: 2,
+        exp: "Barista: 'That will be six dollars and fifty cents ($6.50).'"
+      },
+      {
+        q: "What does the customer say about the change?",
+        options: ["Give me receipt", "Keep the change", "I have coins", "Give back two dollars"],
+        correct: 1,
+        exp: "Customer: 'keep the change!' (Qaytimi kerak emas)."
+      }
+    ]
+  },
+  {
+    id: "lis_a1_2",
+    level: "A1",
+    title: "Asking for Directions",
+    uz: "Yo'l so'rash",
+    audioSrc: "",
+    transcript: "Tourist: Excuse me, is there a pharmacy near here?\nLocal: Yes, there is one on Green Street. Walk straight for two blocks, then turn right at the traffic lights.\nTourist: Turn right at the traffic lights?\nLocal: Yes, exactly. The pharmacy is next to the big supermarket. You cannot miss it.\nTourist: Is it far to walk?\nLocal: No, only about five minutes from here.\nTourist: Thank you so much for your help!\nLocal: You are welcome. Have a nice day!",
+    questions: [
+      {
+        q: "What is the tourist looking for?",
+        options: ["A supermarket", "A bus stop", "A pharmacy", "A bank"],
+        correct: 2,
+        exp: "Tourist: 'is there a pharmacy near here?'"
+      },
+      {
+        q: "Where should the tourist turn right?",
+        options: ["At the bookstore", "At the traffic lights", "At the park gate", "At the hotel"],
+        correct: 1,
+        exp: "Local: 'turn right at the traffic lights'."
+      },
+      {
+        q: "How far is the pharmacy on foot?",
+        options: ["About five minutes", "Twenty minutes", "One hour", "Right across the street"],
+        correct: 0,
+        exp: "Local: 'only about five minutes from here'."
+      }
+    ]
+  },
+  {
+    id: "lis_a1_3",
+    level: "A1",
+    title: "Meeting a New Classmate",
+    uz: "Yangi kursdosh bilan tanishuv",
+    audioSrc: "",
+    transcript: "Sarah: Hi! Is this seat free?\nAlex: Yes, it is. Go ahead and sit down.\nSarah: Thanks! My name is Sarah. I just moved here from Canada.\nAlex: Nice to meet you, Sarah. I am Alex. I have lived in this city for three years.\nSarah: Are you studying computer science too?\nAlex: Yes, this is my second year. If you ever need help with notes, just let me know!\nSarah: That is very kind of you, Alex! See you in class.",
+    questions: [
+      {
+        q: "Where is Sarah from?",
+        options: ["Australia", "Canada", "England", "United States"],
+        correct: 1,
+        exp: "Sarah: 'I just moved here from Canada.'"
+      },
+      {
+        q: "What are Sarah and Alex studying?",
+        options: ["Medicine", "History", "Computer science", "Economics"],
+        correct: 2,
+        exp: "Sarah: 'Are you studying computer science too?' - Alex: 'Yes...'"
+      },
+      {
+        q: "What year of study is Alex in?",
+        options: ["First year", "Second year", "Third year", "Final year"],
+        correct: 1,
+        exp: "Alex: 'this is my second year.'"
+      }
+    ]
+  },
+
+  /* ---------- Level A2 ---------- */
+  {
+    id: "lis_a2_1",
+    level: "A2",
+    title: "At the Train Station",
+    uz: "Poyezd vokzalida",
+    audioSrc: "",
+    transcript: "Passenger: Good afternoon. I need a return ticket to Manchester for tomorrow morning.\nClerk: Certainly. The express train leaves at eight fifteen, and the standard train leaves at eight forty-five.\nPassenger: What is the difference in price?\nClerk: The express is forty-five pounds and takes two hours. The standard is thirty pounds and takes two and a half hours.\nPassenger: I will take the standard ticket, please. I am not in a hurry.\nClerk: Here you go. Your train departs from platform four. Safe travels!",
+    questions: [
+      {
+        q: "Where does the passenger want to travel?",
+        options: ["London", "Manchester", "Liverpool", "Edinburgh"],
+        correct: 1,
+        exp: "Passenger: 'I need a return ticket to Manchester...'"
+      },
+      {
+        q: "Why does the passenger choose the standard train?",
+        options: ["It is faster", "It leaves earlier", "It is cheaper and he is not in a hurry", "Platform four is closer"],
+        correct: 2,
+        exp: "Passenger: 'I will take the standard ticket, please. I am not in a hurry.'"
+      },
+      {
+        q: "How long does the express train take?",
+        options: ["90 minutes", "Two hours", "Two and a half hours", "Three hours"],
+        correct: 1,
+        exp: "Clerk: 'The express ... takes two hours.'"
+      },
+      {
+        q: "Which platform does the train depart from?",
+        options: ["Platform one", "Platform two", "Platform four", "Platform eight"],
+        correct: 2,
+        exp: "Clerk: 'Your train departs from platform four.'"
+      }
+    ]
+  },
+  {
+    id: "lis_a2_2",
+    level: "A2",
+    title: "Doctor's Appointment",
+    uz: "Shifokor qabulida",
+    audioSrc: "",
+    transcript: "Doctor: Come in, please. What seems to be the problem today?\nPatient: I have had a severe sore throat and a bad headache since Tuesday.\nDoctor: Let me check your temperature. Yes, you have a slight fever of thirty-eight degrees. Have you taken any medicine yet?\nPatient: Only some paracetamol yesterday evening, but it didn't help much.\nDoctor: You have a viral throat infection. Drink plenty of warm water, take this medicine twice a day after meals, and rest in bed for three days.\nPatient: Thank you, doctor. When should I come back if I don't feel better?\nDoctor: If the fever persists after five days, call the clinic immediately.",
+    questions: [
+      {
+        q: "What symptoms does the patient have?",
+        options: ["Stomachache and toothache", "Sore throat and headache", "Broken arm and fever", "Ear pain and cough"],
+        correct: 1,
+        exp: "Patient: 'severe sore throat and a bad headache'."
+      },
+      {
+        q: "What is the patient's temperature?",
+        options: ["36.6 degrees", "37.5 degrees", "38 degrees", "39.5 degrees"],
+        correct: 2,
+        exp: "Doctor: 'slight fever of thirty-eight (38) degrees'."
+      },
+      {
+        q: "How often should the patient take the medicine?",
+        options: ["Once a week", "Twice a day after meals", "Three times before sleeping", "Every two hours"],
+        correct: 1,
+        exp: "Doctor: 'take this medicine twice a day after meals'."
+      },
+      {
+        q: "How many days should the patient rest in bed?",
+        options: ["One day", "Three days", "One week", "Ten days"],
+        correct: 1,
+        exp: "Doctor: 'rest in bed for three days'."
+      }
+    ]
+  },
+  {
+    id: "lis_a2_3",
+    level: "A2",
+    title: "Planning a Weekend Trip",
+    uz: "Dam olish kuni rejalari",
+    audioSrc: "",
+    transcript: "Emma: David, are we still going hiking in the mountains this Saturday?\nDavid: I checked the weather forecast this morning. It says heavy rain is expected on Saturday afternoon.\nEmma: Oh, that's disappointing. What about Sunday instead?\nDavid: Sunday looks much better! Sunny and around twenty degrees.\nEmma: Perfect. Let's leave early on Sunday at eight in the morning so we can enjoy the view before it gets crowded.\nDavid: Agreed. I will prepare the sandwiches and bring water bottles.",
+    questions: [
+      {
+        q: "Why can't they go hiking on Saturday?",
+        options: ["David has to work", "Heavy rain is expected", "The mountain park is closed", "Emma feels sick"],
+        correct: 1,
+        exp: "David: 'heavy rain is expected on Saturday afternoon'."
+      },
+      {
+        q: "What will the weather be like on Sunday?",
+        options: ["Snowy and cold", "Very windy", "Sunny and around twenty degrees", "Foggy"],
+        correct: 2,
+        exp: "David: 'Sunday looks much better! Sunny and around twenty degrees.'"
+      },
+      {
+        q: "What time do they agree to leave on Sunday?",
+        options: ["6:00 AM", "8:00 AM", "10:30 AM", "12:00 PM"],
+        correct: 1,
+        exp: "Emma: 'leave early on Sunday at eight in the morning'."
+      }
+    ]
+  },
+
+  /* ---------- Level B1 ---------- */
+  {
+    id: "lis_b1_1",
+    level: "B1",
+    title: "Job Interview",
+    uz: "Ish suhbati",
+    audioSrc: "",
+    transcript: "Interviewer: Welcome to our company, Jessica. To begin, could you tell us why you are interested in this project manager position?\nJessica: Thank you for inviting me. For the past three years, I have led a software team of eight designers and developers. I noticed that your company is expanding its mobile applications division, and my background aligns directly with your goals.\nInterviewer: That's impressive. What do you consider your greatest strength when facing tight deadlines?\nJessica: I prioritize transparent communication. When unexpected roadblocks appear, I immediately coordinate with stakeholders to adjust our milestones rather than compromising product quality.\nInterviewer: Excellent answer. How do you handle disagreements within your team?\nJessica: I encourage open discussion where each member explains their perspective. We evaluate the data objectively and decide based on what serves the user experience best.",
+    questions: [
+      {
+        q: "What role is Jessica interviewing for?",
+        options: ["Software Tester", "Project Manager", "Financial Analyst", "Marketing Director"],
+        correct: 1,
+        exp: "Interviewer: 'interested in this project manager position'."
+      },
+      {
+        q: "How large was the team Jessica previously managed?",
+        options: ["Three people", "Five people", "Eight people", "Twenty people"],
+        correct: 2,
+        exp: "Jessica: 'led a software team of eight designers and developers'."
+      },
+      {
+        q: "What does Jessica prioritize when facing tight deadlines?",
+        options: ["Working all night", "Transparent communication", "Hiring freelancers", "Cutting core features"],
+        correct: 1,
+        exp: "Jessica: 'I prioritize transparent communication.'"
+      },
+      {
+        q: "How does Jessica resolve team disagreements?",
+        options: ["By voting blindly", "By evaluating data objectively through open discussion", "By asking upper management to decide", "By ignoring minor disagreements"],
+        correct: 1,
+        exp: "Jessica: 'encourage open discussion ... evaluate the data objectively'."
+      }
+    ]
+  },
+  {
+    id: "lis_b1_2",
+    level: "B1",
+    title: "Hotel Complaint and Solution",
+    uz: "Mehmonxonada e'tiroz va yechim",
+    audioSrc: "",
+    transcript: "Guest: Excuse me, I am staying in room three hundred and twelve, and I need to report a couple of issues.\nReceptionist: I am very sorry to hear that, sir. What seems to be wrong?\nGuest: The air conditioner is making a loud buzzing noise, and there is no hot water in the shower. I have an important conference presentation tomorrow morning, and I cannot sleep with this noise.\nReceptionist: We sincerely apologize for this inconvenience. The plumbing maintenance team has already gone home for the night, so allow me to upgrade you immediately to our executive suite on the fifth floor at no extra charge.\nGuest: That sounds reasonable. Thank you for resolving it so quickly.\nReceptionist: You are very welcome. We have also included complimentary breakfast at our rooftop restaurant tomorrow morning.",
+    questions: [
+      {
+        q: "What problems did the guest experience in room 312?",
+        options: ["Broken TV and missing keys", "Noisy air conditioner and no hot water", "Dirty bedsheets and cold room", "Broken elevator and no Wi-Fi"],
+        correct: 1,
+        exp: "Guest: 'air conditioner is making a loud buzzing noise, and there is no hot water'."
+      },
+      {
+        q: "Why can't the maintenance team fix the issues immediately?",
+        options: ["They don't have tools", "They have already gone home for the night", "They are on strike", "The manager forbade repairs at night"],
+        correct: 1,
+        exp: "Receptionist: 'The plumbing maintenance team has already gone home for the night'."
+      },
+      {
+        q: "How does the receptionist resolve the problem?",
+        options: ["Offers a 10% refund", "Upgrades the guest to an executive suite on the fifth floor for free", "Calls a plumber from another city", "Gives the guest earplugs"],
+        correct: 1,
+        exp: "Receptionist: 'upgrade you immediately to our executive suite on the fifth floor at no extra charge'."
+      },
+      {
+        q: "What additional courtesy does the hotel provide?",
+        options: ["Free airport taxi", "Complimentary rooftop breakfast", "Free laundry service", "Dinner voucher"],
+        correct: 1,
+        exp: "Receptionist: 'complimentary breakfast at our rooftop restaurant'."
+      }
+    ]
+  },
+  {
+    id: "lis_b1_3",
+    level: "B1",
+    title: "Healthy Sleep Habits",
+    uz: "Sog'lom uyqu odatlari",
+    audioSrc: "",
+    transcript: "Host: Welcome back to Wellness Daily. Today we are talking with neurologist Dr. Linda Carter about quality sleep.\nDr. Carter: Thank you. Many people believe they can function well on five hours of sleep, but research demonstrates that chronic sleep deprivation severely impairs decision-making and immune function.\nHost: What is the single biggest obstacle to deep sleep in modern life?\nDr. Carter: Blue light exposure from smartphones and laptops within sixty minutes before bed. Blue light suppresses melatonin production, signaling to your brain that it is still daytime. Simply turning off digital screens an hour before sleeping can improve sleep quality by over thirty percent.",
+    questions: [
+      {
+        q: "What does research say about regularly sleeping only five hours?",
+        options: ["It improves creativity", "It severely impairs decision-making and immunity", "It has no negative consequences", "It strengthens physical endurance"],
+        correct: 1,
+        exp: "Dr. Carter: 'chronic sleep deprivation severely impairs decision-making and immune function'."
+      },
+      {
+        q: "What effect does blue light from screens have on the human body?",
+        options: ["It increases body temperature", "It suppresses melatonin production", "It causes rapid heart rate", "It accelerates digestion"],
+        correct: 1,
+        exp: "Dr. Carter: 'Blue light suppresses melatonin production...'."
+      },
+      {
+        q: "By how much can turning off screens an hour before bed improve sleep quality?",
+        options: ["By 10%", "By 20%", "By over 30%", "By 50%"],
+        correct: 2,
+        exp: "Dr. Carter: 'improve sleep quality by over thirty percent'."
+      }
+    ]
+  },
+
+  /* ---------- Level B2 ---------- */
+  {
+    id: "lis_b2_1",
+    level: "B2",
+    title: "The Future of Remote Work",
+    uz: "Masofaviy ishning kelajagi",
+    audioSrc: "",
+    transcript: "Speaker: Over the past five years, the global workforce has undergone a profound transformation. While proponents of remote work emphasize greater flexibility and reduced commuting time, executives often express concern regarding company culture and spontaneous collaboration. Emerging data suggests that the optimal approach is neither fully remote nor strictly office-based, but rather a structured hybrid model. Under this paradigm, employees spend two days collaborating in person on strategic planning and team workshops, while dedicating the remaining three days to deep, uninterrupted individual focus at home.",
+    questions: [
+      {
+        q: "What do supporters of remote work highlight as its primary benefits?",
+        options: ["Higher salaries and tax cuts", "Greater flexibility and reduced commuting time", "Fewer meetings and longer holidays", "Free equipment provided by employers"],
+        correct: 1,
+        exp: "Speaker: 'proponents of remote work emphasize greater flexibility and reduced commuting time'."
+      },
+      {
+        q: "What major concern do corporate executives articulate regarding purely remote work?",
+        options: ["Excessive heating costs", "Erosion of company culture and spontaneous collaboration", "Difficulty in tracking employee working hours", "Legal disputes over intellectual property"],
+        correct: 1,
+        exp: "Speaker: 'executives often express concern regarding company culture and spontaneous collaboration'."
+      },
+      {
+        q: "What does emerging organizational data recommend as the ideal model?",
+        options: ["100% remote working", "Full five-day mandatory office attendance", "A structured hybrid model", "Four-day workweeks without office space"],
+        correct: 2,
+        exp: "Speaker: 'the optimal approach is ... a structured hybrid model'."
+      },
+      {
+        q: "Under the proposed hybrid model, how should in-person office days be utilized?",
+        options: ["For individual administrative tasks", "For strategic planning and collaborative workshops", "Exclusively for social events and lunch breaks", "For annual performance reviews only"],
+        correct: 1,
+        exp: "Speaker: 'spend two days collaborating in person on strategic planning and team workshops'."
+      }
+    ]
+  },
+  {
+    id: "lis_b2_2",
+    level: "B2",
+    title: "Renewable Energy in Urban Architecture",
+    uz: "Qayta tiklanuvchi energiya va shaharsozlik",
+    audioSrc: "",
+    transcript: "Lecturer: Modern architecture is shifting from passive energy consumption to active generation. Consider solar glass: transparent photovoltaic panels that serve simultaneously as thermal insulation windows and clean electricity generators. In northern European pilot projects, commercial skyscrapers equipped with solar facade panels produce up to forty percent of their own operational electricity. When combined with smart battery storage systems and heat-recycling ventilation, modern high-rises are transforming from ecological burdens into decentralized micro-power plants.",
+    questions: [
+      {
+        q: "What dual functionality does solar glass provide in modern buildings?",
+        options: ["Bulletproof protection and decorative lighting", "Thermal insulation and clean electricity generation", "Soundproofing and automated self-cleaning", "Air filtration and rainwater collection"],
+        correct: 1,
+        exp: "Lecturer: 'serve simultaneously as thermal insulation windows and clean electricity generators'."
+      },
+      {
+        q: "How much electricity do pilot commercial skyscrapers produce via solar facades?",
+        options: ["Approximately 15%", "Around 25%", "Up to 40%", "Over 80%"],
+        correct: 2,
+        exp: "Lecturer: 'produce up to forty percent of their own operational electricity'."
+      },
+      {
+        q: "What transformation are modern skyscrapers undergoing according to the lecture?",
+        options: ["They are becoming taller and narrower", "From ecological burdens into decentralized micro-power plants", "From private offices into public parks", "Replacing steel with carbon fiber entirely"],
+        correct: 1,
+        exp: "Lecturer: 'transforming from ecological burdens into decentralized micro-power plants'."
+      }
+    ]
+  },
+  {
+    id: "lis_b2_3",
+    level: "B2",
+    title: "Artificial Intelligence in Creative Arts",
+    uz: "Sun'iy intellekt va ijodiyot",
+    audioSrc: "",
+    transcript: "Panelist: The debate surrounding artificial intelligence in creative fields is frequently framed as a zero-sum competition between human artists and algorithmic generators. However, historical precedents show that technological innovations typically expand creative possibilities rather than eradicating them. Just as the invention of photography prompted painters to invent Impressionism and abstract art, generative AI is compelling human creators to move beyond technical execution and focus on philosophical depth, emotional nuance, and authentic storytelling.",
+    questions: [
+      {
+        q: "How is the debate regarding AI in creative fields frequently framed?",
+        options: ["As a temporary fad that will disappear", "As an expensive luxury only available to corporations", "As a zero-sum competition between human artists and algorithms", "As an exclusively technical matter without artistic merit"],
+        correct: 2,
+        exp: "Panelist: 'framed as a zero-sum competition between human artists and algorithmic generators'."
+      },
+      {
+        q: "What historical parallel illustrates how technology reshapes artistic expression?",
+        options: ["The invention of the printing press", "The invention of photography", "The development of oil paints", "The emergence of motion pictures"],
+        correct: 1,
+        exp: "Panelist: 'Just as the invention of photography prompted painters to invent Impressionism...'."
+      },
+      {
+        q: "According to the speaker, what should human creators prioritize in the age of generative AI?",
+        options: ["Speed of rendering and image resolution", "Philosophical depth, emotional nuance, and authentic storytelling", "Mastering prompt engineering algorithms only", "Copyright lawsuits against technology firms"],
+        correct: 1,
+        exp: "Panelist: 'focus on philosophical depth, emotional nuance, and authentic storytelling'."
+      }
+    ]
+  }
+];
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var home = $("home"), reader = $("reader"), stage = $("stage"), track = $("track");
+  var bar = $("bar"), rname = $("rname"), rstatus = $("rstatus"), done = $("done");
+  var toggle = $("toggle"), speed = $("speed"), speedOut = $("speedOut");
+  var recBadge = $("recBadge"), recTxt = $("recTxt"), recTimer = $("recTimer");
+  var recToggle = $("recToggle"), recToggleLabel = $("recToggleLabel");
+  var doneAudioBox = $("doneAudioBox"), doneSub = $("doneSub");
+  var recBadgeCount = $("recBadgeCount"), recList = $("recList");
+  var recToggleCollapse = $("recToggleCollapse"), recBody = $("recBody");
+
+  /* ---------- Listening Elements ---------- */
+  var tabSpeaking = $("tabSpeaking"), tabListening = $("tabListening");
+  var speakingSection = $("speakingSection"), listeningSection = $("listeningSection");
+  var lisLevelsEl = $("lisLevels"), lisListEl = $("lisTopics");
+  var listeningReader = $("listeningReader"), lisBack = $("lisBack");
+  var lisTitle = $("lisTitle"), lisLevelBadge = $("lisLevelBadge");
+  var lisAudioIcon = $("lisAudioIcon"), lisStatusTitle = $("lisStatusTitle"), lisStatusSub = $("lisStatusSub");
+  var lisRewindBtn = $("lisRewindBtn"), lisForwardBtn = $("lisForwardBtn"), lisPlayBtn = $("lisPlayBtn");
+  var lisCurrentTime = $("lisCurrentTime"), lisTotalTime = $("lisTotalTime"), lisProgressBar = $("lisProgressBar");
+  var lisQuestionsEl = $("lisQuestions"), lisSubmitBtn = $("lisSubmitBtn"), lisActionBar = $("lisActionBar");
+  var lisResultCard = $("lisResultCard"), lisResultScoreBadge = $("lisResultScoreBadge");
+  var lisResultHeading = $("lisResultHeading"), lisResultDesc = $("lisResultDesc");
+  var lisRetryBtn = $("lisRetryBtn"), lisToggleTranscriptBtn = $("lisToggleTranscriptBtn");
+  var lisTranscriptBox = $("lisTranscriptBox"), lisTranscriptContent = $("lisTranscriptContent");
+
+  var S = null;        /* { topic, els, words, centers, p, state, token } */
+  var raf = 0, last = 0, token = 0, introTimer = 0;
+  var wpm = 80;
+  try { var saved = parseInt(localStorage.getItem("fc-wpm"), 10); if (saved >= 30 && saved <= 250) wpm = saved; } catch (e) {}
+
+  var LEVELS = [
+    { code: "A1", lab: "Boshlang'ich" },
+    { code: "A2", lab: "Elementar" },
+    { code: "B1", lab: "O'rta" },
+    { code: "B2", lab: "O'rta-yuqori" }
+  ];
+  var LEVEL = "A1";
+  try { var sl = localStorage.getItem("fc-level"); if (sl && TOPICS[0].t[sl]) LEVEL = sl; } catch (e) {}
+
+  var levelsEl = $("levels"), list = $("topics");
+
+  /* ---------- Icons ---------- */
+  var PLAY_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
+  var PAUSE_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  var TRASH_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  var DOWNLOAD_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  var MIC_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>';
+
+  /* ---------- Storage (Max 5 items, FIFO: oldest deleted on new entry) ---------- */
+  var STORAGE_KEY = "fc-recordings";
+  var MAX_RECORDINGS = 5;
+
+  function getSavedRecordings() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveRecording(rec) {
+    var list = getSavedRecordings();
+    list.unshift(rec);
+    while (list.length > MAX_RECORDINGS) {
+      list.pop();
+    }
+    var saved = false;
+    while (list.length > 0 && !saved) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        saved = true;
+      } catch (e) {
+        console.warn("LocalStorage to'ldi, eng eski audio o'chirilmoqda:", e);
+        if (list.length > 1) {
+          list.pop();
+        } else {
+          break;
+        }
+      }
+    }
+    return saved;
+  }
+
+  function deleteRecording(id) {
+    var list = getSavedRecordings();
+    list = list.filter(function (it) { return it.id !== id; });
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  function formatTime(totalSeconds) {
+    var sec = Math.max(0, Math.round(totalSeconds));
+    var m = Math.floor(sec / 60);
+    var s = sec % 60;
+    return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  function formatCurrentDate() {
+    var d = new Date();
+    var months = ["Yan", "Fev", "Mar", "Apr", "May", "Iyun", "Iyul", "Avg", "Sen", "Okt", "Noy", "Dek"];
+    var day = d.getDate();
+    var mon = months[d.getMonth()];
+    var hours = d.getHours();
+    var mins = d.getMinutes();
+    return day + "-" + mon + ", " + (hours < 10 ? "0" + hours : hours) + ":" + (mins < 10 ? "0" + mins : mins);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function getBestAudioMimeType() {
+    if (typeof MediaRecorder === "undefined") return "";
+    var types = [
+      "audio/webm;codecs=opus",
+      "audio/webm",
+      "audio/ogg;codecs=opus",
+      "audio/mp4",
+      "audio/aac"
+    ];
+    for (var i = 0; i < types.length; i++) {
+      if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(types[i])) {
+        return types[i];
+      }
+    }
+    return "";
+  }
+
+  /* ---------- Audio Playback Manager ---------- */
+  var activeAudio = null;
+  var activePlayerBtn = null;
+
+  function stopAllAudioPlayback() {
+    if (activeAudio) {
+      try { activeAudio.pause(); } catch (e) {}
+      activeAudio = null;
+    }
+    if (activePlayerBtn) {
+      activePlayerBtn.innerHTML = PLAY_SVG;
+      activePlayerBtn = null;
+    }
+  }
+
+  function createAudioPlayer(audioData, durationFormatted) {
+    var wrap = document.createElement("div");
+    wrap.className = "custom-audio-player";
+
+    var audio = new Audio(audioData);
+    audio.preload = "metadata";
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cap-btn";
+    btn.setAttribute("aria-label", "Play / Pause");
+    btn.innerHTML = PLAY_SVG;
+
+    var progWrap = document.createElement("div");
+    progWrap.className = "cap-progress-wrap";
+
+    var slider = document.createElement("input");
+    slider.type = "range";
+    slider.className = "cap-slider";
+    slider.min = "0";
+    slider.max = "100";
+    slider.step = "0.1";
+    slider.value = "0";
+
+    var timeSpan = document.createElement("span");
+    timeSpan.className = "cap-time";
+    timeSpan.textContent = "00:00 / " + (durationFormatted || "00:00");
+
+    progWrap.appendChild(slider);
+    wrap.appendChild(btn);
+    wrap.appendChild(progWrap);
+    wrap.appendChild(timeSpan);
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (activeAudio && activeAudio !== audio) {
+        stopAllAudioPlayback();
+      }
+      if (audio.paused) {
+        activeAudio = audio;
+        activePlayerBtn = btn;
+        audio.play().then(function () {
+          btn.innerHTML = PAUSE_SVG;
+        }).catch(function (err) {
+          console.warn("Play error:", err);
+        });
+      } else {
+        audio.pause();
+        btn.innerHTML = PLAY_SVG;
+        activeAudio = null;
+        activePlayerBtn = null;
+      }
+    });
+
+    audio.addEventListener("timeupdate", function () {
+      if (!audio.duration || isNaN(audio.duration)) return;
+      var pct = (audio.currentTime / audio.duration) * 100;
+      slider.value = String(pct);
+      timeSpan.textContent = formatTime(audio.currentTime) + " / " + (durationFormatted || formatTime(audio.duration));
+    });
+
+    audio.addEventListener("ended", function () {
+      btn.innerHTML = PLAY_SVG;
+      slider.value = "0";
+      timeSpan.textContent = "00:00 / " + (durationFormatted || formatTime(audio.duration));
+      if (activeAudio === audio) {
+        activeAudio = null;
+        activePlayerBtn = null;
+      }
+    });
+
+    slider.addEventListener("input", function (e) {
+      e.stopPropagation();
+      if (!audio.duration || isNaN(audio.duration)) return;
+      var pct = parseFloat(slider.value);
+      audio.currentTime = (pct / 100) * audio.duration;
+    });
+
+    wrap._audio = audio;
+    return wrap;
+  }
+
+  /* ---------- Saved Recordings UI in Home ---------- */
+  function renderSavedRecordings() {
+    var records = getSavedRecordings();
+    recBadgeCount.textContent = records.length + " / 5 audio";
+
+    if (records.length === 0) {
+      recList.innerHTML = '<div class="rec-empty">' +
+        '<p style="margin:0 0 6px; font-weight:600; color:var(--ink);">Hozircha saqlangan yozuvlar yo\'q</p>' +
+        '<p style="margin:0; font-size:0.8125rem;">Biror mavzuni tanlang va matnni ovoz chiqarib o\'qing. Diktafon ovozingizni avtomatik yozib oladi va oxirgi 5 ta yozuv bu yerda saqlanadi.</p>' +
+        '</div>';
+      return;
+    }
+
+    recList.innerHTML = "";
+    records.forEach(function (rec) {
+      var card = document.createElement("div");
+      card.className = "rec-card";
+
+      var topRow = document.createElement("div");
+      topRow.className = "rec-card-top";
+
+      var info = document.createElement("div");
+      info.className = "rec-card-info";
+      info.innerHTML = '<span class="rec-card-title">' + escapeHtml(rec.title) + '</span>' +
+        '<span class="rec-card-level">' + escapeHtml(rec.level) + '</span>' +
+        (rec.uz ? '<span style="font-size:0.8125rem; color:var(--muted);">' + escapeHtml(rec.uz) + '</span>' : '');
+
+      var actions = document.createElement("div");
+      actions.className = "rec-card-actions";
+
+      var dateSpan = document.createElement("span");
+      dateSpan.className = "rec-card-date";
+      dateSpan.textContent = rec.date;
+
+      var durSpan = document.createElement("span");
+      durSpan.className = "rec-card-date";
+      durSpan.style.fontWeight = "600";
+      durSpan.textContent = rec.durationFormatted || formatTime(rec.duration);
+
+      var dlBtn = document.createElement("button");
+      dlBtn.type = "button";
+      dlBtn.className = "rec-btn-icon";
+      dlBtn.setAttribute("title", "Yuklab olish");
+      dlBtn.setAttribute("aria-label", "Audioni yuklab olish");
+      dlBtn.innerHTML = DOWNLOAD_SVG;
+      dlBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var a = document.createElement("a");
+        a.href = rec.audioData;
+        var ext = rec.audioData.indexOf("mp4") !== -1 ? "mp4" : "webm";
+        var safeName = (rec.title || "audio").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        a.download = safeName + "-" + (rec.level || "speech") + "." + ext;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+
+      var delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.className = "rec-btn-icon delete";
+      delBtn.setAttribute("title", "O'chirish");
+      delBtn.setAttribute("aria-label", "Audioni o'chirish");
+      delBtn.innerHTML = TRASH_SVG;
+      delBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (confirm("Haqiqatan ham \"" + rec.title + "\" audio yozuvini o'chirmoqchimisiz?")) {
+          stopAllAudioPlayback();
+          deleteRecording(rec.id);
+          renderSavedRecordings();
+        }
+      });
+
+      actions.appendChild(dateSpan);
+      actions.appendChild(durSpan);
+      actions.appendChild(dlBtn);
+      actions.appendChild(delBtn);
+
+      topRow.appendChild(info);
+      topRow.appendChild(actions);
+
+      var player = createAudioPlayer(rec.audioData, rec.durationFormatted);
+
+      card.appendChild(topRow);
+      card.appendChild(player);
+      recList.appendChild(card);
+    });
+  }
+
+  var isRecCollapsed = false;
+  try { isRecCollapsed = localStorage.getItem("fc-rec-collapsed") === "true"; } catch (e) {}
+  function updateRecCollapseState() {
+    recBody.hidden = isRecCollapsed;
+    recToggleCollapse.textContent = isRecCollapsed ? "Ko'rsatish" : "Yashirish";
+    recToggleCollapse.setAttribute("aria-expanded", String(!isRecCollapsed));
+  }
+  recToggleCollapse.addEventListener("click", function () {
+    isRecCollapsed = !isRecCollapsed;
+    try { localStorage.setItem("fc-rec-collapsed", String(isRecCollapsed)); } catch (e) {}
+    updateRecCollapseState();
+  });
+  updateRecCollapseState();
+
+  /* ---------- Dictaphone Engine ---------- */
+  function updateRecBadge(status, text) {
+    if (!recBadge) return;
+    recBadge.className = "rec-badge";
+    if (status === "active") {
+      recBadge.classList.add("active");
+      recTxt.textContent = "Yozilmoqda";
+      recTimer.textContent = text || "00:00";
+    } else if (status === "paused") {
+      recBadge.classList.add("paused");
+      recTxt.textContent = "To'xtatildi";
+      recTimer.textContent = text || "00:00";
+    } else if (status === "ready") {
+      recTxt.textContent = "Tayyor";
+      recTimer.textContent = "00:00";
+    } else if (status === "disabled") {
+      recTxt.textContent = "O'chirilgan";
+      recTimer.textContent = "--:--";
+    } else if (status === "error") {
+      recTxt.textContent = text || "Xatolik";
+      recTimer.textContent = "--:--";
+    } else {
+      recTxt.textContent = "Diktafon";
+      recTimer.textContent = "00:00";
+    }
+  }
+
+  var Dictaphone = {
+    enabled: true,
+    stream: null,
+    recorder: null,
+    chunks: [],
+    timerId: 0,
+    elapsedSeconds: 0,
+    state: "idle", // "idle", "ready", "recording", "paused"
+
+    init: function () {
+      try {
+        var en = localStorage.getItem("fc-rec-enabled");
+        if (en !== null) Dictaphone.enabled = (en === "true");
+      } catch (e) {}
+      updateRecToggleUI();
+    },
+
+    prepare: function () {
+      Dictaphone.cancel();
+      if (!Dictaphone.enabled) {
+        updateRecBadge("disabled", "O'chirilgan");
+        return;
+      }
+      Dictaphone.state = "ready";
+      Dictaphone.elapsedSeconds = 0;
+      updateRecBadge("ready", "00:00");
+    },
+
+    start: function () {
+      if (!Dictaphone.enabled) return;
+      if (Dictaphone.state === "recording") return;
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === "undefined") {
+        updateRecBadge("error", "Qo'llanmaydi");
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        }
+      }).then(function (stream) {
+        if (!S || S.state !== "play") {
+          stream.getTracks().forEach(function (t) { t.stop(); });
+          return;
+        }
+
+        Dictaphone.stream = stream;
+        Dictaphone.chunks = [];
+
+        var mimeType = getBestAudioMimeType();
+        var opts = { audioBitsPerSecond: 24000 };
+        if (mimeType) opts.mimeType = mimeType;
+
+        try {
+          Dictaphone.recorder = new MediaRecorder(stream, opts);
+        } catch (e1) {
+          try {
+            Dictaphone.recorder = new MediaRecorder(stream);
+          } catch (e2) {
+            updateRecBadge("error", "Xatolik");
+            return;
+          }
+        }
+
+        Dictaphone.recorder.ondataavailable = function (e) {
+          if (e.data && e.data.size > 0) {
+            Dictaphone.chunks.push(e.data);
+          }
+        };
+
+        Dictaphone.recorder.start(250);
+        Dictaphone.state = "recording";
+        Dictaphone.startTimer();
+        updateRecBadge("active", formatTime(Dictaphone.elapsedSeconds));
+      }).catch(function (err) {
+        console.warn("Mikrofon ruxsati rad etildi:", err);
+        updateRecBadge("error", "Ruxsat yo'q");
+      });
+    },
+
+    pause: function () {
+      if (Dictaphone.recorder && Dictaphone.recorder.state === "recording") {
+        try { Dictaphone.recorder.pause(); } catch (e) {}
+      }
+      Dictaphone.stopTimer();
+      Dictaphone.state = "paused";
+      updateRecBadge("paused", formatTime(Dictaphone.elapsedSeconds));
+    },
+
+    resume: function () {
+      if (Dictaphone.recorder && Dictaphone.recorder.state === "paused") {
+        try { Dictaphone.recorder.resume(); } catch (e) {}
+        Dictaphone.state = "recording";
+        Dictaphone.startTimer();
+        updateRecBadge("active", formatTime(Dictaphone.elapsedSeconds));
+      } else {
+        Dictaphone.start();
+      }
+    },
+
+    stopAndSave: function (title, uz, level, callback) {
+      Dictaphone.stopTimer();
+      var duration = Dictaphone.elapsedSeconds;
+      var rec = Dictaphone.recorder;
+      var stream = Dictaphone.stream;
+
+      Dictaphone.recorder = null;
+      Dictaphone.stream = null;
+      Dictaphone.state = "idle";
+      updateRecBadge("idle", "00:00");
+
+      if (stream) {
+        stream.getTracks().forEach(function (t) { t.stop(); });
+      }
+
+      if (!rec || rec.state === "inactive" || Dictaphone.chunks.length === 0 || duration < 1) {
+        Dictaphone.chunks = [];
+        if (callback) callback(null);
+        return;
+      }
+
+      var mime = rec.mimeType || "audio/webm";
+      rec.onstop = function () {
+        var blob = new Blob(Dictaphone.chunks, { type: mime });
+        Dictaphone.chunks = [];
+
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          var base64data = reader.result;
+          var newRecord = {
+            id: "rec_" + Date.now(),
+            title: title || "Speaking practice",
+            uz: uz || "",
+            level: level || "A1",
+            date: formatCurrentDate(),
+            duration: duration,
+            durationFormatted: formatTime(duration),
+            audioData: base64data
+          };
+          saveRecording(newRecord);
+          renderSavedRecordings();
+          if (callback) callback(newRecord);
+        };
+        reader.readAsDataURL(blob);
+      };
+
+      if (rec.state !== "inactive") {
+        try { rec.stop(); } catch (e) {}
+      }
+    },
+
+    cancel: function () {
+      Dictaphone.stopTimer();
+      Dictaphone.state = "idle";
+      Dictaphone.chunks = [];
+      if (Dictaphone.recorder && Dictaphone.recorder.state !== "inactive") {
+        try { Dictaphone.recorder.stop(); } catch (e) {}
+      }
+      if (Dictaphone.stream) {
+        Dictaphone.stream.getTracks().forEach(function (t) { t.stop(); });
+      }
+      Dictaphone.recorder = null;
+      Dictaphone.stream = null;
+      updateRecBadge("idle", "00:00");
+    },
+
+    startTimer: function () {
+      clearInterval(Dictaphone.timerId);
+      Dictaphone.timerId = setInterval(function () {
+        Dictaphone.elapsedSeconds++;
+        updateRecBadge("active", formatTime(Dictaphone.elapsedSeconds));
+      }, 1000);
+    },
+
+    stopTimer: function () {
+      clearInterval(Dictaphone.timerId);
+    }
+  };
+
+  function updateRecToggleUI() {
+    if (Dictaphone.enabled) {
+      recToggle.classList.add("enabled");
+      recToggleLabel.textContent = "Diktafon: Yoqilgan";
+    } else {
+      recToggle.classList.remove("enabled");
+      recToggleLabel.textContent = "Diktafon: O'chirilgan";
+    }
+  }
+
+  recToggle.addEventListener("click", function (e) {
+    e.stopPropagation();
+    Dictaphone.enabled = !Dictaphone.enabled;
+    try { localStorage.setItem("fc-rec-enabled", String(Dictaphone.enabled)); } catch (e) {}
+    updateRecToggleUI();
+    if (!Dictaphone.enabled) {
+      Dictaphone.cancel();
+      updateRecBadge("disabled", "O'chirilgan");
+    } else {
+      if (S && S.state === "play") {
+        Dictaphone.start();
+      } else {
+        Dictaphone.prepare();
+      }
+    }
+  });
+
+  Dictaphone.init();
+
+  function renderLevels() {
+    levelsEl.innerHTML = "";
+    LEVELS.forEach(function (lv) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "level";
+      b.setAttribute("aria-pressed", lv.code === LEVEL ? "true" : "false");
+      b.innerHTML = '<span class="code"></span><span class="lab"></span>';
+      b.querySelector(".code").textContent = lv.code;
+      b.querySelector(".lab").textContent = lv.lab;
+      b.addEventListener("click", function () {
+        LEVEL = lv.code;
+        try { localStorage.setItem("fc-level", LEVEL); } catch (e) {}
+        renderLevels(); renderTopics(); renderSavedRecordings();
+      });
+      levelsEl.appendChild(b);
+    });
+  }
+
+  function renderTopics() {
+    list.innerHTML = "";
+    TOPICS.forEach(function (t, i) {
+      var lines = t.t[LEVEL];
+      var words = lines.join(" ").split(/\s+/).length;
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "topic";
+      b.innerHTML = '<span class="t"><span class="name"></span><span class="uz"></span></span><span class="meta"></span>';
+      b.querySelector(".name").textContent = t.title;
+      b.querySelector(".uz").textContent = t.uz;
+      b.querySelector(".meta").textContent = lines.length + " qator \u00b7 " + Math.max(1, Math.round(words / 80)) + " daq";
+      b.addEventListener("click", function () { openTopic(i); });
+      li.appendChild(b); list.appendChild(li);
+    });
+  }
+  renderLevels(); renderTopics(); renderSavedRecordings();
+
+  /* Speed control */
+  function paintSpeed() {
+    speed.value = wpm;
+    speedOut.textContent = wpm + " so'z/daq";
+    var mn = +speed.min, mx = +speed.max, pct = ((wpm - mn) / (mx - mn)) * 100;
+    speed.style.setProperty("--fill", pct + "%");
+  }
+  speed.addEventListener("input", function () {
+    wpm = parseInt(speed.value, 10);
+    paintSpeed();
+    try { localStorage.setItem("fc-wpm", String(wpm)); } catch (e) {}
+  });
+  paintSpeed();
+
+  /* ---------- 19-20 yoshli tabiiy opa ovozi (Speech Synthesis Engine) ---------- */
+  function formatVoiceName(voice) {
+    var name = voice.name;
+    if (/jenny.*online.*natural/i.test(name)) return "Jenny (19-20 yosh, tabiiy opa) ⭐";
+    if (/ava.*online.*natural/i.test(name)) return "Ava (Yosh, tabiiy opa) ⭐";
+    if (/emma.*online.*natural/i.test(name)) return "Emma (Muloyim opa) ⭐";
+    if (/aria.*online.*natural/i.test(name)) return "Aria (Shaddod, quvnoq opa) ⭐";
+    if (/ana.*online.*natural/i.test(name)) return "Ana (Yosh qiz/opa) ⭐";
+    if (/libby.*online.*natural/i.test(name)) return "Libby (Britaniya, tabiiy) ⭐";
+    if (/sonia.*online.*natural/i.test(name)) return "Sonia (Britaniya, tabiiy) ⭐";
+    if (/google.*us.*english/i.test(name)) return "Google US (Tabiiy opa) ⭐";
+    if (/google.*uk.*female/i.test(name)) return "Google UK (Britaniya, tabiiy opa) ⭐";
+    if (/samantha.*enhanced/i.test(name)) return "Samantha Enhanced (Apple, tabiiy) ⭐";
+    if (/samantha/i.test(name)) return "Samantha (Apple, tabiiy opa) ⭐";
+    if (/victoria/i.test(name)) return "Victoria (Apple, ayol)";
+    if (/natural|online/i.test(name)) return name.replace(/microsoft|online|\(natural\)|english|\(united states\)|\(united kingdom\)/gi, "").trim() + " (Tabiiy)";
+    if (/zira/i.test(name)) return "Zira (Klassik robot ovoz)";
+    if (/david/i.test(name)) return "David (Erkak robot)";
+    return name.length > 28 ? name.substring(0, 26) + "..." : name;
+  }
+
+  function getVoiceRank(v) {
+    var n = v.name;
+    // 19-20 year old / youthful natural neural female voices
+    if (/jenny.*online.*natural/i.test(n)) return 100;
+    if (/ava.*online.*natural/i.test(n)) return 95;
+    if (/emma.*online.*natural/i.test(n)) return 92;
+    if (/aria.*online.*natural/i.test(n)) return 90;
+    if (/ana.*online.*natural/i.test(n)) return 88;
+    if (/google.*us.*english/i.test(n)) return 85;
+    if (/google.*uk.*female/i.test(n)) return 82;
+    if (/samantha.*enhanced/i.test(n)) return 80;
+    if (/natural.*female|online.*female/i.test(n)) return 75;
+    if (/natural|online/i.test(n) && !/male|david|mark|george/i.test(n)) return 70;
+    if (/samantha|victoria|karen/i.test(n)) return 60;
+    if (/female/i.test(n) && !/desktop/i.test(n)) return 50;
+    // Avoid robotic desktop voices
+    if (/zira/i.test(n)) return 15;
+    if (/desktop/i.test(n) || /david|mark/i.test(n)) return 10;
+    return 40;
+  }
+
+  function getAvailableVoices() {
+    var vs = [];
+    try { vs = window.speechSynthesis.getVoices() || []; } catch (e) {}
+    var en = vs.filter(function (v) { return /^en/i.test(v.lang); });
+    if (en.length === 0) return vs;
+    return en.sort(function (a, b) { return getVoiceRank(b) - getVoiceRank(a); });
+  }
+
+  var selectedVoiceName = "";
+  try { selectedVoiceName = localStorage.getItem("fc-preferred-voice") || ""; } catch (e) {}
+
+  function pickVoice() {
+    var pool = getAvailableVoices();
+    if (!pool || pool.length === 0) return null;
+
+    if (selectedVoiceName) {
+      var found = pool.find(function (v) { return v.name === selectedVoiceName; });
+      if (found) return found;
+    }
+
+    return pool[0] || null;
+  }
+
+  function populateVoiceDropdowns() {
+    var voices = getAvailableVoices();
+    var currentVoice = pickVoice();
+    var globalSelect = $("globalVoiceSelect");
+    var lisSelect = $("lisVoiceSelect");
+
+    [globalSelect, lisSelect].forEach(function (sel) {
+      if (!sel) return;
+      sel.innerHTML = "";
+      if (voices.length === 0) {
+        var opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "Standart inglizcha opa";
+        sel.appendChild(opt);
+        return;
+      }
+      voices.forEach(function (v) {
+        var opt = document.createElement("option");
+        opt.value = v.name;
+        opt.textContent = formatVoiceName(v);
+        if (currentVoice && v.name === currentVoice.name) {
+          opt.selected = true;
+        }
+        sel.appendChild(opt);
+      });
+    });
+  }
+
+  function onVoiceChange(voiceName) {
+    selectedVoiceName = voiceName;
+    try { localStorage.setItem("fc-preferred-voice", selectedVoiceName); } catch (e) {}
+    var globalSelect = $("globalVoiceSelect");
+    var lisSelect = $("lisVoiceSelect");
+    if (globalSelect && globalSelect.value !== voiceName) globalSelect.value = voiceName;
+    if (lisSelect && lisSelect.value !== voiceName) lisSelect.value = voiceName;
+  }
+
+  if ($("globalVoiceSelect")) {
+    $("globalVoiceSelect").addEventListener("change", function (e) {
+      onVoiceChange(e.target.value);
+    });
+  }
+  if ($("lisVoiceSelect")) {
+    $("lisVoiceSelect").addEventListener("change", function (e) {
+      onVoiceChange(e.target.value);
+    });
+  }
+
+  function previewVoice() {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    window.speechSynthesis.cancel();
+    var v = pickVoice();
+    var phrase = "Hello! I am ready to read and listen with you. Speak fast and clear!";
+    var u = new SpeechSynthesisUtterance(phrase);
+    u.lang = "en-US";
+    u.rate = 0.97;
+    u.pitch = 1.14; // Bright, youthful 19-20 year old female tone
+    if (v) { u.voice = v; u.lang = v.lang; }
+    window.speechSynthesis.speak(u);
+  }
+
+  var previewVoiceBtn = $("previewVoiceBtn");
+  if (previewVoiceBtn) {
+    previewVoiceBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      previewVoice();
+    });
+  }
+
+  function intro(done) {
+    var fired = false;
+    function go() { if (fired) return; fired = true; clearTimeout(introTimer); done(); }
+    if (INTRO_AUDIO) {
+      try {
+        var a = new Audio(INTRO_AUDIO);
+        a.onended = go; a.onerror = go;
+        var pr = a.play(); if (pr && pr.catch) pr.catch(go);
+      } catch (e) { go(); return; }
+      introTimer = setTimeout(go, 7000);
+      return;
+    }
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+      introTimer = setTimeout(go, 600); return;
+    }
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(INTRO_TEXT);
+      u.lang = "en-US";
+      u.rate = 0.97;
+      u.pitch = 1.14; // 19-20 yoshli opa intonatsiyasi
+      var v = pickVoice();
+      if (v) { u.voice = v; u.lang = v.lang; }
+      u.onend = go; u.onerror = go;
+      window.speechSynthesis.speak(u);
+    } catch (e) { go(); return; }
+    introTimer = setTimeout(go, 5000);
+  }
+  function stopVoice() {
+    clearTimeout(introTimer);
+    try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) {}
+  }
+
+  /* Reader */
+  function setState(st) {
+    S.state = st;
+    var label = { intro: "Tinglang", play: "Ovoz chiqarib o'qing", pause: "To'xtatildi", done: "Tugadi" }[st];
+    rstatus.textContent = label;
+    toggle.textContent = st === "pause" ? "Davom etish" : "To'xtatish";
+    toggle.disabled = st === "intro" || st === "done";
+    toggle.style.opacity = toggle.disabled ? "0.35" : "1";
+    done.hidden = st !== "done";
+
+    if (st === "intro") {
+      stopAllAudioPlayback();
+      Dictaphone.prepare();
+    } else if (st === "play") {
+      stopAllAudioPlayback();
+      if (Dictaphone.state === "paused") {
+        Dictaphone.resume();
+      } else {
+        Dictaphone.start();
+      }
+    } else if (st === "pause") {
+      Dictaphone.pause();
+    } else if (st === "done") {
+      Dictaphone.stopAndSave(S.topic.title, S.topic.uz, LEVEL, function (savedRec) {
+        if (savedRec) {
+          doneSub.textContent = "Yaxshi o'qidingiz! Ovozli yozuv saqlandi.";
+          doneAudioBox.hidden = false;
+          doneAudioBox.innerHTML = "";
+
+          var doneCard = document.createElement("div");
+          doneCard.className = "done-audio-card";
+
+          var head = document.createElement("div");
+          head.className = "done-audio-head";
+          head.innerHTML = '<span class="done-audio-label">' + MIC_SVG + ' Sizning ovozingiz</span><span class="done-audio-storage-info">' + savedRec.durationFormatted + ' \u00b7 Saqlandi (' + getSavedRecordings().length + '/5)</span>';
+
+          var player = createAudioPlayer(savedRec.audioData, savedRec.durationFormatted);
+
+          doneCard.appendChild(head);
+          doneCard.appendChild(player);
+          doneAudioBox.appendChild(doneCard);
+        } else {
+          doneSub.textContent = "Yaxshi o'qidingiz. Yana bir bor urinib ko'ring.";
+          doneAudioBox.hidden = true;
+          doneAudioBox.innerHTML = "";
+        }
+      });
+    }
+  }
+
+  /* Reading position is stored as a fractional line index so it survives a re-wrap. */
+  function posToP(pos, c, avg) {
+    var n = c.length, off = c[0] + pos;
+    if (n < 2 || off <= c[0]) return 0;
+    if (off >= c[n - 1]) return n - 1 + (off - c[n - 1]) / avg;
+    var i = 0;
+    while (i < n - 2 && off >= c[i + 1]) i++;
+    return i + (off - c[i]) / (c[i + 1] - c[i]);
+  }
+  function pToPos(p, c, avg) {
+    var n = c.length;
+    if (n < 2 || p <= 0) return 0;
+    if (p >= n - 1) return c[n - 1] - c[0] + (p - (n - 1)) * avg;
+    var i = Math.floor(p);
+    return c[i] - c[0] + (c[i + 1] - c[i]) * (p - i);
+  }
+
+  function layout() {
+    if (!S) return;
+    var keep = S.centers ? posToP(S.pos, S.centers, S.avgLine) : 0;
+    S.H = stage.clientHeight;
+    S.centers = S.els.map(function (el) { return el.offsetTop + el.offsetHeight / 2; });
+    var n = S.els.length, c = S.centers, sum = 0;
+    for (var i = 0; i < n - 1; i++) sum += S.words[i];
+    S.span = c[n - 1] - c[0];
+    S.pxPerWord = sum > 0 ? S.span / sum : 20;
+    S.end = S.span + S.pxPerWord * S.words[n - 1];
+    S.avgLine = n > 1 ? S.span / (n - 1) : 40;
+    S.pos = Math.min(S.end, pToPos(keep, c, S.avgLine));
+    render();
+  }
+
+  function render() {
+    if (!S || !S.centers) return;
+    var n = S.els.length, c = S.centers, H = S.H;
+    var focus = H * 0.42;
+    var off = c[0] + S.pos;
+    track.style.transform = "translate3d(0," + (focus - off).toFixed(1) + "px,0)";
+    var p = posToP(S.pos, c, S.avgLine);
+    for (var k = 0; k < n; k++) {
+      var d = Math.abs(k - p);
+      var o = Math.max(0.1, 1 - 0.55 * d);
+      o = Math.round(o * 100) / 100;
+      if (S.ops[k] !== o) { S.ops[k] = o; S.els[k].style.opacity = o; }
+    }
+    bar.style.width = Math.max(0, Math.min(1, S.pos / S.end)) * 100 + "%";
+  }
+
+  function tick(ts) {
+    raf = requestAnimationFrame(tick);
+    if (!S) return;
+    var dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+    if (S.state !== "play" || !S.centers) return;
+    /* constant pixel speed for the whole text: words per second times pixels per word */
+    S.pos += dt * (wpm / 60) * S.pxPerWord;
+    if (S.pos >= S.end) { S.pos = S.end; render(); setState("done"); return; }
+    render();
+  }
+
+  function begin() {
+    var my = ++token;
+    S.token = my; S.pos = 0; S.ops = [];
+    stopAllAudioPlayback();
+    Dictaphone.cancel();
+    doneAudioBox.hidden = true;
+    doneAudioBox.innerHTML = "";
+    setState("intro");
+    layout();
+    intro(function () { if (S && S.token === my && S.state === "intro") setState("play"); });
+  }
+
+  function openTopic(i) {
+    stopAllAudioPlayback();
+    var t = TOPICS[i], lines = t.t[LEVEL];
+    track.innerHTML = "";
+    var els = lines.map(function (txt) {
+      var p = document.createElement("p"); p.className = "line"; p.textContent = txt; track.appendChild(p); return p;
+    });
+    S = { topic: t, els: els, words: lines.map(function (s) { return s.split(/\s+/).length; }), centers: null, pos: 0, span: 0, end: 1, pxPerWord: 20, avgLine: 40, state: "intro", token: 0, ops: [], H: 0 };
+    rname.textContent = t.title + " \u00b7 " + LEVEL;
+    home.hidden = true; reader.hidden = false; document.body.classList.add("locked");
+    window.scrollTo(0, 0);
+    last = performance.now();
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+    begin();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  }
+
+  function closeReader() {
+    stopVoice(); token++;
+    cancelAnimationFrame(raf);
+    stopAllAudioPlayback();
+    Dictaphone.cancel();
+    S = null;
+    reader.hidden = true; home.hidden = false; document.body.classList.remove("locked");
+    renderSavedRecordings();
+  }
+
+  function togglePause() {
+    if (!S) return;
+    if (S.state === "play") setState("pause");
+    else if (S.state === "pause") setState("play");
+  }
+
+  toggle.addEventListener("click", function (e) { e.stopPropagation(); togglePause(); });
+  stage.addEventListener("click", togglePause);
+  $("back").addEventListener("click", closeReader);
+  $("other").addEventListener("click", closeReader);
+  $("again").addEventListener("click", function () { stopVoice(); begin(); });
+  var relayout = 0;
+  function scheduleLayout() {
+    if (relayout) return;
+    relayout = requestAnimationFrame(function () { relayout = 0; layout(); });
+  }
+  window.addEventListener("resize", scheduleLayout);
+  window.addEventListener("orientationchange", scheduleLayout);
+  if (window.ResizeObserver) new ResizeObserver(scheduleLayout).observe(stage);
+  /* ---------- Listening Module ---------- */
+  var LIS_STORAGE_KEY = "fc-listening-results";
+  var LIS_LEVEL = LEVEL;
+  try {
+    var savedLisLvl = localStorage.getItem("fc-lis-level");
+    if (savedLisLvl && ["A1", "A2", "B1", "B2"].indexOf(savedLisLvl) !== -1) {
+      LIS_LEVEL = savedLisLvl;
+    }
+  } catch (e) {}
+
+  var APP_MODE = "speaking";
+  try {
+    var sm = localStorage.getItem("fc-app-mode");
+    if (sm === "listening" || sm === "speaking") APP_MODE = sm;
+  } catch (e) {}
+
+  function getLisResults() {
+    try {
+      var raw = localStorage.getItem(LIS_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveLisResult(topicId, score, total) {
+    var results = getLisResults();
+    results[topicId] = {
+      score: score,
+      total: total,
+      pct: Math.round((score / total) * 100),
+      date: Date.now()
+    };
+    try {
+      localStorage.setItem(LIS_STORAGE_KEY, JSON.stringify(results));
+    } catch (e) {}
+  }
+
+  function setAppMode(mode) {
+    APP_MODE = mode;
+    try { localStorage.setItem("fc-app-mode", APP_MODE); } catch (e) {}
+    if (mode === "listening") {
+      tabListening.classList.add("active");
+      tabListening.setAttribute("aria-selected", "true");
+      tabSpeaking.classList.remove("active");
+      tabSpeaking.setAttribute("aria-selected", "false");
+      speakingSection.hidden = true;
+      listeningSection.hidden = false;
+      renderLisLevels();
+      renderLisTopics();
+    } else {
+      tabSpeaking.classList.add("active");
+      tabSpeaking.setAttribute("aria-selected", "true");
+      tabListening.classList.remove("active");
+      tabListening.setAttribute("aria-selected", "false");
+      speakingSection.hidden = false;
+      listeningSection.hidden = true;
+    }
+  }
+
+  tabSpeaking.addEventListener("click", function () { setAppMode("speaking"); });
+  tabListening.addEventListener("click", function () { setAppMode("listening"); });
+
+  function renderLisLevels() {
+    lisLevelsEl.innerHTML = "";
+    LEVELS.forEach(function (lv) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "level";
+      b.setAttribute("aria-pressed", lv.code === LIS_LEVEL ? "true" : "false");
+      b.innerHTML = '<span class="code"></span><span class="lab"></span>';
+      b.querySelector(".code").textContent = lv.code;
+      b.querySelector(".lab").textContent = lv.lab;
+      b.addEventListener("click", function () {
+        LIS_LEVEL = lv.code;
+        try { localStorage.setItem("fc-lis-level", LIS_LEVEL); } catch (e) {}
+        renderLisLevels();
+        renderLisTopics();
+      });
+      lisLevelsEl.appendChild(b);
+    });
+  }
+
+  function renderLisTopics() {
+    lisListEl.innerHTML = "";
+    var filtered = LISTENING_DATA.filter(function (it) { return it.level === LIS_LEVEL; });
+    var results = getLisResults();
+
+    if (filtered.length === 0) {
+      lisListEl.innerHTML = '<li style="padding: 24px 0; color: var(--muted);">Ushbu daraja uchun mavzular tez kunda qo\'shiladi.</li>';
+      return;
+    }
+
+    filtered.forEach(function (item) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "topic";
+
+      var res = results[item.id];
+      var badgeHtml = "";
+      if (res) {
+        badgeHtml = '<span class="lis-badge-done">' + (res.score === res.total ? '&#10003; ' : '') + res.score + '/' + res.total + '</span>';
+      }
+
+      b.innerHTML = '<span class="t"><span class="name"></span><span class="uz"></span></span>' +
+                    '<span class="lis-meta-wrap">' + badgeHtml + '<span class="meta"></span></span>';
+
+      b.querySelector(".name").textContent = item.title;
+      b.querySelector(".uz").textContent = item.uz;
+      b.querySelector(".meta").textContent = item.questions.length + " savol \u00b7 ~" + Math.max(1, Math.round(item.questions.length * 0.7)) + " daq";
+
+      b.addEventListener("click", function () {
+        openListeningTopic(item);
+      });
+
+      li.appendChild(b);
+      lisListEl.appendChild(li);
+    });
+  }
+
+  var activeLisTopic = null;
+  var lisAudio = null;
+  var lisUtterance = null;
+  var lisIsPlaying = false;
+  var lisRate = 1.0;
+  var lisCurrentSeconds = 0;
+  var lisDurationSeconds = 30;
+  var lisTimerInterval = null;
+  var userLisAnswers = {};
+  var lisQuizChecked = false;
+  var lisIsTranscriptOpen = false;
+
+  var LIS_PLAY_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
+  var LIS_PAUSE_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+  function stopLisAudio() {
+    clearInterval(lisTimerInterval);
+    lisTimerInterval = null;
+    if (lisAudio) {
+      try { lisAudio.pause(); } catch (e) {}
+      lisAudio = null;
+    }
+    if (window.speechSynthesis) {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+    lisIsPlaying = false;
+    lisPlayBtn.innerHTML = LIS_PLAY_ICON;
+    lisAudioIcon.classList.remove("playing");
+  }
+
+  function updateLisPlayerUI() {
+    lisCurrentTime.textContent = formatTime(lisCurrentSeconds);
+    lisTotalTime.textContent = formatTime(lisDurationSeconds);
+    var pct = lisDurationSeconds > 0 ? (lisCurrentSeconds / lisDurationSeconds) * 100 : 0;
+    lisProgressBar.value = String(Math.min(100, Math.max(0, pct)));
+  }
+
+  function startLisAudioTimer() {
+    clearInterval(lisTimerInterval);
+    lisTimerInterval = setInterval(function () {
+      if (!lisIsPlaying) return;
+      lisCurrentSeconds += 0.25;
+      if (lisCurrentSeconds >= lisDurationSeconds) {
+        lisCurrentSeconds = lisDurationSeconds;
+        updateLisPlayerUI();
+        stopLisAudio();
+        lisStatusTitle.textContent = "Tinglash yakunlandi";
+        lisStatusSub.textContent = "Savollarga javob bering yoki qayta eshiting";
+        return;
+      }
+      updateLisPlayerUI();
+    }, 250);
+  }
+
+  function playLisSpeech() {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+      alert("Brauzeringiz ovoz sintezini qo'llab-quvvatlamaydi.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+
+    // Clean speaker labels for natural flow
+    var cleanText = activeLisTopic.transcript
+      .replace(/^[A-Za-z\s]+:\s*/gm, "")
+      .replace(/\n+/g, " ");
+
+    var u = new SpeechSynthesisUtterance(cleanText);
+    u.lang = "en-US";
+    u.rate = lisRate * 0.97;
+    u.pitch = 1.14; // 19-20 yoshli opa intonatsiyasi
+    var v = pickVoice();
+    if (v) { u.voice = v; u.lang = v.lang; }
+
+    u.onstart = function () {
+      lisIsPlaying = true;
+      lisPlayBtn.innerHTML = LIS_PAUSE_ICON;
+      lisAudioIcon.classList.add("playing");
+      var shortName = v ? formatVoiceName(v).split(" ")[0] : "Opa";
+      lisStatusTitle.textContent = "Audio yangramoqda (" + shortName + ")...";
+      lisStatusSub.textContent = "Diqqat bilan tinglang";
+      startLisAudioTimer();
+    };
+
+    u.onend = function () {
+      lisCurrentSeconds = lisDurationSeconds;
+      updateLisPlayerUI();
+      stopLisAudio();
+      lisStatusTitle.textContent = "Tinglash yakunlandi";
+      lisStatusSub.textContent = "Savollarga javob bering yoki qayta eshiting";
+    };
+
+    u.onerror = function () {
+      stopLisAudio();
+      lisStatusTitle.textContent = "To'xtatildi";
+      lisStatusSub.textContent = "Qayta urinib ko'ring";
+    };
+
+    lisUtterance = u;
+    window.speechSynthesis.speak(u);
+  }
+
+  function playLisAudioSrc() {
+    if (!lisAudio) {
+      lisAudio = new Audio(activeLisTopic.audioSrc);
+      lisAudio.playbackRate = lisRate;
+      lisAudio.addEventListener("loadedmetadata", function () {
+        if (lisAudio.duration && !isNaN(lisAudio.duration)) {
+          lisDurationSeconds = lisAudio.duration;
+          updateLisPlayerUI();
+        }
+      });
+      lisAudio.addEventListener("timeupdate", function () {
+        lisCurrentSeconds = lisAudio.currentTime;
+        updateLisPlayerUI();
+      });
+      lisAudio.addEventListener("ended", function () {
+        stopLisAudio();
+        lisStatusTitle.textContent = "Tinglash yakunlandi";
+        lisStatusSub.textContent = "Savollarga javob bering yoki qayta eshiting";
+      });
+    }
+    lisAudio.playbackRate = lisRate;
+    lisAudio.play().then(function () {
+      lisIsPlaying = true;
+      lisPlayBtn.innerHTML = LIS_PAUSE_ICON;
+      lisAudioIcon.classList.add("playing");
+      lisStatusTitle.textContent = "Audio yangramoqda...";
+      lisStatusSub.textContent = "Diqqat bilan tinglang";
+    }).catch(function (e) {
+      console.warn("Audio play error, falling back to TTS:", e);
+      playLisSpeech();
+    });
+  }
+
+  function toggleLisPlay() {
+    if (!activeLisTopic) return;
+    if (lisIsPlaying) {
+      if (lisAudio) {
+        try { lisAudio.pause(); } catch (e) {}
+      } else if (window.speechSynthesis) {
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+        clearInterval(lisTimerInterval);
+      }
+      lisIsPlaying = false;
+      lisPlayBtn.innerHTML = LIS_PLAY_ICON;
+      lisAudioIcon.classList.remove("playing");
+      lisStatusTitle.textContent = "To'xtatildi (Pauza)";
+      lisStatusSub.textContent = "Davom ettirish uchun bosing";
+    } else {
+      if (activeLisTopic.audioSrc) {
+        playLisAudioSrc();
+      } else {
+        playLisSpeech();
+      }
+    }
+  }
+
+  function jumpLisAudio(delta) {
+    if (lisAudio) {
+      lisAudio.currentTime = Math.max(0, Math.min(lisDurationSeconds, lisAudio.currentTime + delta));
+      lisCurrentSeconds = lisAudio.currentTime;
+      updateLisPlayerUI();
+    } else {
+      lisCurrentSeconds = Math.max(0, Math.min(lisDurationSeconds, lisCurrentSeconds + delta));
+      updateLisPlayerUI();
+      if (lisIsPlaying) {
+        playLisSpeech();
+      }
+    }
+  }
+
+  lisPlayBtn.addEventListener("click", toggleLisPlay);
+  lisRewindBtn.addEventListener("click", function () { jumpLisAudio(-5); });
+  lisForwardBtn.addEventListener("click", function () { jumpLisAudio(5); });
+
+  lisProgressBar.addEventListener("input", function () {
+    var pct = parseFloat(lisProgressBar.value);
+    var targetSec = (pct / 100) * lisDurationSeconds;
+    lisCurrentSeconds = targetSec;
+    if (lisAudio) {
+      lisAudio.currentTime = targetSec;
+    }
+    updateLisPlayerUI();
+    if (lisIsPlaying && !lisAudio) {
+      playLisSpeech();
+    }
+  });
+
+  document.querySelectorAll(".lis-speed-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".lis-speed-btn").forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      lisRate = parseFloat(btn.dataset.rate) || 1.0;
+      if (lisAudio) {
+        lisAudio.playbackRate = lisRate;
+      } else if (lisIsPlaying) {
+        playLisSpeech();
+      }
+    });
+  });
+
+  function renderTranscript(text) {
+    var lines = text.split("\n");
+    return lines.map(function (line) {
+      var m = line.match(/^([A-Za-z\s]+):\s*(.*)$/);
+      if (m) {
+        return '<div class="lis-transcript-line"><span class="lis-transcript-speaker">' + escapeHtml(m[1]) + ':</span> ' + escapeHtml(m[2]) + '</div>';
+      }
+      return '<div class="lis-transcript-line">' + escapeHtml(line) + '</div>';
+    }).join("");
+  }
+
+  function renderQuestions() {
+    lisQuestionsEl.innerHTML = "";
+    activeLisTopic.questions.forEach(function (qObj, qIdx) {
+      var card = document.createElement("div");
+      card.className = "lis-q-card";
+      card.id = "lisQC_" + qIdx;
+
+      var title = document.createElement("h3");
+      title.className = "lis-q-title";
+      title.innerHTML = '<span class="lis-q-num">#' + (qIdx + 1) + '</span> <span>' + escapeHtml(qObj.q) + '</span>';
+      card.appendChild(title);
+
+      var grid = document.createElement("div");
+      grid.className = "lis-options-grid";
+
+      var letters = ["A", "B", "C", "D"];
+      qObj.options.forEach(function (optText, optIdx) {
+        var optBtn = document.createElement("button");
+        optBtn.type = "button";
+        optBtn.className = "lis-opt" + (userLisAnswers[qIdx] === optIdx ? " selected" : "");
+        optBtn.id = "lisOpt_" + qIdx + "_" + optIdx;
+        optBtn.innerHTML = '<span class="lis-opt-letter">' + letters[optIdx] + '</span> <span>' + escapeHtml(optText) + '</span>';
+
+        optBtn.addEventListener("click", function () {
+          if (lisQuizChecked) return;
+          userLisAnswers[qIdx] = optIdx;
+          card.querySelectorAll(".lis-opt").forEach(function (b) { b.classList.remove("selected"); });
+          optBtn.classList.add("selected");
+        });
+
+        grid.appendChild(optBtn);
+      });
+
+      card.appendChild(grid);
+
+      var expBox = document.createElement("div");
+      expBox.className = "lis-exp-box";
+      expBox.id = "lisExp_" + qIdx;
+      expBox.style.display = "none";
+      expBox.innerHTML = '<strong>Izoh:</strong> ' + escapeHtml(qObj.exp);
+      card.appendChild(expBox);
+
+      lisQuestionsEl.appendChild(card);
+    });
+  }
+
+  function checkListeningAnswers() {
+    var totalQ = activeLisTopic.questions.length;
+    var answeredCount = Object.keys(userLisAnswers).length;
+    if (answeredCount < totalQ) {
+      alert("Iltimos, tekshirishdan oldin barcha savollarga (" + totalQ + " ta) javob belgilang.");
+      return;
+    }
+
+    lisQuizChecked = true;
+    var score = 0;
+
+    activeLisTopic.questions.forEach(function (qObj, qIdx) {
+      var selected = userLisAnswers[qIdx];
+      var isCorrect = (selected === qObj.correct);
+      if (isCorrect) score++;
+
+      var exp = $("lisExp_" + qIdx);
+      if (exp) exp.style.display = "block";
+
+      qObj.options.forEach(function (_, optIdx) {
+        var optEl = $("lisOpt_" + qIdx + "_" + optIdx);
+        if (!optEl) return;
+        optEl.classList.add("disabled");
+        if (optIdx === qObj.correct) {
+          optEl.classList.add("correct");
+        } else if (optIdx === selected && !isCorrect) {
+          optEl.classList.add("wrong");
+        } else {
+          optEl.classList.add("dimmed");
+        }
+      });
+    });
+
+    saveLisResult(activeLisTopic.id, score, totalQ);
+
+    lisResultCard.hidden = false;
+    lisActionBar.hidden = true;
+    lisResultScoreBadge.textContent = score + " / " + totalQ;
+    if (score / totalQ < 0.6) {
+      lisResultScoreBadge.classList.add("low");
+      lisResultHeading.textContent = "Yana bir bor urinib ko'ring!";
+      lisResultDesc.textContent = "Audioni qayta tinglab, xatolaringizni tahlil qiling.";
+    } else {
+      lisResultScoreBadge.classList.remove("low");
+      lisResultHeading.textContent = score === totalQ ? "Ajoyib! 100% natija!" : "Yaxshi natija!";
+      lisResultDesc.textContent = "Siz audiodagi asosiy fikrlarni to'g'ri ilg'adingiz.";
+    }
+
+    lisResultCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  lisSubmitBtn.addEventListener("click", checkListeningAnswers);
+
+  lisRetryBtn.addEventListener("click", function () {
+    userLisAnswers = {};
+    lisQuizChecked = false;
+    lisResultCard.hidden = true;
+    lisActionBar.hidden = false;
+    lisTranscriptBox.hidden = true;
+    lisIsTranscriptOpen = false;
+    lisToggleTranscriptBtn.textContent = "Transkriptni ko'rish";
+    renderQuestions();
+    lisQuestionsEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  lisToggleTranscriptBtn.addEventListener("click", function () {
+    lisIsTranscriptOpen = !lisIsTranscriptOpen;
+    lisTranscriptBox.hidden = !lisIsTranscriptOpen;
+    lisToggleTranscriptBtn.textContent = lisIsTranscriptOpen ? "Transkriptni yashirish" : "Transkriptni ko'rish";
+    if (lisIsTranscriptOpen) {
+      lisTranscriptBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  });
+
+  function openListeningTopic(topic) {
+    stopAllAudioPlayback();
+    stopVoice();
+    stopLisAudio();
+
+    activeLisTopic = topic;
+    userLisAnswers = {};
+    lisQuizChecked = false;
+    lisIsTranscriptOpen = false;
+    lisCurrentSeconds = 0;
+
+    var words = topic.transcript.split(/\s+/).length;
+    lisDurationSeconds = Math.max(15, Math.round((words / 135) * 60));
+
+    lisTitle.textContent = topic.title + " \u00b7 " + topic.uz;
+    lisLevelBadge.textContent = topic.level;
+
+    lisStatusTitle.textContent = "Tinglashga tayyor";
+    lisStatusSub.textContent = "Audioni eshitish uchun 'Play' tugmasini bosing";
+
+    lisResultCard.hidden = true;
+    lisActionBar.hidden = false;
+    lisTranscriptBox.hidden = true;
+    lisToggleTranscriptBtn.textContent = "Transkriptni ko'rish";
+
+    updateLisPlayerUI();
+    renderQuestions();
+    lisTranscriptContent.innerHTML = renderTranscript(topic.transcript);
+
+    home.hidden = true;
+    listeningReader.hidden = false;
+    document.body.classList.add("locked");
+    window.scrollTo(0, 0);
+  }
+
+  function closeListeningReader() {
+    stopLisAudio();
+    activeLisTopic = null;
+    listeningReader.hidden = true;
+    home.hidden = false;
+    document.body.classList.remove("locked");
+    renderLisTopics();
+  }
+
+  lisBack.addEventListener("click", closeListeningReader);
+
+  // Initialize App Mode
+  setAppMode(APP_MODE);
+
+  document.addEventListener("keydown", function (e) {
+    if (activeLisTopic && !listeningReader.hidden) {
+      if (e.key === "Escape") closeListeningReader();
+      else if ((e.key === " " || e.code === "Space") && !/BUTTON|INPUT/.test(e.target.tagName)) {
+        e.preventDefault();
+        toggleLisPlay();
+      }
+      return;
+    }
+    if (!S) return;
+    if (e.key === "Escape") closeReader();
+    else if ((e.key === " " || e.code === "Space") && e.target === document.body) { e.preventDefault(); togglePause(); }
+  });
+  // Initialize and populate available voices
+  populateVoiceDropdowns();
+  if (window.speechSynthesis) {
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = populateVoiceDropdowns;
+    }
+    if (window.speechSynthesis.addEventListener) {
+      window.speechSynthesis.addEventListener("voiceschanged", populateVoiceDropdowns);
+    }
+  }
+})();
+</script>
+
+</body></html>
