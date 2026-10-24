@@ -1103,6 +1103,516 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
   color: var(--accent);
 }
 
+/* ---------- Vocabulary Section ---------- */
+.vocab-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.vocab-submodes {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f2f5;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid var(--line);
+}
+.vocab-submode-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  min-height: 32px;
+}
+.vocab-submode-btn:hover {
+  color: var(--ink);
+}
+.vocab-submode-btn.active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.vocab-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+}
+.vocab-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+.vocab-search-input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--line);
+  background: #fbfbfc;
+  border-radius: 8px;
+  padding: 0 34px 0 36px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.vocab-search-input:focus {
+  border-color: var(--ink);
+  background: #fff;
+}
+.vocab-clear-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  display: grid;
+  place-content: center;
+  border-radius: 4px;
+}
+.vocab-clear-btn:hover {
+  color: var(--ink);
+}
+.vocab-progress-badge {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: #f1f2f5;
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.vocab-badge-num {
+  color: var(--accent);
+}
+
+/* Grid View */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 680px) {
+  .vocab-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.vocab-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s ease;
+}
+.vocab-card:hover {
+  border-color: #c4c6cd;
+}
+.vocab-card.learned {
+  background: #fafbfa;
+  border-color: #d3e7d5;
+}
+.vocab-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.vocab-card-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vocab-word {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.vocab-pos {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.vocab-ipa {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-family: system-ui, sans-serif;
+}
+.vocab-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vocab-audio-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #f8f9fa;
+  color: var(--ink);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.vocab-audio-btn:hover {
+  border-color: var(--ink);
+  background: #edf0f3;
+}
+.vocab-check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #f8f9fa;
+  color: var(--muted);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.vocab-check-btn:hover {
+  border-color: #2b8a3e;
+  color: #2b8a3e;
+}
+.vocab-card.learned .vocab-check-btn {
+  background: #2b8a3e;
+  border-color: #2b8a3e;
+  color: #fff;
+}
+.vocab-meaning {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #2c3038;
+}
+.vocab-ex-box {
+  background: #f8f9fb;
+  border-left: 2px solid var(--line);
+  border-radius: 0 6px 6px 0;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.vocab-card.learned .vocab-ex-box {
+  border-left-color: #69db7c;
+}
+.vocab-ex-en {
+  color: var(--ink);
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+.vocab-ex-uz {
+  margin: 0;
+  color: var(--muted);
+}
+.vocab-empty {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+}
+
+/* Flashcard View */
+.vocab-flashcard-wrap {
+  max-width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.vocab-flashcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.vocab-fc-counter {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.vocab-fc-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #edf0ff;
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.vocab-flashcard {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 36px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.vocab-fc-word {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.vocab-fc-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.vocab-fc-pos {
+  font-weight: 600;
+}
+.vocab-fc-audio-btn {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f2f5;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.vocab-fc-audio-btn:hover {
+  border-color: var(--ink);
+  background: #e6e8ec;
+}
+.vocab-fc-back {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.vocab-fc-divider {
+  height: 1px;
+  background: var(--line);
+  width: 100%;
+  margin: 6px 0;
+}
+.vocab-fc-uz {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.vocab-fc-example {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: left;
+}
+.vocab-fc-en-ex {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.vocab-fc-uz-ex {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin: 0;
+}
+.vocab-fc-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vocab-fc-nav-row {
+  display: flex;
+  gap: 10px;
+}
+.vocab-fc-nav-row .btn {
+  flex: 1;
+}
+
+/* Quiz View */
+.vocab-quiz-wrap {
+  max-width: 36rem;
+  margin: 0 auto;
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.vocab-quiz-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.vocab-quiz-step {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.vocab-quiz-prompt {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+.vocab-quiz-score-badge {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: #e6fcf5;
+  color: #0ca678;
+  border: 1px solid #c3fae8;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.vocab-quiz-word-box {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.vocab-quiz-word {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.vocab-quiz-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.vocab-quiz-audio-btn {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  display: grid;
+  place-content: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+.vocab-quiz-audio-btn:hover {
+  color: var(--ink);
+}
+.vocab-quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.vocab-quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  min-height: 48px;
+}
+.vocab-quiz-opt:hover:not(.disabled) {
+  border-color: var(--ink);
+  background: #f8f9fa;
+}
+.vocab-quiz-opt.correct {
+  border-color: #2b8a3e !important;
+  background: #ebfbee !important;
+  color: #2b8a3e !important;
+  font-weight: 600;
+}
+.vocab-quiz-opt.wrong {
+  border-color: #c92a2a !important;
+  background: #fff5f5 !important;
+  color: #c92a2a !important;
+  font-weight: 600;
+}
+.vocab-quiz-opt.dimmed {
+  opacity: 0.45;
+  cursor: default;
+}
+.vocab-quiz-opt-letter {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: #eef0f3;
+  color: var(--ink);
+  display: grid;
+  place-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.vocab-quiz-opt.correct .vocab-quiz-opt-letter {
+  background: #2b8a3e;
+  color: #fff;
+}
+.vocab-quiz-opt.wrong .vocab-quiz-opt-letter {
+  background: #c92a2a;
+  color: #fff;
+}
+.vocab-quiz-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+}
+.vocab-quiz-feedback {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.vocab-quiz-feedback.correct {
+  color: #2b8a3e;
+}
+.vocab-quiz-feedback.wrong {
+  color: #c92a2a;
+}
+
 </style>
 
 <main class="home" id="home">
@@ -1115,6 +1625,10 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
       <button class="mode-btn" id="tabListening" type="button" role="tab" aria-selected="false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
         Listening (Tinglash)
+      </button>
+      <button class="mode-btn" id="tabVocabulary" type="button" role="tab" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Vocabulary (Lug'at)
       </button>
     </div>
   </div>
@@ -1155,6 +1669,123 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
     <p class="lead">Inglizcha suhbat yoki hikoyani diqqat bilan tinglang va savollarga javob bering. Quloq solish mahoratingizni sinang.</p>
     <div class="levels" id="lisLevels" role="group" aria-label="Listening darajasi"></div>
     <ul class="topics" id="lisTopics"></ul>
+  </div>
+
+  <div id="vocabularySection" hidden>
+    <p class="brand">Vocabulary practice</p>
+    <h1>Words &amp; Context</h1>
+    <p class="lead">Darajangizni tanlang, yangi so'zlarni namunaviy gaplar va to'g'ri talaffuzi bilan o'rganing.</p>
+
+    <div class="levels" id="vocabLevels" role="group" aria-label="Lug'at darajasi"></div>
+
+    <div class="vocab-toolbar">
+      <div class="vocab-submodes" role="tablist" aria-label="Lug'at rejimi">
+        <button type="button" class="vocab-submode-btn active" id="submodeList" data-submode="list">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Ro'yxat
+        </button>
+        <button type="button" class="vocab-submode-btn" id="submodeCards" data-submode="cards">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Flashcards
+        </button>
+        <button type="button" class="vocab-submode-btn" id="submodeQuiz" data-submode="quiz">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Mashq
+        </button>
+      </div>
+
+      <div class="vocab-search-wrap">
+        <svg class="vocab-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="vocabSearchInput" class="vocab-search-input" placeholder="So'zni qidirish (inglizcha yoki o'zbekcha)..." autocomplete="off">
+        <button type="button" id="vocabClearSearch" class="vocab-clear-btn" hidden title="Tozalash">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="vocab-progress-badge" id="vocabProgressBadge">
+        <span class="vocab-badge-num" id="vocabLearnedCount">0</span>
+        <span class="vocab-badge-total" id="vocabTotalCount">/ 0 o'rganildi</span>
+      </div>
+    </div>
+
+    <!-- Mode 1: List View -->
+    <div id="vocabListView" class="vocab-view">
+      <div class="vocab-grid" id="vocabGrid"></div>
+      <div class="vocab-empty" id="vocabEmpty" hidden>
+        <p>Mos keluvchi so'z topilmadi.</p>
+      </div>
+    </div>
+
+    <!-- Mode 2: Flashcards View -->
+    <div id="vocabCardsView" class="vocab-view" hidden>
+      <div class="vocab-flashcard-wrap">
+        <div class="vocab-flashcard-header">
+          <span class="vocab-fc-counter" id="vocabFcCounter">1 / 20</span>
+          <span class="vocab-fc-badge" id="vocabFcBadge">A1</span>
+        </div>
+        <div class="vocab-flashcard" id="vocabFlashcard">
+          <div class="vocab-fc-front">
+            <div class="vocab-fc-word" id="vocabFcWord">grateful</div>
+            <div class="vocab-fc-meta">
+              <span class="vocab-fc-pos" id="vocabFcPos">adj.</span>
+              <span class="vocab-fc-ipa" id="vocabFcIpa">/ ˈɡreɪt.fəl /</span>
+            </div>
+            <button type="button" class="vocab-fc-audio-btn" id="vocabFcAudioBtn" title="Talaffuzni eshitish">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <span>Talaffuz</span>
+            </button>
+          </div>
+          <div class="vocab-fc-back" id="vocabFcBack" hidden>
+            <div class="vocab-fc-divider"></div>
+            <div class="vocab-fc-uz" id="vocabFcUz">minnatdor, shukr qiluvchi</div>
+            <div class="vocab-fc-example">
+              <p class="vocab-fc-en-ex" id="vocabFcEnEx">I am grateful for your help.</p>
+              <p class="vocab-fc-uz-ex" id="vocabFcUzEx">Yordamingiz uchun minnatdorman.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="vocab-fc-controls">
+          <button type="button" class="btn ghost" id="vocabFcFlipBtn">Ma'nosini ko'rsatish</button>
+          <div class="vocab-fc-nav-row">
+            <button type="button" class="btn ghost" id="vocabFcPrevBtn" title="Oldingi so'z">Oldingi</button>
+            <button type="button" class="btn" id="vocabFcMarkLearnedBtn">O'rgandim</button>
+            <button type="button" class="btn" id="vocabFcNextBtn" title="Keyingi so'z">Keyingi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode 3: Quiz View -->
+    <div id="vocabQuizView" class="vocab-view" hidden>
+      <div class="vocab-quiz-wrap">
+        <div class="vocab-quiz-header">
+          <div>
+            <div class="vocab-quiz-step" id="vocabQuizStep">Savol 1 / 10</div>
+            <h2 class="vocab-quiz-prompt" id="vocabQuizPrompt">Quyidagi so'zning to'g'ri tarjimasini tanlang:</h2>
+          </div>
+          <div class="vocab-quiz-score-badge" id="vocabQuizScoreBadge">0 to'g'ri</div>
+        </div>
+
+        <div class="vocab-quiz-word-box">
+          <div class="vocab-quiz-word" id="vocabQuizWord">consider</div>
+          <div class="vocab-quiz-meta">
+            <span class="vocab-quiz-pos" id="vocabQuizPos">verb</span>
+            <span class="vocab-quiz-ipa" id="vocabQuizIpa">/ kənˈsɪd.ər /</span>
+            <button type="button" class="vocab-quiz-audio-btn" id="vocabQuizAudioBtn" title="Talaffuz">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="vocab-quiz-options" id="vocabQuizOptions"></div>
+
+        <div class="vocab-quiz-footer">
+          <div class="vocab-quiz-feedback" id="vocabQuizFeedback" hidden></div>
+          <button type="button" class="btn" id="vocabQuizNextBtn" hidden>Keyingi savol</button>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -2508,6 +3139,24 @@ var LISTENING_DATA = [
   var lisRetryBtn = $("lisRetryBtn"), lisToggleTranscriptBtn = $("lisToggleTranscriptBtn");
   var lisTranscriptBox = $("lisTranscriptBox"), lisTranscriptContent = $("lisTranscriptContent");
 
+  /* ---------- Vocabulary Elements ---------- */
+  var tabVocabulary = $("tabVocabulary"), vocabularySection = $("vocabularySection");
+  var vocabLevelsEl = $("vocabLevels"), vocabGridEl = $("vocabGrid"), vocabEmptyEl = $("vocabEmpty");
+  var vocabSearchInput = $("vocabSearchInput"), vocabClearSearch = $("vocabClearSearch");
+  var vocabLearnedCountEl = $("vocabLearnedCount"), vocabTotalCountEl = $("vocabTotalCount");
+  var submodeList = $("submodeList"), submodeCards = $("submodeCards"), submodeQuiz = $("submodeQuiz");
+  var vocabListView = $("vocabListView"), vocabCardsView = $("vocabCardsView"), vocabQuizView = $("vocabQuizView");
+  var vocabFcCounter = $("vocabFcCounter"), vocabFcBadge = $("vocabFcBadge");
+  var vocabFcWord = $("vocabFcWord"), vocabFcPos = $("vocabFcPos"), vocabFcIpa = $("vocabFcIpa");
+  var vocabFcAudioBtn = $("vocabFcAudioBtn"), vocabFcBack = $("vocabFcBack");
+  var vocabFcUz = $("vocabFcUz"), vocabFcEnEx = $("vocabFcEnEx"), vocabFcUzEx = $("vocabFcUzEx");
+  var vocabFcFlipBtn = $("vocabFcFlipBtn"), vocabFcPrevBtn = $("vocabFcPrevBtn");
+  var vocabFcMarkLearnedBtn = $("vocabFcMarkLearnedBtn"), vocabFcNextBtn = $("vocabFcNextBtn");
+  var vocabQuizStep = $("vocabQuizStep"), vocabQuizScoreBadge = $("vocabQuizScoreBadge");
+  var vocabQuizWord = $("vocabQuizWord"), vocabQuizPos = $("vocabQuizPos"), vocabQuizIpa = $("vocabQuizIpa");
+  var vocabQuizAudioBtn = $("vocabQuizAudioBtn"), vocabQuizOptions = $("vocabQuizOptions");
+  var vocabQuizFeedback = $("vocabQuizFeedback"), vocabQuizNextBtn = $("vocabQuizNextBtn");
+
   var S = null;        /* { topic, els, words, centers, p, state, token } */
   var raf = 0, last = 0, token = 0, introTimer = 0;
   var wpm = 80;
@@ -3450,7 +4099,7 @@ var LISTENING_DATA = [
   var APP_MODE = "speaking";
   try {
     var sm = localStorage.getItem("fc-app-mode");
-    if (sm === "listening" || sm === "speaking") APP_MODE = sm;
+    if (sm === "listening" || sm === "speaking" || sm === "vocabulary") APP_MODE = sm;
   } catch (e) {}
 
   function getLisResults() {
@@ -3478,27 +4127,36 @@ var LISTENING_DATA = [
   function setAppMode(mode) {
     APP_MODE = mode;
     try { localStorage.setItem("fc-app-mode", APP_MODE); } catch (e) {}
+
+    tabSpeaking.classList.toggle("active", mode === "speaking");
+    tabSpeaking.setAttribute("aria-selected", mode === "speaking" ? "true" : "false");
+    tabListening.classList.toggle("active", mode === "listening");
+    tabListening.setAttribute("aria-selected", mode === "listening" ? "true" : "false");
+    if (tabVocabulary) {
+      tabVocabulary.classList.toggle("active", mode === "vocabulary");
+      tabVocabulary.setAttribute("aria-selected", mode === "vocabulary" ? "true" : "false");
+    }
+
+    speakingSection.hidden = mode !== "speaking";
+    listeningSection.hidden = mode !== "listening";
+    if (vocabularySection) {
+      vocabularySection.hidden = mode !== "vocabulary";
+    }
+
     if (mode === "listening") {
-      tabListening.classList.add("active");
-      tabListening.setAttribute("aria-selected", "true");
-      tabSpeaking.classList.remove("active");
-      tabSpeaking.setAttribute("aria-selected", "false");
-      speakingSection.hidden = true;
-      listeningSection.hidden = false;
       renderLisLevels();
       renderLisTopics();
-    } else {
-      tabSpeaking.classList.add("active");
-      tabSpeaking.setAttribute("aria-selected", "true");
-      tabListening.classList.remove("active");
-      tabListening.setAttribute("aria-selected", "false");
-      speakingSection.hidden = false;
-      listeningSection.hidden = true;
+    } else if (mode === "vocabulary") {
+      renderVocabLevels();
+      renderVocabContent();
     }
   }
 
   tabSpeaking.addEventListener("click", function () { setAppMode("speaking"); });
   tabListening.addEventListener("click", function () { setAppMode("listening"); });
+  if (tabVocabulary) {
+    tabVocabulary.addEventListener("click", function () { setAppMode("vocabulary"); });
+  }
 
   function renderLisLevels() {
     lisLevelsEl.innerHTML = "";
@@ -3935,6 +4593,570 @@ var LISTENING_DATA = [
   }
 
   lisBack.addEventListener("click", closeListeningReader);
+
+  /* ============================================================
+     VOCABULARY (LUG'AT) SECTION
+     ============================================================ */
+  var VOCAB_DATA = [
+    // A1
+    { id: "a1-1", level: "A1", word: "family", pos: "noun", ipa: "/ ˈfæm.əl.i /", uz: "oila", enEx: "I love spending time with my family.", uzEx: "Oilam bilan vaqt o'tkazishni yaxshi ko'raman." },
+    { id: "a1-2", level: "A1", word: "morning", pos: "noun", ipa: "/ ˈmɔː.nɪŋ /", uz: "ertalab, tong", enEx: "She drinks green tea every morning.", uzEx: "U har kuni ertalab ko'k choy ichadi." },
+    { id: "a1-3", level: "A1", word: "water", pos: "noun", ipa: "/ ˈwɔː.tər /", uz: "suv", enEx: "Drink plenty of clean water every day.", uzEx: "Har kuni ko'p toza suv iching." },
+    { id: "a1-4", level: "A1", word: "happy", pos: "adj.", ipa: "/ ˈhæp.i /", uz: "xursand, baxtli", enEx: "They are very happy together.", uzEx: "Ular birga juda baxtli." },
+    { id: "a1-5", level: "A1", word: "listen", pos: "verb", ipa: "/ ˈlɪs.ən /", uz: "tinglamoq, quloq solmoq", enEx: "Listen carefully to the instructions.", uzEx: "Ko'rsatmalarga diqqat bilan quloq soling." },
+    { id: "a1-6", level: "A1", word: "learn", pos: "verb", ipa: "/ lɜːn /", uz: "o'rganmoq", enEx: "Children learn new words very quickly.", uzEx: "Bolalar yangi so'zlarni juda tez o'rganishadi." },
+    { id: "a1-7", level: "A1", word: "friend", pos: "noun", ipa: "/ frend /", uz: "do'st, oshna", enEx: "He is my best friend from school.", uzEx: "U mening maktabdagi eng yaxshi do'stim." },
+    { id: "a1-8", level: "A1", word: "book", pos: "noun", ipa: "/ bʊk /", uz: "kitob", enEx: "I read an interesting book yesterday.", uzEx: "Kecha qiziqarli kitob o'qidim." },
+    { id: "a1-9", level: "A1", word: "house", pos: "noun", ipa: "/ haʊs /", uz: "uy, hovli", enEx: "Their house is near the city park.", uzEx: "Ularning uyi shahar bog'i yonida." },
+    { id: "a1-10", level: "A1", word: "city", pos: "noun", ipa: "/ ˈsɪt.i /", uz: "shahar", enEx: "Tashkent is a large and modern city.", uzEx: "Toshkent katta va zamonaviy shahar." },
+    { id: "a1-11", level: "A1", word: "always", pos: "adv.", ipa: "/ ˈɔːl.weɪz /", uz: "har doim, doimo", enEx: "She always arrives at meetings on time.", uzEx: "U yig'ilishlarga doim vaqtida keladi." },
+    { id: "a1-12", level: "A1", word: "weather", pos: "noun", ipa: "/ ˈweð.ər /", uz: "ob-havo", enEx: "The weather is warm and sunny today.", uzEx: "Bugun ob-havo iliq va quyoshli." },
+    { id: "a1-13", level: "A1", word: "speak", pos: "verb", ipa: "/ spiːk /", uz: "gapirmoq", enEx: "Can you speak English clearly, please?", uzEx: "Iltimos, inglizcha aniqroq gapira olasizmi?" },
+    { id: "a1-14", level: "A1", word: "work", pos: "noun / verb", ipa: "/ wɜːk /", uz: "ish, ishlamoq", enEx: "He starts his work at nine o'clock.", uzEx: "U ishini soat to'qqizda boshlaydi." },
+    { id: "a1-15", level: "A1", word: "breakfast", pos: "noun", ipa: "/ ˈbrek.fəst /", uz: "nonushta", enEx: "We usually have eggs and tea for breakfast.", uzEx: "Biz odatda nonushtaga tuxum va choy ichamiz." },
+    { id: "a1-16", level: "A1", word: "help", pos: "verb", ipa: "/ help /", uz: "yordam bermoq", enEx: "Can you help me solve this problem?", uzEx: "Bu masalani yechishda menga yordam bera olasizmi?" },
+    { id: "a1-17", level: "A1", word: "travel", pos: "verb", ipa: "/ ˈtræv.əl /", uz: "sayohat qilmoq", enEx: "They love to travel across the country.", uzEx: "Ular mamlakat bo'ylab sayohat qilishni yaxshi ko'rishadi." },
+    { id: "a1-18", level: "A1", word: "clean", pos: "adj.", ipa: "/ kliːn /", uz: "toza, ozoda", enEx: "Keep your workspace tidy and clean.", uzEx: "Ish joyingizni tartibli va toza saqlang." },
+    { id: "a1-19", level: "A1", word: "walk", pos: "verb", ipa: "/ wɔːk /", uz: "piyoda yurmoq", enEx: "I walk through the garden every evening.", uzEx: "Har oqshom bog' bo'ylab piyoda yuraman." },
+    { id: "a1-20", level: "A1", word: "ready", pos: "adj.", ipa: "/ ˈred.i /", uz: "tayyor", enEx: "We are ready to begin the lesson.", uzEx: "Biz darsni boshlashga tayyormiz." },
+
+    // A2
+    { id: "a2-1", level: "A2", word: "decide", pos: "verb", ipa: "/ dɪˈsaɪd /", uz: "qaror qilmoq", enEx: "She couldn't decide which course to choose.", uzEx: "U qaysi kursni tanlashni qaror qilolmadi." },
+    { id: "a2-2", level: "A2", word: "healthy", pos: "adj.", ipa: "/ ˈhel.θi /", uz: "sog'lom, foydali", enEx: "Eating vegetables keeps you strong and healthy.", uzEx: "Sabzavotlar iste'mol qilish sizni baquvvat va sog'lom saqlaydi." },
+    { id: "a2-3", level: "A2", word: "experience", pos: "noun", ipa: "/ ɪkˈspɪə.ri.əns /", uz: "tajriba, taassurot", enEx: "Traveling alone was a memorable experience.", uzEx: "Yolg'iz sayohat qilish unutilmas tajriba bo'ldi." },
+    { id: "a2-4", level: "A2", word: "expensive", pos: "adj.", ipa: "/ ɪkˈspen.sɪv /", uz: "qimmat", enEx: "This computer is too expensive for a student.", uzEx: "Bu kompyuter talaba uchun ancha qimmat." },
+    { id: "a2-5", level: "A2", word: "improve", pos: "verb", ipa: "/ ɪmˈpruːv /", uz: "yaxshilamoq, oshirmoq", enEx: "Practice daily to improve your speaking fluency.", uzEx: "Nutq ravonligini oshirish uchun har kuni mashq qiling." },
+    { id: "a2-6", level: "A2", word: "crowded", pos: "adj.", ipa: "/ ˈkraʊ.dɪd /", uz: "gavjum, tiqilinch", enEx: "The central market was crowded on Sunday.", uzEx: "Yakshanba kuni markaziy bozor juda gavjum edi." },
+    { id: "a2-7", level: "A2", word: "prepare", pos: "verb", ipa: "/ prɪˈpeər /", uz: "tayyorlamoq, hozirlamoq", enEx: "He spent hours preparing for the interview.", uzEx: "U suhbatga tayyorlanish uchun bir necha soat sarfladi." },
+    { id: "a2-8", level: "A2", word: "remember", pos: "verb", ipa: "/ rɪˈmem.bər /", uz: "eslamoq, yodda tutmoq", enEx: "I can clearly remember our first meeting.", uzEx: "Birinchi uchrashuvimizni aniq eslay olaman." },
+    { id: "a2-9", level: "A2", word: "comfortable", pos: "adj.", ipa: "/ ˈkʌm.fə.tə.bəl /", uz: "qulay, shinam", enEx: "Wear comfortable shoes for the long hike.", uzEx: "Uzoq piyoda yurish uchun qulay poyabzal kiying." },
+    { id: "a2-10", level: "A2", word: "accident", pos: "noun", ipa: "/ ˈæk.sɪ.dənt /", uz: "tasodif, baxtsiz hodisa", enEx: "Drive carefully on wet roads to avoid an accident.", uzEx: "Hodisa sodir bo'lmasligi uchun nam yo'llarda ehtiyotkor bo'ling." },
+    { id: "a2-11", level: "A2", word: "delicious", pos: "adj.", ipa: "/ dɪˈlɪʃ.əs /", uz: "juda mazali", enEx: "My grandmother cooked a delicious meal.", uzEx: "Buvim juda mazali taom tayyorladilar." },
+    { id: "a2-12", level: "A2", word: "dangerous", pos: "adj.", ipa: "/ ˈdeɪn.dʒər.əs /", uz: "xavfli", enEx: "Walking alone at night can be dangerous.", uzEx: "Kechasi yolg'iz yurish xavfli bo'lishi mumkin." },
+    { id: "a2-13", level: "A2", word: "journey", pos: "noun", ipa: "/ ˈdʒɜː.ni /", uz: "safar, yo'l", enEx: "We wish you a pleasant and productive journey.", uzEx: "Sizga maroqli va samarali safar tilaymiz." },
+    { id: "a2-14", level: "A2", word: "advice", pos: "noun", ipa: "/ ədˈvaɪs /", uz: "maslahat", enEx: "He gave me practical advice about finding a job.", uzEx: "U menga ish topish bo'yicha amaliy maslahat berdi." },
+    { id: "a2-15", level: "A2", word: "borrow", pos: "verb", ipa: "/ ˈbɒr.əʊ /", uz: "qarzga olmoq (vaqtincha)", enEx: "May I borrow your textbook until tomorrow?", uzEx: "Darsligingizni ertagacha olib tursam maylimi?" },
+    { id: "a2-16", level: "A2", word: "patient", pos: "adj.", ipa: "/ ˈpeɪ.ʃənt /", uz: "sabrli, toqatli", enEx: "Be patient, learning takes time and dedication.", uzEx: "Sabrli bo'ling, o'rganish vaqt va fidoyilikni talab qiladi." },
+    { id: "a2-17", level: "A2", word: "refuse", pos: "verb", ipa: "/ rɪˈfjuːz /", uz: "rad etmoq", enEx: "He politely refused the financial offer.", uzEx: "U moliyaviy taklifni muloyimlik bilan rad etdi." },
+    { id: "a2-18", level: "A2", word: "polite", pos: "adj.", ipa: "/ pəˈlaɪt /", uz: "muloyim, odobli", enEx: "A polite greeting creates a positive first impression.", uzEx: "Muloyim salomlashish ijobiy birinchi taassurot qoldiradi." },
+    { id: "a2-19", level: "A2", word: "mistake", pos: "noun", ipa: "/ mɪˈsteɪk /", uz: "xato", enEx: "Every mistake is a chance to learn something new.", uzEx: "Har bir xato yangi narsa o'rganish uchun bir imkoniyatdir." },
+    { id: "a2-20", level: "A2", word: "successful", pos: "adj.", ipa: "/ səkˈses.fəl /", uz: "muvaffaqiyatli", enEx: "Consistent practice is the key to successful learning.", uzEx: "Doimiy mashg'ulot muvaffaqiyatli ta'limning kalitidir." },
+
+    // B1
+    { id: "b1-1", level: "B1", word: "opportunity", pos: "noun", ipa: "/ ˌɒp.əˈtʃuː.nə.ti /", uz: "imkoniyat, fursat", enEx: "Do not miss the opportunity to learn from experts.", uzEx: "Mutaxassislardan o'rganish imkoniyatini qo'ldan boy bermang." },
+    { id: "b1-2", level: "B1", word: "confident", pos: "adj.", ipa: "/ ˈkɒn.fɪ.dənt /", uz: "o'ziga ishongan, dadil", enEx: "Preparation makes you feel calm and confident.", uzEx: "Tayyorgarlik sizni xotirjam va o'zingizga ishongan qiladi." },
+    { id: "b1-3", level: "B1", word: "achieve", pos: "verb", ipa: "/ əˈtʃiːv /", uz: "erishmoq, qo'lga kiritmoq", enEx: "You can achieve great things through discipline.", uzEx: "Intizom orqali buyuk marralarga erisha olasiz." },
+    { id: "b1-4", level: "B1", word: "convenient", pos: "adj.", ipa: "/ kənˈviː.ni.ənt /", uz: "qulay, mos", enEx: "Having public transport near home is very convenient.", uzEx: "Uy yonida jamoat transporti bo'lishi juda qulay." },
+    { id: "b1-5", level: "B1", word: "encourage", pos: "verb", ipa: "/ ɪnˈkʌr.ɪdʒ /", uz: "ruhlantirmoq, dalda bermoq", enEx: "Mentors encourage students to think independently.", uzEx: "Ustozlar o'quvchilarni mustaqil fikrlashga ruhlantiradilar." },
+    { id: "b1-6", level: "B1", word: "grateful", pos: "adj.", ipa: "/ ˈɡreɪt.fəl /", uz: "minnatdor, shukr qiluvchi", enEx: "I am grateful for every lesson learned in life.", uzEx: "Hayotda olgan har bir sabog'im uchun minnatdorman." },
+    { id: "b1-7", level: "B1", word: "hesitate", pos: "verb", ipa: "/ ˈhez.ɪ.teɪt /", uz: "ikkilanmoq, tortinmoq", enEx: "Never hesitate to speak up during discussions.", uzEx: "Munozaralarda fikr bildirishdan hech qachon tortinmang." },
+    { id: "b1-8", level: "B1", word: "influence", pos: "noun / verb", ipa: "/ ˈɪn.flu.əns /", uz: "ta'sir, ta'sir o'tkazmoq", enEx: "Role models have a lasting influence on youth.", uzEx: "Namunali insonlar yoshlarga uzoq muddatli ta'sir ko'rsatadi." },
+    { id: "b1-9", level: "B1", word: "necessary", pos: "adj.", ipa: "/ ˈnes.ə.ser.i /", uz: "zarur, muhim", enEx: "It is necessary to review grammar rules regularly.", uzEx: "Grammatika qoidalarini muntazam takrorlab turish zarur." },
+    { id: "b1-10", level: "B1", word: "participate", pos: "verb", ipa: "/ pɑːˈtɪs.ɪ.peɪt /", uz: "qatnashmoq, ishtirok etmoq", enEx: "All students are invited to participate in the seminar.", uzEx: "Barcha talabalar seminarda ishtirok etishga taklif etiladi." },
+    { id: "b1-11", level: "B1", word: "reliable", pos: "adj.", ipa: "/ rɪˈlaɪ.ə.bəl /", uz: "ishonchli, suyansa bo'ladigan", enEx: "Choose reliable sources when conducting research.", uzEx: "Tadqiqot olib borayotganda ishonchli manbalarni tanlang." },
+    { id: "b1-12", level: "B1", word: "solution", pos: "noun", ipa: "/ səˈluː.ʃən /", uz: "yechim, javob", enEx: "We analyzed the data and found a balanced solution.", uzEx: "Biz ma'lumotlarni tahlil qilib, muvozanatli yechim topdik." },
+    { id: "b1-13", level: "B1", word: "struggle", pos: "verb / noun", ipa: "/ ˈstrʌɡ.əl /", uz: "qiynalmoq, kurashmoq", enEx: "Overcoming a struggle builds true resilience.", uzEx: "Qiyinchilikni yengish insonda haqiqiy matonatni shakllantiradi." },
+    { id: "b1-14", level: "B1", word: "valuable", pos: "adj.", ipa: "/ ˈvæl.jə.bəl /", uz: "qadrli, qimmatli", enEx: "Time is the most valuable resource you possess.", uzEx: "Vaqt siz ega bo'lgan eng qimmatli boylikdir." },
+    { id: "b1-15", level: "B1", word: "curious", pos: "adj.", ipa: "/ ˈkjʊə.ri.əs /", uz: "qiziquvchan", enEx: "Stay curious and keep asking meaningful questions.", uzEx: "Qiziquvchan bo'ling va mazmunli savollar berishdan to'xtamang." },
+    { id: "b1-16", level: "B1", word: "complain", pos: "verb", ipa: "/ kəmˈpleɪn /", uz: "shikoyat qilmoq", enEx: "Rather than complaining, focus on what you can change.", uzEx: "Shikoyat qilish o'rniga, o'zgartira oladigan narsangizga e'tibor bering." },
+    { id: "b1-17", level: "B1", word: "benefit", pos: "noun / verb", ipa: "/ ˈben.ɪ.fɪt /", uz: "foyda, naf ko'rmoq", enEx: "Reading widely offers immense intellectual benefits.", uzEx: "Keng mutolaa qilish aqliy jihatdan ulkan foyda keltiradi." },
+    { id: "b1-18", level: "B1", word: "challenge", pos: "noun / verb", ipa: "/ ˈtʃæl.ɪndʒ /", uz: "chaqiriq, sinov", enEx: "View each difficult assignment as an exciting challenge.", uzEx: "Har bir murakkab topshiriqni maroqli bir sinov deb biling." },
+    { id: "b1-19", level: "B1", word: "essential", pos: "adj.", ipa: "/ ɪˈsen.ʃəl /", uz: "o'ta muhim, zaruriy", enEx: "Clear communication is essential in teamwork.", uzEx: "Jamoaviy ishda aniq muloqot o'ta muhimdir." },
+    { id: "b1-20", level: "B1", word: "temporary", pos: "adj.", ipa: "/ ˈtem.pər.ər.i /", uz: "vaqtinchalik", enEx: "Remember that setbacks are only temporary obstacles.", uzEx: "Muvaffaqiyatsizliklar faqat vaqtinchalik to'siq ekanini unutmang." },
+
+    // B2
+    { id: "b2-1", level: "B2", word: "ambiguous", pos: "adj.", ipa: "/ æmˈbɪɡ.ju.əs /", uz: "noaniq, ikki xil ma'noli", enEx: "Avoid ambiguous terms in technical documentation.", uzEx: "Texnik hujjatlarda ikki xil ma'noli atamalardan qoching." },
+    { id: "b2-2", level: "B2", word: "comprehensive", pos: "adj.", ipa: "/ ˌkɒm.prɪˈhen.sɪv /", uz: "keng qamrovli, to'liq", enEx: "The syllabus outlines a comprehensive study program.", uzEx: "O'quv dasturi to'liq va keng qamrovli rejani belgilaydi." },
+    { id: "b2-3", level: "B2", word: "deteriorate", pos: "verb", ipa: "/ dɪˈtɪə.ri.ə.reɪt /", uz: "yomonlashmoq, susaymoq", enEx: "Without maintenance, roads can rapidly deteriorate.", uzEx: "Ta'mirlanmasa, yo'llar tezda yomonlashishi mumkin." },
+    { id: "b2-4", level: "B2", word: "feasible", pos: "adj.", ipa: "/ ˈfiː.zə.bəl /", uz: "amalga oshirsa bo'ladigan", enEx: "The architect presented a feasible design plan.", uzEx: "Me'mor amalga oshirsa bo'ladigan loyiha rejasini taqdim etdi." },
+    { id: "b2-5", level: "B2", word: "inevitable", pos: "adj.", ipa: "/ ɪnˈev.ɪ.tə.bəl /", uz: "muqarrar, qochib bo'lmas", enEx: "Technological transformation is an inevitable reality.", uzEx: "Texnologik o'zgarishlar muqarrar haqiqatdir." },
+    { id: "b2-6", level: "B2", word: "meticulous", pos: "adj.", ipa: "/ məˈtɪk.jə.ləs /", uz: "sinchkov, nihoyatda e'tiborli", enEx: "He conducts meticulous research before publishing.", uzEx: "U nashr qilishdan oldin o'ta sinchkovlik bilan izlanish olib boradi." },
+    { id: "b2-7", level: "B2", word: "perceive", pos: "verb", ipa: "/ pəˈsiːv /", uz: "idrok etmoq, deb bilmoq", enEx: "Individuals perceive tone differently in written text.", uzEx: "Insonlar yozma matndagi ohangni turlicha idrok etishadi." },
+    { id: "b2-8", level: "B2", word: "redundant", pos: "adj.", ipa: "/ rɪˈdʌn.dənt /", uz: "ortiqcha, keraksiz", enEx: "Modern software removed redundant administrative steps.", uzEx: "Zamonaviy dasturiy ta'minot ortiqcha ma'muriy bosqichlarni bartaraf etdi." },
+    { id: "b2-9", level: "B2", word: "subtle", pos: "adj.", ipa: "/ ˈsʌt.əl /", uz: "sezilar-sezilmas, nozik", enEx: "Notice the subtle nuances between synonyms.", uzEx: "Sinonimlar orasidagi nozik ma'no qirralariga e'tibor bering." },
+    { id: "b2-10", level: "B2", word: "vulnerable", pos: "adj.", ipa: "/ ˈvʌl.nər.ə.bəl /", uz: "zaif, himoyasiz", enEx: "Unencrypted systems remain vulnerable to cyber attacks.", uzEx: "Shifrlanmagan tizimlar kiberhujumlar oldida zaif qoladi." },
+    { id: "b2-11", level: "B2", word: "coherent", pos: "adj.", ipa: "/ kəʊˈhɪə.rənt /", uz: "mantiqiy, uzviy bog'langan", enEx: "A coherent essay flows smoothly from point to point.", uzEx: "Mantiqiy insho bir fikrdan ikkinchisiga ravon o'tadi." },
+    { id: "b2-12", level: "B2", word: "allocate", pos: "verb", ipa: "/ ˈæl.ə.keɪt /", uz: "ajratmoq (vaqt, mablag')", enEx: "Allocate thirty minutes each day to reading English.", uzEx: "Har kuni ingliz tilida o'qish uchun o'ttiz daqiqa ajrating." },
+    { id: "b2-13", level: "B2", word: "diminish", pos: "verb", ipa: "/ dɪˈmɪn.ɪʃ /", uz: "kamaymoq, pasaymoq", enEx: "Doubts diminish as your practical experience grows.", uzEx: "Amaliy tajribangiz oshgani sayin shubhalar kamayadi." },
+    { id: "b2-14", level: "B2", word: "elaborate", pos: "verb / adj.", ipa: "/ ɪˈlæb.ər.ət /", uz: "batafsil tushuntirmoq, puxta", enEx: "Please elaborate on your findings in the conclusion.", uzEx: "Iltimos, xulosada o'z xulosalaringizni batafsilroq bayon eting." },
+    { id: "b2-15", level: "B2", word: "pragmatic", pos: "adj.", ipa: "/ præɡˈmæt.ɪk /", uz: "amaliy, hayotiy", enEx: "Take a pragmatic view towards daily task management.", uzEx: "Kundalik vazifalarni boshqarishda amaliy yondashuvni tanlang." },
+    { id: "b2-16", level: "B2", word: "reluctant", pos: "adj.", ipa: "/ rɪˈlʌk.tənt /", uz: "istaksiz, ikkilanuvchi", enEx: "He was initially reluctant to accept leadership duties.", uzEx: "U avvaliga rahbarlik mas'uliyatini olishga ikkilandi." },
+    { id: "b2-17", level: "B2", word: "spontaneous", pos: "adj.", ipa: "/ spɒnˈteɪ.ni.əs /", uz: "kutilmagan, o'z-o'zidan sodir bo'lgan", enEx: "Spontaneous conversations build natural fluency.", uzEx: "Samimiy, tabiiy suhbatlar nutq ravonligini shakllantiradi." },
+    { id: "b2-18", level: "B2", word: "tedious", pos: "adj.", ipa: "/ ˈtiː.di.əs /", uz: "zerikarli, bir xil, mashaqqatli", enEx: "Repetitive calculations can quickly become tedious.", uzEx: "Bir xil hisob-kitoblar tezda zerikarli bo'lib qolishi mumkin." },
+    { id: "b2-19", level: "B2", word: "versatile", pos: "adj.", ipa: "/ ˈvɜː.sə.taɪl /", uz: "ko'p qirrali, universal", enEx: "English is a versatile tool for international communication.", uzEx: "Ingliz tili xalqaro muloqot uchun universal vositadir." },
+    { id: "b2-20", level: "B2", word: "withstand", pos: "verb", ipa: "/ wɪðˈstænd /", uz: "bardosh bermoq, chidamoq", enEx: "Solid foundations help structures withstand severe storms.", uzEx: "Mustahkam poydevor inshootlarning kuchli bo'ronlarga bardosh berishiga yordam beradi." }
+  ];
+
+  var VOCAB_STORAGE_KEY = "fc-vocab-learned";
+  var VOCAB_LEVEL = "A1";
+  try {
+    var savedVocabLvl = localStorage.getItem("fc-vocab-level");
+    if (savedVocabLvl && /^(A1|A2|B1|B2)$/.test(savedVocabLvl)) {
+      VOCAB_LEVEL = savedVocabLvl;
+    }
+  } catch (e) {}
+
+  var VOCAB_SUBMODE = "list";
+  try {
+    var savedSubmode = localStorage.getItem("fc-vocab-submode");
+    if (savedSubmode && /^(list|cards|quiz)$/.test(savedSubmode)) {
+      VOCAB_SUBMODE = savedSubmode;
+    }
+  } catch (e) {}
+
+  var VOCAB_LEARNED = {};
+  try {
+    var rawLearned = localStorage.getItem(VOCAB_STORAGE_KEY);
+    if (rawLearned) VOCAB_LEARNED = JSON.parse(rawLearned);
+  } catch (e) { VOCAB_LEARNED = {}; }
+
+  function saveVocabLearned() {
+    try {
+      localStorage.setItem(VOCAB_STORAGE_KEY, JSON.stringify(VOCAB_LEARNED));
+    } catch (e) {}
+  }
+
+  function toggleWordLearned(wordId) {
+    if (VOCAB_LEARNED[wordId]) {
+      delete VOCAB_LEARNED[wordId];
+    } else {
+      VOCAB_LEARNED[wordId] = true;
+    }
+    saveVocabLearned();
+    updateVocabProgressBadge();
+  }
+
+  function getVocabWordsByLevel(level) {
+    return VOCAB_DATA.filter(function (item) { return item.level === level; });
+  }
+
+  function updateVocabProgressBadge() {
+    if (!vocabLearnedCountEl || !vocabTotalCountEl) return;
+    var currentLevelWords = getVocabWordsByLevel(VOCAB_LEVEL);
+    var learnedInLevel = currentLevelWords.filter(function (w) { return !!VOCAB_LEARNED[w.id]; }).length;
+    vocabLearnedCountEl.textContent = learnedInLevel;
+    vocabTotalCountEl.textContent = "/ " + currentLevelWords.length + " o'rganildi";
+  }
+
+  function speakWord(text) {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.rate = 0.92;
+    u.pitch = 1.05;
+    var v = pickVoice();
+    if (v) { u.voice = v; u.lang = v.lang; }
+    window.speechSynthesis.speak(u);
+  }
+
+  /* --- Vocabulary Levels --- */
+  function renderVocabLevels() {
+    if (!vocabLevelsEl) return;
+    vocabLevelsEl.innerHTML = "";
+    LEVELS.forEach(function (lv) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "level";
+      b.setAttribute("aria-pressed", lv.code === VOCAB_LEVEL ? "true" : "false");
+      b.innerHTML = '<span class="code"></span><span class="lab"></span>';
+      b.querySelector(".code").textContent = lv.code;
+      b.querySelector(".lab").textContent = lv.lab;
+      b.addEventListener("click", function () {
+        VOCAB_LEVEL = lv.code;
+        try { localStorage.setItem("fc-vocab-level", VOCAB_LEVEL); } catch (e) {}
+        vocabFcIndex = 0;
+        initVocabQuiz();
+        renderVocabLevels();
+        renderVocabContent();
+      });
+      vocabLevelsEl.appendChild(b);
+    });
+  }
+
+  /* --- Submodes Switcher --- */
+  function setVocabSubmode(submode) {
+    VOCAB_SUBMODE = submode;
+    try { localStorage.setItem("fc-vocab-submode", VOCAB_SUBMODE); } catch (e) {}
+
+    [submodeList, submodeCards, submodeQuiz].forEach(function (btn) {
+      if (!btn) return;
+      var isActive = btn.getAttribute("data-submode") === submode;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    if (vocabListView) vocabListView.hidden = submode !== "list";
+    if (vocabCardsView) vocabCardsView.hidden = submode !== "cards";
+    if (vocabQuizView) vocabQuizView.hidden = submode !== "quiz";
+
+    if (submode === "list") {
+      renderVocabList();
+    } else if (submode === "cards") {
+      renderVocabCards();
+    } else if (submode === "quiz") {
+      renderVocabQuiz();
+    }
+  }
+
+  /* --- Mode 1: List View --- */
+  function renderVocabList() {
+    if (!vocabGridEl) return;
+    var query = (vocabSearchInput ? vocabSearchInput.value : "").trim().toLowerCase();
+    var words = getVocabWordsByLevel(VOCAB_LEVEL);
+
+    if (query) {
+      words = words.filter(function (item) {
+        return item.word.toLowerCase().includes(query) || item.uz.toLowerCase().includes(query);
+      });
+    }
+
+    vocabGridEl.innerHTML = "";
+    if (vocabEmptyEl) vocabEmptyEl.hidden = words.length > 0;
+
+    words.forEach(function (item) {
+      var card = document.createElement("div");
+      var isLearned = !!VOCAB_LEARNED[item.id];
+      card.className = "vocab-card" + (isLearned ? " learned" : "");
+
+      var head = document.createElement("div");
+      head.className = "vocab-card-head";
+
+      var titleWrap = document.createElement("div");
+      titleWrap.className = "vocab-card-title-wrap";
+
+      var wordEl = document.createElement("span");
+      wordEl.className = "vocab-word";
+      wordEl.textContent = item.word;
+
+      var posEl = document.createElement("span");
+      posEl.className = "vocab-pos";
+      posEl.textContent = item.pos;
+
+      var ipaEl = document.createElement("span");
+      ipaEl.className = "vocab-ipa";
+      ipaEl.textContent = item.ipa;
+
+      titleWrap.appendChild(wordEl);
+      titleWrap.appendChild(posEl);
+      titleWrap.appendChild(ipaEl);
+
+      var actions = document.createElement("div");
+      actions.className = "vocab-card-actions";
+
+      var audioBtn = document.createElement("button");
+      audioBtn.type = "button";
+      audioBtn.className = "vocab-audio-btn";
+      audioBtn.title = "Talaffuzni eshitish";
+      audioBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+      audioBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        speakWord(item.word);
+      });
+
+      var checkBtn = document.createElement("button");
+      checkBtn.type = "button";
+      checkBtn.className = "vocab-check-btn";
+      checkBtn.title = isLearned ? "O'rganilgan deb belgilangan (bekor qilish)" : "O'rganildi deb belgilash";
+      checkBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      checkBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggleWordLearned(item.id);
+        var nowLearned = !!VOCAB_LEARNED[item.id];
+        card.classList.toggle("learned", nowLearned);
+        checkBtn.title = nowLearned ? "O'rganilgan deb belgilangan (bekor qilish)" : "O'rganildi deb belgilash";
+      });
+
+      actions.appendChild(audioBtn);
+      actions.appendChild(checkBtn);
+
+      head.appendChild(titleWrap);
+      head.appendChild(actions);
+
+      var meaningEl = document.createElement("div");
+      meaningEl.className = "vocab-meaning";
+      meaningEl.textContent = item.uz;
+
+      var exBox = document.createElement("div");
+      exBox.className = "vocab-ex-box";
+
+      var exEn = document.createElement("p");
+      exEn.className = "vocab-ex-en";
+      exEn.textContent = item.enEx;
+
+      var exUz = document.createElement("p");
+      exUz.className = "vocab-ex-uz";
+      exUz.textContent = item.uzEx;
+
+      exBox.appendChild(exEn);
+      exBox.appendChild(exUz);
+
+      card.appendChild(head);
+      card.appendChild(meaningEl);
+      card.appendChild(exBox);
+
+      vocabGridEl.appendChild(card);
+    });
+
+    updateVocabProgressBadge();
+  }
+
+  /* --- Mode 2: Flashcards View --- */
+  var vocabFcIndex = 0;
+  var vocabFcFlipped = false;
+
+  function renderVocabCards() {
+    var words = getVocabWordsByLevel(VOCAB_LEVEL);
+    if (words.length === 0) return;
+    if (vocabFcIndex >= words.length) vocabFcIndex = 0;
+    if (vocabFcIndex < 0) vocabFcIndex = words.length - 1;
+
+    var item = words[vocabFcIndex];
+    if (vocabFcCounter) vocabFcCounter.textContent = (vocabFcIndex + 1) + " / " + words.length;
+    if (vocabFcBadge) vocabFcBadge.textContent = VOCAB_LEVEL;
+
+    if (vocabFcWord) vocabFcWord.textContent = item.word;
+    if (vocabFcPos) vocabFcPos.textContent = item.pos;
+    if (vocabFcIpa) vocabFcIpa.textContent = item.ipa;
+    if (vocabFcUz) vocabFcUz.textContent = item.uz;
+    if (vocabFcEnEx) vocabFcEnEx.textContent = item.enEx;
+    if (vocabFcUzEx) vocabFcUzEx.textContent = item.uzEx;
+
+    if (vocabFcBack) vocabFcBack.hidden = !vocabFcFlipped;
+    if (vocabFcFlipBtn) vocabFcFlipBtn.textContent = vocabFcFlipped ? "Ma'nosini yashirish" : "Ma'nosini ko'rsatish";
+
+    var isLearned = !!VOCAB_LEARNED[item.id];
+    if (vocabFcMarkLearnedBtn) {
+      vocabFcMarkLearnedBtn.textContent = isLearned ? "O'rganilgan" : "O'rgandim";
+      vocabFcMarkLearnedBtn.className = isLearned ? "btn" : "btn ghost";
+    }
+
+    updateVocabProgressBadge();
+  }
+
+  /* --- Mode 3: Quiz View --- */
+  var vocabQuizQuestions = [];
+  var vocabQuizIndex = 0;
+  var vocabQuizScore = 0;
+  var vocabQuizAnswered = false;
+
+  function initVocabQuiz() {
+    var words = getVocabWordsByLevel(VOCAB_LEVEL);
+    if (words.length === 0) return;
+    vocabQuizScore = 0;
+    vocabQuizIndex = 0;
+    vocabQuizAnswered = false;
+
+    // Shuffle and pick up to 10 questions
+    var shuffled = words.slice().sort(function () { return 0.5 - Math.random(); });
+    var count = Math.min(10, shuffled.length);
+    vocabQuizQuestions = [];
+
+    for (var i = 0; i < count; i++) {
+      var current = shuffled[i];
+      var otherWords = words.filter(function (w) { return w.id !== current.id; });
+      otherWords.sort(function () { return 0.5 - Math.random(); });
+      var distractors = otherWords.slice(0, 3).map(function (w) { return w.uz; });
+
+      var options = distractors.concat([current.uz]);
+      options.sort(function () { return 0.5 - Math.random(); });
+
+      vocabQuizQuestions.push({
+        item: current,
+        options: options,
+        correct: current.uz
+      });
+    }
+  }
+
+  function renderVocabQuiz() {
+    if (vocabQuizQuestions.length === 0) {
+      initVocabQuiz();
+    }
+    if (vocabQuizIndex >= vocabQuizQuestions.length) {
+      // Quiz complete screen
+      if (vocabQuizStep) vocabQuizStep.textContent = "Test yakunlandi";
+      if (vocabQuizPrompt) vocabQuizPrompt.textContent = "Natijangiz: " + vocabQuizScore + " / " + vocabQuizQuestions.length;
+      if (vocabQuizScoreBadge) vocabQuizScoreBadge.textContent = vocabQuizScore + " to'g'ri";
+      if (vocabQuizWord) vocabQuizWord.textContent = "Barakalla!";
+      if (vocabQuizPos) vocabQuizPos.textContent = "";
+      if (vocabQuizIpa) vocabQuizIpa.textContent = "Barcha savollarni yakunladingiz.";
+      if (vocabQuizAudioBtn) vocabQuizAudioBtn.hidden = true;
+      if (vocabQuizOptions) vocabQuizOptions.innerHTML = "";
+      if (vocabQuizFeedback) vocabQuizFeedback.hidden = true;
+      if (vocabQuizNextBtn) {
+        vocabQuizNextBtn.textContent = "Qayta boshlash";
+        vocabQuizNextBtn.hidden = false;
+      }
+      return;
+    }
+
+    if (vocabQuizAudioBtn) vocabQuizAudioBtn.hidden = false;
+    var q = vocabQuizQuestions[vocabQuizIndex];
+    vocabQuizAnswered = false;
+
+    if (vocabQuizStep) vocabQuizStep.textContent = "Savol " + (vocabQuizIndex + 1) + " / " + vocabQuizQuestions.length;
+    if (vocabQuizPrompt) vocabQuizPrompt.textContent = "Quyidagi so'zning to'g'ri tarjimasini tanlang:";
+    if (vocabQuizScoreBadge) vocabQuizScoreBadge.textContent = vocabQuizScore + " to'g'ri";
+
+    if (vocabQuizWord) vocabQuizWord.textContent = q.item.word;
+    if (vocabQuizPos) vocabQuizPos.textContent = q.item.pos;
+    if (vocabQuizIpa) vocabQuizIpa.textContent = q.item.ipa;
+
+    if (vocabQuizFeedback) {
+      vocabQuizFeedback.hidden = true;
+      vocabQuizFeedback.className = "vocab-quiz-feedback";
+      vocabQuizFeedback.textContent = "";
+    }
+    if (vocabQuizNextBtn) {
+      vocabQuizNextBtn.hidden = true;
+      vocabQuizNextBtn.textContent = "Keyingi savol";
+    }
+
+    if (!vocabQuizOptions) return;
+    vocabQuizOptions.innerHTML = "";
+    var letters = ["A", "B", "C", "D"];
+
+    q.options.forEach(function (optText, idx) {
+      var optBtn = document.createElement("button");
+      optBtn.type = "button";
+      optBtn.className = "vocab-quiz-opt";
+
+      var letterEl = document.createElement("span");
+      letterEl.className = "vocab-quiz-opt-letter";
+      letterEl.textContent = letters[idx];
+
+      var textEl = document.createElement("span");
+      textEl.textContent = optText;
+
+      optBtn.appendChild(letterEl);
+      optBtn.appendChild(textEl);
+
+      optBtn.addEventListener("click", function () {
+        if (vocabQuizAnswered) return;
+        vocabQuizAnswered = true;
+
+        var isCorrect = optText === q.correct;
+        if (isCorrect) {
+          vocabQuizScore++;
+          if (vocabQuizScoreBadge) vocabQuizScoreBadge.textContent = vocabQuizScore + " to'g'ri";
+          optBtn.classList.add("correct");
+          if (vocabQuizFeedback) {
+            vocabQuizFeedback.textContent = "To'g'ri javob!";
+            vocabQuizFeedback.className = "vocab-quiz-feedback correct";
+          }
+        } else {
+          optBtn.classList.add("wrong");
+          if (vocabQuizFeedback) {
+            vocabQuizFeedback.textContent = "Noto'g'ri. To'g'ri javob: " + q.correct;
+            vocabQuizFeedback.className = "vocab-quiz-feedback wrong";
+          }
+          var allOpts = vocabQuizOptions.querySelectorAll(".vocab-quiz-opt");
+          allOpts.forEach(function (btn) {
+            if (btn.querySelector("span:last-child").textContent === q.correct) {
+              btn.classList.add("correct");
+            }
+          });
+        }
+
+        var allOpts = vocabQuizOptions.querySelectorAll(".vocab-quiz-opt");
+        allOpts.forEach(function (btn) {
+          btn.classList.add("disabled");
+        });
+
+        if (vocabQuizFeedback) vocabQuizFeedback.hidden = false;
+        if (vocabQuizNextBtn) vocabQuizNextBtn.hidden = false;
+      });
+
+      vocabQuizOptions.appendChild(optBtn);
+    });
+  }
+
+  function renderVocabContent() {
+    setVocabSubmode(VOCAB_SUBMODE);
+  }
+
+  /* --- Event Listeners for Vocabulary --- */
+  if (submodeList) submodeList.addEventListener("click", function () { setVocabSubmode("list"); });
+  if (submodeCards) submodeCards.addEventListener("click", function () { setVocabSubmode("cards"); });
+  if (submodeQuiz) submodeQuiz.addEventListener("click", function () { setVocabSubmode("quiz"); });
+
+  if (vocabSearchInput) {
+    vocabSearchInput.addEventListener("input", function () {
+      if (vocabClearSearch) vocabClearSearch.hidden = !vocabSearchInput.value.trim();
+      renderVocabList();
+    });
+  }
+
+  if (vocabClearSearch) {
+    vocabClearSearch.addEventListener("click", function () {
+      vocabSearchInput.value = "";
+      vocabClearSearch.hidden = true;
+      vocabSearchInput.focus();
+      renderVocabList();
+    });
+  }
+
+  if (vocabFcAudioBtn) {
+    vocabFcAudioBtn.addEventListener("click", function () {
+      var words = getVocabWordsByLevel(VOCAB_LEVEL);
+      if (words[vocabFcIndex]) speakWord(words[vocabFcIndex].word);
+    });
+  }
+
+  if (vocabQuizAudioBtn) {
+    vocabQuizAudioBtn.addEventListener("click", function () {
+      var q = vocabQuizQuestions[vocabQuizIndex];
+      if (q && q.item) speakWord(q.item.word);
+    });
+  }
+
+  if (vocabFcFlipBtn) {
+    vocabFcFlipBtn.addEventListener("click", function () {
+      vocabFcFlipped = !vocabFcFlipped;
+      renderVocabCards();
+    });
+  }
+
+  if (vocabFcPrevBtn) {
+    vocabFcPrevBtn.addEventListener("click", function () {
+      vocabFcIndex--;
+      vocabFcFlipped = false;
+      renderVocabCards();
+    });
+  }
+
+  if (vocabFcNextBtn) {
+    vocabFcNextBtn.addEventListener("click", function () {
+      vocabFcIndex++;
+      vocabFcFlipped = false;
+      renderVocabCards();
+    });
+  }
+
+  if (vocabFcMarkLearnedBtn) {
+    vocabFcMarkLearnedBtn.addEventListener("click", function () {
+      var words = getVocabWordsByLevel(VOCAB_LEVEL);
+      if (words[vocabFcIndex]) {
+        toggleWordLearned(words[vocabFcIndex].id);
+        vocabFcIndex++;
+        vocabFcFlipped = false;
+        renderVocabCards();
+      }
+    });
+  }
+
+  if (vocabQuizNextBtn) {
+    vocabQuizNextBtn.addEventListener("click", function () {
+      if (vocabQuizIndex >= vocabQuizQuestions.length) {
+        initVocabQuiz();
+        renderVocabQuiz();
+      } else {
+        vocabQuizIndex++;
+        renderVocabQuiz();
+      }
+    });
+  }
 
   // Initialize App Mode
   setAppMode(APP_MODE);
