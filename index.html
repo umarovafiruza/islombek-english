@@ -1621,6 +1621,421 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
   color: #c92a2a;
 }
 
+/* ---------- Reading Section & Reader ---------- */
+.read-badge-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #edf0ff;
+  color: var(--accent);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.reading-reader {
+  position: fixed; inset: 0; z-index: 20; height: 100%; height: 100dvh; max-width: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.reading-reader[hidden] {
+  display: none !important;
+}
+.read-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  max-width: 52rem;
+  width: 100%;
+  margin: 0 auto;
+}
+.read-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.read-meta-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.read-badge-level {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #edf0ff;
+  color: var(--accent);
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.read-title-text {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.read-bar-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.read-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.read-tool-btn:hover {
+  border-color: var(--ink);
+  background: #f8f9fa;
+}
+.read-tool-btn.active {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+.read-font-controls {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.read-font-controls .read-tool-btn {
+  border: 0;
+  border-radius: 0;
+  padding: 6px 10px;
+  border-right: 1px solid var(--line);
+}
+.read-font-controls .read-tool-btn:last-child {
+  border-right: 0;
+}
+
+.read-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 52rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 4px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.read-header-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.read-header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.read-card-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #edf0ff;
+  color: var(--accent);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.read-card-time {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.read-card-title {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.read-card-uz {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Article Typography */
+.read-article {
+  color: var(--ink);
+}
+.read-article[data-size="sm"] {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.read-article[data-size="md"] {
+  font-size: 1.1875rem;
+  line-height: 1.85;
+}
+.read-article[data-size="lg"] {
+  font-size: 1.35rem;
+  line-height: 1.95;
+}
+.read-p {
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+.read-p:last-child {
+  margin-bottom: 0;
+}
+
+/* Translation Box */
+.read-translation-box {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.read-translation-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.read-translation-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.read-translation-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f1f2f5;
+  color: var(--muted);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.read-translation-content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #3b4252;
+}
+.read-translation-content p {
+  margin: 0 0 14px;
+}
+.read-translation-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Key Vocabulary Section */
+.read-vocab-section {
+  padding-top: 10px;
+}
+.read-vocab-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.read-vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+.read-vocab-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.read-vocab-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.read-vocab-word {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.read-vocab-pos {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.read-vocab-ipa {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-family: monospace;
+}
+.read-vocab-uz {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.read-vocab-def {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Comprehension Quiz */
+.read-quiz-section {
+  padding-top: 10px;
+}
+.read-quiz-head {
+  margin-bottom: 18px;
+}
+.read-quiz-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.read-quiz-sub {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.read-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.read-q-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.read-q-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  display: flex;
+  gap: 8px;
+}
+.read-q-num {
+  color: var(--accent);
+}
+.read-q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.read-opt-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.read-opt-btn:hover:not(:disabled) {
+  border-color: var(--ink);
+  background: #f8f9fa;
+}
+.read-opt-btn.selected {
+  border-color: var(--accent);
+  background: #edf0ff;
+  font-weight: 500;
+}
+.read-opt-btn.correct {
+  border-color: #2b8a3e;
+  background: #ebfbee;
+  color: #2b8a3e;
+  font-weight: 600;
+}
+.read-opt-btn.wrong {
+  border-color: #c92a2a;
+  background: #fff5f5;
+  color: #c92a2a;
+}
+.read-opt-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #f1f2f5;
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.read-opt-btn.selected .read-opt-letter {
+  background: var(--accent);
+  color: #ffffff;
+}
+.read-opt-btn.correct .read-opt-letter {
+  background: #2b8a3e;
+  color: #ffffff;
+}
+.read-opt-btn.wrong .read-opt-letter {
+  background: #c92a2a;
+  color: #ffffff;
+}
+.read-q-exp {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border-left: 3px solid var(--accent);
+  font-size: 0.875rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.read-quiz-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.read-quiz-result {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #edf0ff;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
 </style>
 
 <main class="home" id="home">
@@ -1628,11 +2043,15 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
     <div class="nav-modes" role="tablist" aria-label="Bo'lim tanlash">
       <button class="mode-btn active" id="tabSpeaking" type="button" role="tab" aria-selected="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-        Speaking (O'qish)
+        Speaking (Nutq)
       </button>
       <button class="mode-btn" id="tabListening" type="button" role="tab" aria-selected="false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
         Listening (Tinglash)
+      </button>
+      <button class="mode-btn" id="tabReading" type="button" role="tab" aria-selected="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Reading (Mutolaa)
       </button>
       <button class="mode-btn" id="tabVocabulary" type="button" role="tab" aria-selected="false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -1677,6 +2096,14 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
     <p class="lead">Inglizcha suhbat yoki hikoyani diqqat bilan tinglang va savollarga javob bering. Quloq solish mahoratingizni sinang.</p>
     <div class="levels" id="lisLevels" role="group" aria-label="Listening darajasi"></div>
     <ul class="topics" id="lisTopics"></ul>
+  </div>
+
+  <div id="readingSection" hidden>
+    <p class="brand">Reading comprehension</p>
+    <h1>Read &amp; Understand</h1>
+    <p class="lead">Inglizcha matnlarni o'qing, so'z boyligingizni oshiring va tushunish darajangizni test orqali sinang.</p>
+    <div class="levels" id="readLevels" role="group" aria-label="Reading darajasi"></div>
+    <ul class="topics" id="readTopics"></ul>
   </div>
 
   <div id="vocabularySection" hidden>
@@ -1927,6 +2354,78 @@ input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 
         </div>
         <div class="lis-transcript-content" id="lisTranscriptContent"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="reading-reader" id="readingReader" hidden aria-label="Reading Mutolaa">
+  <div class="read-bar">
+    <div class="read-bar-left">
+      <button class="btn ghost" id="readBackBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Chiqish</span>
+      </button>
+      <div class="read-meta-title">
+        <span class="read-badge-level" id="readHeaderLevel">A1</span>
+        <span class="read-title-text" id="readHeaderTitle">Topic Title</span>
+      </div>
+    </div>
+    <div class="read-bar-tools">
+      <div class="read-font-controls" role="group" aria-label="Shrift hajmi">
+        <button type="button" class="read-tool-btn" id="readFontSm" title="Kichik shrift">A-</button>
+        <button type="button" class="read-tool-btn active" id="readFontMd" title="O'rta shrift">A</button>
+        <button type="button" class="read-tool-btn" id="readFontLg" title="Katta shrift">A+</button>
+      </div>
+      <button type="button" class="read-tool-btn" id="readListenBtn" title="Matnni ovoz chiqarib o'qitish">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        <span id="readListenBtnLabel">Ovozli tinglash</span>
+      </button>
+      <button type="button" class="read-tool-btn" id="readTranslateToggleBtn" title="O'zbekcha tarjima">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span>Tarjima</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="read-scrollable">
+    <div class="read-header-card">
+      <div class="read-header-top">
+        <span class="read-card-badge" id="readCardLevel">A1</span>
+        <span class="read-card-time" id="readCardTime">2 daqiqa • 180 so'z</span>
+      </div>
+      <h1 class="read-card-title" id="readCardTitle">Topic Title</h1>
+      <p class="read-card-uz" id="readCardUz">Mavzu tarjimasi</p>
+    </div>
+
+    <article class="read-article" id="readArticle" data-size="md"></article>
+
+    <div class="read-translation-box" id="readTranslationBox" hidden>
+      <div class="read-translation-head">
+        <div class="read-translation-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          O'zbekcha tarjima
+        </div>
+        <span class="read-translation-tag">Yordamchi matn</span>
+      </div>
+      <div class="read-translation-content" id="readTranslationContent"></div>
+    </div>
+
+    <div class="read-vocab-section" id="readVocabSection">
+      <h2 class="read-vocab-title">Asosiy so'zlar va iboralar</h2>
+      <div class="read-vocab-grid" id="readVocabGrid"></div>
+    </div>
+
+    <div class="read-quiz-section" id="readQuizSection">
+      <div class="read-quiz-head">
+        <h2 class="read-quiz-title">Matnni tushunish testi (Comprehension)</h2>
+        <span class="read-quiz-sub">Savollarni diqqat bilan o'qib, to'g'ri variantni tanlang</span>
+      </div>
+      <div class="read-questions" id="readQuestions"></div>
+      <div class="read-quiz-actions">
+        <button type="button" class="btn" id="readCheckQuizBtn">Javoblarni tekshirish</button>
+        <button type="button" class="btn ghost" id="readRetryQuizBtn" hidden>Qayta yechish</button>
+      </div>
+      <div class="read-quiz-result" id="readQuizResult" hidden></div>
     </div>
   </div>
 </section>
@@ -3121,6 +3620,448 @@ var LISTENING_DATA = [
   }
 ];
 
+var READING_DATA = [
+  /* ---------- Level A1 ---------- */
+  {
+    id: "read_a1_1",
+    level: "A1",
+    title: "A Morning Walk in the City Park",
+    uz: "Shahar bog'idagi ertalabki sayr",
+    minutes: 2,
+    wordCount: 120,
+    text: "Anna loves waking up early on Saturdays. She puts on her comfortable running shoes and walks to the central park near her home.\n\nThe morning air is cool, fresh, and quiet. She watches colorful birds singing in the tall green trees and warmly greets her neighbors who are walking their dogs.\n\nAfter thirty minutes of peaceful walking, she stops at a small wooden kiosk to buy a fresh apple and a bottle of mineral water. Walking in the park makes her feel energetic, positive, and ready for a wonderful weekend.",
+    translation: "Anna shanba kunlari erta uyg'onishni yaxshi ko'radi. U qulay yugurish poyabzalini kiyib, uyi yaqinidagi markaziy bog' tomon piyoda yo'l oladi.\n\nErtalabki havo salqin, musaffo va osoyishta bo'ladi. U baland yam-yashil daraxtlarda sayrayotgan rang-barang qushlarni tomosha qiladi hamda itlarini sayr qildirayotgan qo'shnilariga samimiy salom beradi.\n\nO'ttiz daqiqalik sokin sayrdan so'ng, u kichik yog'och do'konga to'xtab, yangi olma va bir shisha ma'danli suv xarid qiladi. Bog'da sayr qilish uni g'ayratli, ijobiy va ajoyib dam olish kuniga tayyor his qildiradi.",
+    vocab: [
+      { word: "early", pos: "adv.", ipa: "/ ˈɜː.li /", uz: "erta, saharda", def: "At or near the beginning of the day." },
+      { word: "fresh", pos: "adj.", ipa: "/ freʃ /", uz: "toza, musaffo", def: "Clean, cool, and pleasant air." },
+      { word: "greet", pos: "verb", ipa: "/ ɡriːt /", uz: "salomlashmoq", def: "To say hello or welcome somebody." },
+      { word: "energetic", pos: "adj.", ipa: "/ ˌen.əˈdʒet.ɪk /", uz: "g'ayratli, tetik", def: "Having or showing a lot of energy." }
+    ],
+    questions: [
+      {
+        q: "When does Anna like to take a morning walk in the park?",
+        options: ["Every Monday evening", "Early on Saturdays", "Only on rainy days", "Late at night"],
+        correct: 1,
+        exp: "Matnda: 'Anna loves waking up early on Saturdays' (Anna shanba kunlari saharda sayr qilishni yaxshi ko'radi)."
+      },
+      {
+        q: "What does Anna purchase at the small wooden kiosk?",
+        options: ["Hot tea and a sandwich", "A fresh apple and mineral water", "A morning newspaper", "Running shoes"],
+        correct: 1,
+        exp: "Matnda: 'to buy a fresh apple and a bottle of mineral water' (yangi olma va ma'danli suv xarid qiladi)."
+      },
+      {
+        q: "How does the thirty-minute walk affect Anna's mood?",
+        options: ["She feels exhausted and sleepy", "She feels energetic and ready for the weekend", "She feels bored and lonely", "She feels cold and worried"],
+        correct: 1,
+        exp: "Matnda: 'Walking in the park makes her feel energetic, positive...' (sayr uni g'ayratli va ijobiy his qildiradi)."
+      }
+    ]
+  },
+  {
+    id: "read_a1_2",
+    level: "A1",
+    title: "Cooking a Family Dinner",
+    uz: "Oilaviy kechki ovqat tayyorlash",
+    minutes: 2,
+    wordCount: 130,
+    text: "Every Sunday evening, David and his younger sister Sarah prepare a warm dinner for their hardworking parents. Tonight, they are preparing fresh pasta and rich vegetable soup.\n\nFirst, David washes orange carrots, fresh potatoes, and sweet onions. Meanwhile, Sarah carefully cuts them into small pieces on a wooden chopping board. Next, they boil the vegetables in a large metal pot with fresh herbs and a pinch of salt.\n\nIn a second pan, they boil delicious pasta until it is soft and tender. When dinner is ready, the family gathers happily around the wooden table, turns off the television, and shares stories about their week.",
+    translation: "Har yakshanba oqshomida Devid va uning singlisi Sara mehnatkash ota-onalari uchun issiq kechki ovqat tayyorlaydilar. Bugun oqshom ular yangi pishirilgan pasta va to'yimli sabzavotli sho'rva pishirmoqdalar.\n\nAvval Devid sabzilar, kartoshkalar va shirin piyozlarni yuvadi. Shu vaqtda Sara ularni yog'och taxtada ehtiyotkorlik bilan mayda bo'laklarga to'g'raydi. Keyin ular sabzavotlarni yangi ko'katlar va bir chimdim tuz bilan katta qozonda qaynatadilar.\n\nIkkinchi idishda esa ular pastani yumshoq bo'lguncha qaynatadilar. Kechki ovqat tayyor bo'lgach, butun oila yog'och stol atrofida quvnoq jam bo'ladi, televizorni o'chiradi va hafta davomidagi qiziqarli voqealarni o'rtoqlashadi.",
+    vocab: [
+      { word: "prepare", pos: "verb", ipa: "/ prɪˈpeər /", uz: "tayyorlamoq", def: "To make something ready for use or eating." },
+      { word: "carefully", pos: "adv.", ipa: "/ ˈkeə.fəl.i /", uz: "ehtiyotkorlik bilan", def: "With great attention to avoid errors or injury." },
+      { word: "boil", pos: "verb", ipa: "/ bɔɪl /", uz: "qaynatmoq", def: "To heat a liquid until bubbles form." },
+      { word: "gather", pos: "verb", ipa: "/ ˈɡæð.ər /", uz: "to'planmoq, jam bo'lmoq", def: "To come together into one group or place." }
+    ],
+    questions: [
+      {
+        q: "What delicious meal are David and Sarah cooking tonight?",
+        options: ["Pizza and fried chicken", "Vegetable soup and fresh pasta", "Grilled steak and rice", "Pancakes and strawberry jam"],
+        correct: 1,
+        exp: "Matnda: 'they are preparing fresh pasta and rich vegetable soup'."
+      },
+      {
+        q: "What does Sarah do with the vegetables on the chopping board?",
+        options: ["She washes them in cold water", "She cuts them into small pieces carefully", "She plants them in the garden", "She sells them to neighbors"],
+        correct: 1,
+        exp: "Matnda: 'Sarah carefully cuts them into small pieces on a wooden chopping board'."
+      },
+      {
+        q: "What does the family do while eating dinner together?",
+        options: ["They turn off the television and share stories", "They watch a football match", "They study grammar rules", "They wash dishes immediately"],
+        correct: 0,
+        exp: "Matnda: 'turns off the television, and shares stories about their week'."
+      }
+    ]
+  },
+  {
+    id: "read_a1_3",
+    level: "A1",
+    title: "My First Library Card",
+    uz: "Mening birinchi kutubxona kartam",
+    minutes: 2,
+    wordCount: 135,
+    text: "Yesterday was an exciting milestone for Oliver because he visited the city library for the very first time. The interior of the building was peaceful, bright, and lined with tall white bookshelves holding thousands of fascinating books.\n\nA friendly librarian named Mrs. Adams greeted Oliver with a warm smile. She helped him write his name and address on a simple green registration form. Within just five minutes, she printed and handed him a shiny blue membership card.\n\nOliver was thrilled. He immediately browsed the language section and chose two illustrated English storybooks along with an audio CD. He looks forward to reading every evening before going to bed.",
+    translation: "Kecha Oliver uchun hayajonli kun bo'ldi, chunki u shahar kutubxonasiga ilk bor tashrif buyurdi. Binoning ichi osoyishta, yorug' va minglab qiziqarli kitoblar joylashgan baland oq javonlar bilan to'la edi.\n\nKutubxonachi xonim Adams Oliverni iliq tabassum bilan kutib oldi. U bolaga oddiy yashil ro'yxatdan o'tish varaqasiga ismi va manzilini yozishga yordam berdi. Oradan besh daqiqa o'tar-o'tmas, unga yaltiroq ko'k rangli a'zolik kartasini topshirdi.\n\nOliver nihoyatda quvondi. U darhol chet tili bo'limini ko'zdan kechirdi va ikkita rasmli inglizcha ertak kitobi hamda bitta audio diskni tanladi. Endi u har kuni kechqurun uxlashdan oldin kitob o'qishni intiqlik bilan kutmoqda.",
+    vocab: [
+      { word: "interior", pos: "noun", ipa: "/ ɪnˈtɪə.ri.ər /", uz: "ichki qism, bino ichi", def: "The inside part of a building or room." },
+      { word: "librarian", pos: "noun", ipa: "/ laɪˈbreə.ri.ən /", uz: "kutubxonachi", def: "A person in charge of a library." },
+      { word: "membership", pos: "noun", ipa: "/ ˈmem.bə.ʃɪp /", uz: "a'zolik", def: "The state of belonging to an organization or club." },
+      { word: "thrilled", pos: "adj.", ipa: "/ θrɪld /", uz: "juda quvongan, hayajonlangan", def: "Extremely pleased and excited." }
+    ],
+    questions: [
+      {
+        q: "Who assisted Oliver in obtaining his library card?",
+        options: ["His school teacher", "Mrs. Adams, a friendly librarian", "A police officer", "His grandmother"],
+        correct: 1,
+        exp: "Matnda: 'A friendly librarian named Mrs. Adams greeted Oliver...'."
+      },
+      {
+        q: "What color was Oliver's shiny new membership card?",
+        options: ["Yellow", "Bright red", "Shiny blue", "Dark purple"],
+        correct: 2,
+        exp: "Matnda: 'handed him a shiny blue membership card'."
+      },
+      {
+        q: "What materials did Oliver select to borrow from the library?",
+        options: ["A math textbook and a pencil", "Two illustrated storybooks and an audio CD", "Three newspapers and a map", "A tablet computer"],
+        correct: 1,
+        exp: "Matnda: 'chose two illustrated English storybooks along with an audio CD'."
+      }
+    ]
+  },
+
+  /* ---------- Level A2 ---------- */
+  {
+    id: "read_a2_1",
+    level: "A2",
+    title: "The Invention of the Bicycle",
+    uz: "Velosipedning paydo bo'lish tarixi",
+    minutes: 3,
+    wordCount: 175,
+    text: "Today, hundreds of millions of people around the world pedal bicycles to school, work, or scenic weekend excursions. Yet, the earliest ancestor of the modern bicycle was created over two centuries ago in Germany by Baron Karl von Drais in 1817.\n\nHis wooden creation had two wheels, but it completely lacked pedals, chains, and rubber tires. Riders pushed their boots directly against the dirt ground to propel themselves forward, earning it the nickname the 'running machine'.\n\nDecades later in the 1860s, innovative French craftsmen attached metal pedals directly to an enlarged front wheel. By the late 1880s, British inventors perfected the 'safety bicycle' featuring two wheels of equal size, a linked rear chain drive, and air-filled rubber tires.\n\nToday, bicycles remain celebrated globally as one of the most cost-effective, zero-emission, and body-strengthening forms of human transport ever designed.",
+    translation: "Bugungi kunda butun dunyo bo'ylab yuz millionlab insonlar maktabga, ishga yoki dam olish kunlari sayr qilish uchun velosiped haydaydilar. Biroq, zamonaviy velosipedning ilk ajdodi bundan ikki asr muqaddam, 1817-yilda Germaniyada baron Karl fon Drez tomonidan yaratilgan edi.\n\nUning yog'ochdan yasalgan ixtirosi ikki g'ildirakka ega bo'lsa-da, unda pedallar, zanjir va rezina shinalar mutlaqo yo'q edi. Haydovchilar oldinga siljish uchun oyoqlarini to'g'ridan-to'g'ri yerga tirab turtinishgan, shu sababli u 'yugurish mashinasi' deb atalgan.\n\nOradan o'n yillar o'tib, 1860-yillarda frantsuz ustalari old g'ildirakka metall pedallarni o'rnatdilar. 1880-yillarning oxiriga kelib esa ingliz muhandislari bir xil o'lchamdagi ikki g'ildirak, orqa zanjir uzatmasi va havoli rezina shinalarga ega 'xavfsiz velosiped'ni mukammallashtirdilar.\n\nBugungi kunda velosiped insoniyat tomonidan kashf etilgan eng tejamkor, nol chiqindili va salomatlikni mustahkamlovchi transport turlaridan biri sifatida e'tirof etiladi.",
+    vocab: [
+      { word: "ancestor", pos: "noun", ipa: "/ ˈæn.ses.tər /", uz: "ajdod, ilk namunasi", def: "An early prototype or earlier version of something." },
+      { word: "propel", pos: "verb", ipa: "/ prəˈpel /", uz: "oldinga harakatlantirmoq", def: "To push or drive someone or something forward." },
+      { word: "innovative", pos: "adj.", ipa: "/ ˈɪn.ə.və.tɪv /", uz: "innovatsion, yangicha", def: "Featuring new methods or original ideas." },
+      { word: "emission", pos: "noun", ipa: "/ iˈmɪʃ.ən /", uz: "chiqindi gaz, ajralma", def: "The production and discharge of gas or radiation." }
+    ],
+    questions: [
+      {
+        q: "Who constructed the earliest two-wheeled wooden running machine in 1817?",
+        options: ["Baron Karl von Drais in Germany", "A French watchmaker in Paris", "An American airplane mechanic", "An Italian bicycle racer"],
+        correct: 0,
+        exp: "Matnda: 'created over two centuries ago in Germany by Baron Karl von Drais in 1817'."
+      },
+      {
+        q: "How did riders move the earliest wooden vehicle forward?",
+        options: ["Using steam-powered engines", "Pushing boots against the ground", "Turning hand levers", "With battery pedals"],
+        correct: 1,
+        exp: "Matnda: 'Riders pushed their boots directly against the dirt ground to propel themselves forward'."
+      },
+      {
+        q: "What improvements characterized the 1880s 'safety bicycle'?",
+        options: ["Three wooden wheels and a sail", "Equal-sized wheels, a chain drive, and rubber tires", "A solar roof and leather seats", "Steel tracks instead of wheels"],
+        correct: 1,
+        exp: "Matnda: 'two wheels of equal size, a linked rear chain drive, and air-filled rubber tires'."
+      }
+    ]
+  },
+  {
+    id: "read_a2_2",
+    level: "A2",
+    title: "High-Speed Rail Travel",
+    uz: "Tezyurar poyezdda sayohat",
+    minutes: 3,
+    wordCount: 180,
+    text: "High-speed rail has transformed passenger transit across Europe and Asia, offering a rapid, elegant, and environmentally friendly alternative to domestic aviation.\n\nUnlike traditional flights, high-speed train terminals are typically situated right in the energetic core of metropolitan city centers. This geographical convenience saves commuters hours of highway traffic, stressful airport queues, and bag inspections.\n\nOn board, travelers relax in quiet, wide seats equipped with reliable electrical outlets and high-speed wireless internet. They can savor a cup of tea while admiring expansive countryside panoramas gliding smoothly past panoramic windows.\n\nCrucially, aerodynamic bullet trains produce roughly eighty percent fewer carbon emissions per passenger kilometer than commercial jetliners. As governments strive to combat climate change, modern rail networks are becoming the gold standard for responsible travel.",
+    translation: "Tezyurar temir yo'llar Yevropa va Osiyo bo'ylab yo'lovchi tashishni butunlay o'zgartirib, ichki aviaqatnovlarga nisbatan tezkor, nafis va ekologik toza muqobil taqdim etmoqda.\n\nAn'anaviy parvozlardan farqli o'laroq, tezyurar poyezd vokzallari odatda yirik megapolislarning qoq markazida joylashgan. Bu qulaylik yo'lovchilarni shahar tashqarisidagi tirbandliklar, aeroportdagi uzun navbatlar va yuk tekshiruvlaridan xalos etadi.\n\nPoyezd ichida yo'lovchilar elektr rozetkalari va yuqori tezlikdagi simsiz internet bilan ta'minlangan keng, qulay o'rindiqlarda dam oladilar. Ular panoramali oynalardan silliq o'tayotgan go'zal qishloq manzaralarini tomosha qilgan holda choy ichishlari mumkin.\n\nEng muhimi, zamonaviy poyezdlar har bir yo'lovchi hisobiga samolyotlarga qaraganda taxminan sakson foiz kamroq karbonat angidrid chiqindisi chiqaradi. Davlatlar iqlim o'zgarishiga qarshi kurashayotgan bir paytda, temir yo'llar mas'uliyatli sayohatning oltin standartiga aylanmoqda.",
+    vocab: [
+      { word: "transit", pos: "noun", ipa: "/ ˈtræn.zɪt /", uz: "qatnov, yo'lovchi tashish", def: "The act of passing through or traveling across." },
+      { word: "convenience", pos: "noun", ipa: "/ kənˈviː.ni.əns /", uz: "qulaylik", def: "The state of being easy and useful without difficulty." },
+      { word: "panorama", pos: "noun", ipa: "/ ˌpæn.əˈrɑː.mə /", uz: "keng manzara", def: "An unbroken, wide view of a whole region surrounding an observer." },
+      { word: "aerodynamic", pos: "adj.", ipa: "/ ˌeə.rəʊ.daɪˈnæm.ɪk /", uz: "havo qarshiligini kamaytiruvchi", def: "Designed to reduce friction and air resistance." }
+    ],
+    questions: [
+      {
+        q: "Why do high-speed train stations offer greater convenience than airports?",
+        options: ["They are cheaper to build", "They are situated in city centers, saving hours of transit", "They allow unlimited luggage for free", "They operate only on weekends"],
+        correct: 1,
+        exp: "Matnda: 'high-speed train terminals are typically situated right in the energetic core of metropolitan city centers'."
+      },
+      {
+        q: "What environmental advantage do bullet trains hold over airplanes?",
+        options: ["They generate no sound whatsoever", "They produce approximately 80% fewer carbon emissions", "They run on recycled plastic fuel", "They purify river water"],
+        correct: 1,
+        exp: "Matnda: 'produce roughly eighty percent fewer carbon emissions per passenger kilometer than commercial jetliners'."
+      },
+      {
+        q: "What amenities can passengers enjoy while traveling on board?",
+        options: ["Large seats, charging outlets, Wi-Fi, and panoramic views", "Swimming pools and sports courts", "Sleeping tents on top of the cars", "Private driving controls"],
+        correct: 0,
+        exp: "Matnda: 'quiet, wide seats equipped with reliable electrical outlets and high-speed wireless internet... panoramic windows'."
+      }
+    ]
+  },
+  {
+    id: "read_a2_3",
+    level: "A2",
+    title: "Tea Traditions and Hospitality",
+    uz: "Choy an'analari va mehmondo'stlik",
+    minutes: 3,
+    wordCount: 185,
+    text: "Throughout Central Asia, drinking tea is far more than a physical remedy for dehydration; it represents a sacred social ritual rooted in profound hospitality and goodwill.\n\nIn Uzbek households, arriving guests are greeted at the threshold and escorted to comfortable cushions around a low table. The host promptly serves freshly brewed green or fragrant black tea in handcrafted ceramic cups known as piala.\n\nBefore presenting the tea, the host performs a time-honored custom called 'kaitar'. This involves pouring steaming tea into a cup and returning it to the porcelain teapot three consecutive times. This ritual thoroughly blends the tea leaves, unleashing their optimal fragrance and soothing flavor.\n\nServing only a half-filled cup is considered a sign of true respect. It ensures the beverage stays warm, allowing the host to frequently pour fresh tea and express continuous, attentive hospitality.",
+    translation: "Markaziy Osiyoda choy ichish shunchaki chanqoqni qondirish emas; u chuqur mehmondo'stlik va samimiyatga asoslangan qadimiy ijtimoiy qadriyatdir.\n\nO'zbek xonadonlarida tashrif buyurgan mehmonlar ostonada kutib olinib, xontaxta atrofidagi qulay ko'rpachalarga taklif etiladi. Mezbon darhol qo'lda yasalgan nafis piyolalarda yangi damlangan ko'k yoki xushbo'y qora choyni tortiq qiladi.\n\nChoyni uzatishdan avval mezbon 'qaytarish' deb ataluvchi an'anani bajaradi. Bu qaynoq choyni piyolaga quyib, uch marta choynakka qaytarishdan iborat. Ushbu marosim choy barglarining to'liq ochilishiga, uning xushbo'y hidi va lazzatli ta'mi bir tekis tarqalishiga xizmat qiladi.\n\nPiyolaga choyni to'ldirmay, yarim qilib quyish mehmonga nisbatan ehtirom belgisi sanaladi. Bu choyning tez sovib qolmasligini ta'minlaydi hamda mezbonga piyolani tez-tez yangilab, uzluksiz e'tibor va mehmondo'stlik ko'rsatish imkonini beradi.",
+    vocab: [
+      { word: "hospitality", pos: "noun", ipa: "/ ˌhɒs.pɪˈtæl.ə.ti /", uz: "mehmondo'stlik", def: "The friendly and generous reception and entertainment of guests." },
+      { word: "threshold", pos: "noun", ipa: "/ ˈθreʃ.həʊld /", uz: "ostona, bo'sag'a", def: "The entrance or doorstep of a house or building." },
+      { word: "consecutive", pos: "adj.", ipa: "/ kənˈsek.jə.tɪv /", uz: "ketma-ket, uzluksiz", def: "Following continuously in unbroken or logical sequence." },
+      { word: "attentive", pos: "adj.", ipa: "/ əˈten.tɪv /", uz: "e'tiborli, g'amxo'r", def: "Paying close attention to the needs of others." }
+    ],
+    questions: [
+      {
+        q: "What does offering tea symbolize in Central Asian cultures?",
+        options: ["A rushed business meeting", "Profound hospitality, goodwill, and mutual respect", "A signal for guests to leave quickly", "A formal medical treatment"],
+        correct: 1,
+        exp: "Matnda: 'represents a sacred social ritual rooted in profound hospitality and goodwill'."
+      },
+      {
+        q: "Why is the traditional 'kaitar' ritual carried out three times?",
+        options: ["To test the temperature of the table", "To thoroughly blend the leaves and unleash their fragrance", "To count how many guests arrived", "To wash the porcelain teapot"],
+        correct: 1,
+        exp: "Matnda: 'thoroughly blends the tea leaves, unleashing their optimal fragrance and soothing flavor'."
+      },
+      {
+        q: "Why does the host pour tea into half a cup rather than filling it to the brim?",
+        options: ["Because tea is scarce and expensive", "To keep it warm and show continuous, caring attention", "Because full cups are prohibited by law", "To finish the tea ceremony faster"],
+        correct: 1,
+        exp: "Matnda: 'ensures the beverage stays warm, allowing the host to frequently pour fresh tea and express continuous, attentive hospitality'."
+      }
+    ]
+  },
+
+  /* ---------- Level B1 ---------- */
+  {
+    id: "read_b1_1",
+    level: "B1",
+    title: "The Architecture of Daily Habits",
+    uz: "Kundalik odatlar me'morchiligi",
+    minutes: 4,
+    wordCount: 220,
+    text: "When individuals reflect on remarkable personal transformations, they frequently attribute success to dramatic leaps of willpower or lucky coincidences. Cognitive psychologists, however, reveal a contrasting reality: approximately forty percent of our daily behaviors are driven not by deliberate deliberation, but by ingrained automatic habits.\n\nEvery habit operates through an evolutionary mechanism known as the 'habit loop'. This loop consists of three interdependent stages: the cue (an external or internal trigger), the routine (the executed action), and the reward (the neurological satisfaction that signals to the brain that the pattern is worth retaining).\n\nWhen a specific loop is continually activated, the brain offloads conscious control from the energy-intensive prefrontal cortex to the basal ganglia, thereby conserving vital mental energy. Consequently, attempting to overhaul your life through sudden, aggressive changes often triggers cognitive fatigue and failure.\n\nThe most sustainable approach involves compounding: improving micro-behaviors by just one percent every day. Over weeks and months, these modest adjustments accumulate into profound intellectual, emotional, and physical breakthroughs.",
+    translation: "Insonlar o'z hayotlaridagi katta yutuqlar haqida o'ylaganlarida, muvaffaqiyatni ko'pincha g'ayritabiiy iroda kuchi yoki omadli tasodiflar bilan bog'laydilar. Biroq, kognitiv psixologlar butunlay boshqacha haqiqatni ta'kidlaydilar: kundalik xatti-harakatlarimizning qariyb qirq foizi ongli mulohazalar emas, balki chuqur ildiz otgan avtomatik odatlar tomonidan boshqariladi.\n\nHar bir odat 'odat silsilasi' (habit loop) deb nomlanuvchi evolyutsion mexanizm orqali ishlaydi. Ushbu silsila o'zaro bog'liq uch bosqichdan iborat: turtki (ichki yoki tashqi signal), odatiy harakat (bajariladigan xatti-harakat) va mukofot (miyaning ushbu harakatni eslab qolishga arziydi deb hisoblashiga undovchi neyrologik qoniqish).\n\nMuayyan silsila muntazam takrorlanganda, miya ushbu jarayonni katta energiya talab qiladigan prefrontal korteksdan bazal gangliylarga o'tkazadi va shu orqali ruhiy quvvatni tejaydi. Shu sababli, hayotni keskin va og'ir cheklovlar bilan o'zgartirishga urinish ko'pincha ruhiy toliqish va mag'lubiyatga olib keladi.\n\nEng barqaror yo'l esa jamg'arish (compounding) qoidasiga tayanadi: har kuni kichik odatlarni bor-yo'g'i 1 foizga yaxshilash. Oylar o'tishi bilan ushbu kichik o'zgarishlar aql bovar qilmas intellektual, ruhiy va jismoniy yuksalishlarga aylanadi.",
+    vocab: [
+      { word: "deliberate", pos: "adj.", ipa: "/ dɪˈlɪb.ər.ət /", uz: "ongli, chuqur o'ylangan", def: "Done consciously and intentionally after careful thought." },
+      { word: "ingrained", pos: "adj.", ipa: "/ ɪnˈɡreɪnd /", uz: "mustahkam o'rnashgan, ildiz otgan", def: "Deeply established and difficult to change." },
+      { word: "interdependent", pos: "adj.", ipa: "/ ˌɪn.tə.dɪˈpen.dənt /", uz: "o'zaro bog'liq", def: "Mutually dependent on each other." },
+      { word: "compounding", pos: "noun", ipa: "/ kəmˈpaʊn.dɪŋ /", uz: "karrali o'sish, jamg'arilish", def: "The process where gradual gains multiply upon themselves over time." }
+    ],
+    questions: [
+      {
+        q: "According to cognitive researchers, what proportion of daily behavior is automated?",
+        options: ["Roughly 10 percent", "Approximately 40 percent", "Over 95 percent", "Less than 5 percent"],
+        correct: 1,
+        exp: "Matnda: 'approximately forty percent of our daily behaviors are driven not by deliberate deliberation, but by ingrained automatic habits'."
+      },
+      {
+        q: "What neurological shift occurs when an action transforms into a habitual routine?",
+        options: ["The brain stops functioning entirely", "Control shifts from the prefrontal cortex to the basal ganglia", "The brain requires twice as much glucose", "Memory cells become permanently dormant"],
+        correct: 1,
+        exp: "Matnda: 'the brain offloads conscious control from the energy-intensive prefrontal cortex to the basal ganglia'."
+      },
+      {
+        q: "What is recommended as the most resilient method for long-term self-improvement?",
+        options: ["Total isolation from society", "Compounding modest 1% micro-habits daily", "Making radical, exhausting changes all at once", "Relying purely on unpredictable motivation"],
+        correct: 1,
+        exp: "Matnda: 'compounding: improving micro-behaviors by just one percent every day'."
+      }
+    ]
+  },
+  {
+    id: "read_b1_2",
+    level: "B1",
+    title: "The Neurobiology of Deep Sleep",
+    uz: "Chuqur uyquning neyrobiologiyasi",
+    minutes: 4,
+    wordCount: 230,
+    text: "In our hyper-connected, round-the-clock society, sleep is commonly mischaracterized as an unproductive state of inactivity. Ambitious learners often boast about sacrificing sleep to gain extra working hours. Yet neuroscientists assert that chronic sleep deprivation is directly counterproductive to academic mastery and cognitive clarity.\n\nWhile we are awake, incoming sensory impressions and vocabulary words are temporarily staged in the hippocampus, a brain region characterized by strict memory capacity. Think of the hippocampus as a temporary notepad.\n\nDuring slow-wave deep sleep, an exquisite neurological data transfer transpires: the brain replays and consolidates these memories, relocating critical concepts into the neocortex for long-term retention.\n\nSimultaneously, the brain's glymphatic system activates, functioning like a molecular cleansing mechanism. Cerebrospinal fluid rushes through the spaces between neurons, washing away toxic metabolic byproducts like beta-amyloid proteins that accumulate during waking hours.\n\nNeglecting restorative sleep leaves the hippocampus overwhelmed, diminishes critical problem-solving skills, and severely impairs emotional equilibrium.",
+    translation: "Hozirgi shiddatli va 24/7 rejimida ishlaydigan jamiyatda uyqu ko'pincha behuda sarflangan passiv vaqt deb noto'g'ri baholanadi. Ko'plab o'quvchilar ko'proq dars qilish uchun uyqudan voz kechish bilan faxrlanadilar. Biroq neyrobiologlar surunkali uyqusizlik ta'limdagi yutuqlar va zehniy tiniqlik uchun mutlaqo teskari oqibat keltirishini isbotlamoqdalar.\n\nBiz uyg'oq bo'lgan vaqtimizda yangi ma'lumotlar va so'zlar gippokampda — xotira hajmi cheklangan bosh miya qismida vaqtincha saqlanadi. Gippokampni vaqtinchalik yozuv daftarchasiga qiyoslash mumkin.\n\nChuqur uyqu bosqichida esa ajoyib neyrologik jarayon ro'y beradi: miya kun davomida olingan xotiralarni qayta tahlil qilib, muhim bilimlarni doimiy saqlash uchun neokorteksga ko'chiradi.\n\nShu bilan birga, miyaning glimfatik tozalash tizimi ishga tushadi. Orqa miya suyuqligi neyronlar oralig'idan oqib o'tib, uyg'oq paytimizda to'planib qolgan zararli oqsil qoldiqlarini yuvib chiqaradi.\n\nTo'yib uxlamaslik gippokampning to'lib qolishiga olib keladi, tahliliy fikrlashni susaytiradi va hissiy barqarorlikni buzadi.",
+    vocab: [
+      { word: "counterproductive", pos: "adj.", ipa: "/ ˌkaʊn.tə.prəˈdʌk.tɪv /", uz: "teskari natija beruvchi", def: "Having the opposite of the desired effect." },
+      { word: "consolidate", pos: "verb", ipa: "/ kənˈsɒl.ɪ.deɪt /", uz: "mustahkamlamoq, birlashtirmoq", def: "To reinforce and combine into a compact, coherent whole." },
+      { word: "restorative", pos: "adj.", ipa: "/ rɪˈstɔː.rə.tɪv /", uz: "tiklovchi, kuch bag'ishlovchi", def: "Having the ability to restore health, strength, or well-being." },
+      { word: "equilibrium", pos: "noun", ipa: "/ ˌiː.kwɪˈlɪb.ri.əm /", uz: "muvozanat, ruhiy osoyishtalik", def: "A state of emotional balance and mental serenity." }
+    ],
+    questions: [
+      {
+        q: "What role does the hippocampus play during waking hours?",
+        options: ["Permanent long-term storage of all life events", "A temporary notepad with strictly limited capacity", "Controlling heart rate and blood circulation", "Filtering physical toxins from the lungs"],
+        correct: 1,
+        exp: "Matnda: 'incoming sensory impressions and vocabulary words are temporarily staged in the hippocampus, a brain region characterized by strict memory capacity'."
+      },
+      {
+        q: "What critical process happens to memories during deep sleep?",
+        options: ["They are permanently erased to free up space", "The brain transfers essential concepts into the neocortex for long-term retention", "They are mixed with random dreams only", "They are converted into physical muscles"],
+        correct: 1,
+        exp: "Matnda: 'the brain replays and consolidates these memories, relocating critical concepts into the neocortex for long-term retention'."
+      },
+      {
+        q: "How does the glymphatic system protect brain health during deep sleep?",
+        options: ["By heating the brain tissues", "By washing away accumulated toxic metabolic byproducts", "By stopping oxygen flow", "By expanding the skull size"],
+        correct: 1,
+        exp: "Matnda: 'washing away toxic metabolic byproducts like beta-amyloid proteins that accumulate during waking hours'."
+      }
+    ]
+  },
+  {
+    id: "read_b1_3",
+    level: "B1",
+    title: "The Geography of Remote Work",
+    uz: "Masofaviy ish geografiyasi",
+    minutes: 4,
+    wordCount: 225,
+    text: "Over the last decade, widespread high-bandwidth internet, portable laptops, and decentralized cloud collaboration platforms have catalyzed an unprecedented migration away from static office cubicles. Millions of skilled specialists have embraced the 'digital nomad' philosophy, uncoupling productive work from geographical location.\n\nFrom software engineers and UI designers to content strategists and translators, modern professionals are establishing temporary headquarters in vibrant hubs like Lisbon, Bali, and Tbilisi. These destinations feature thriving co-working ecosystems, affordable living costs, and rich cultural immersion.\n\nHowever, remote work across international borders is not without friction. Digital nomads frequently navigate bureaucratic visa labyrinths, ambiguous tax liabilities across multiple jurisdictions, and unpredictable internet outages. Furthermore, shifting time zones can complicate communication with global clients.\n\nOn a personal level, continuous relocation can lead to social fragmentation and profound loneliness. Successfully sustaining this lifestyle demands rigorous self-discipline, financial foresight, and a deliberate effort to build authentic community wherever one lands.",
+    translation: "So'nggi o'n yillikda keng polosali internet, ixcham noutbuklar va bulutli hamkorlik platformalari insonlarni an'anaviy ofis stollaridan ozod etuvchi misli ko'rilmagan oqimni yuzaga keltirdi. Millionlab mutaxassislar 'raqamli ko'chmanchi' (digital nomad) hayot tarzini tanlab, unumli mehnatni muayyan geografik manzildan ajratdilar.\n\nDasturchilar va dizaynerlardan tortib, tarjimonlar va marketologlargacha bo'lgan mutaxassislar Lissabon, Bali yoki Tbilisi kabi shahar va orollarda vaqtinchalik qarorgohlar barpo etmoqdalar. Bu manzillar qulay kovorking markazlari, hamyonbop yashash xarajatlari va boy madaniy muhit bilan ajralib turadi.\n\nBiroq, chegaralarsiz masofaviy ishlash qiyinchiliklardan ham xoli emas. Ko'chmanchilar tez-tez viza rasmiylashtirishdagi byurokratiya, soliq qonunchiligidagi noaniqliklar va internet uzilishlariga duch keladilar. Bundan tashqari, soat mintaqalaridagi farqlar xalqaro mijozlar bilan muloqotni murakkablashtiradi.\n\nShaxsiy hayotda esa doimiy ko'chib yurish yolg'izlik va ijtimoiy uzilish hissini uyg'otishi mumkin. Bu hayot tarzini uzoq muddat davom ettirish qat'iy intizom, moliyaviy tejamkorlik va qayerda bo'lmasin samimiy insoniy munosabatlarni qura olish mahoratini talab qiladi.",
+    vocab: [
+      { word: "catalyze", pos: "verb", ipa: "/ ˈkæt.əl.aɪz /", uz: "tezlashtirmoq, jadallashtirmoq", def: "To cause or accelerate an action or process." },
+      { word: "uncouple", pos: "verb", ipa: "/ ʌnˈkʌp.əl /", uz: "ajratmoq, uzmoq", def: "To disconnect or separate one thing from another." },
+      { word: "jurisdiction", pos: "noun", ipa: "/ ˌdʒʊə.rɪsˈdɪk.ʃən /", uz: "yurisdiksiya, qonuniy hudud", def: "The official power or territory to make legal decisions and judgments." },
+      { word: "foresight", pos: "noun", ipa: "/ ˈfɔː.saɪt /", uz: "oldindan ko'ra bilish, uzoqni ko'zlash", def: "The ability to predict or prepare for what will happen in the future." }
+    ],
+    questions: [
+      {
+        q: "What technological advancements facilitated the rise of digital nomads?",
+        options: ["Faster postal services and landline phones", "High-bandwidth internet, portable computers, and cloud collaboration", "Underground metro lines", "Paper documents and fax machines"],
+        correct: 1,
+        exp: "Matnda: 'widespread high-bandwidth internet, portable laptops, and decentralized cloud collaboration platforms'."
+      },
+      {
+        q: "What professional and logistical challenges do digital nomads frequently face?",
+        options: ["Lack of computer hardware stores", "Visa bureaucracies, cross-border tax ambiguities, and timezone shifts", "An inability to speak English", "Expensive airplane food"],
+        correct: 1,
+        exp: "Matnda: 'bureaucratic visa labyrinths, ambiguous tax liabilities across multiple jurisdictions, and unpredictable internet outages'."
+      },
+      {
+        q: "What personal requirement is vital to prevent loneliness while working remotely?",
+        options: ["Never leaving hotel rooms", "Deliberately building authentic communities and practicing self-discipline", "Traveling to a new country every single day", "Avoiding communication with family members"],
+        correct: 1,
+        exp: "Matnda: 'demands rigorous self-discipline, financial foresight, and a deliberate effort to build authentic community'."
+      }
+    ]
+  },
+
+  /* ---------- Level B2 ---------- */
+  {
+    id: "read_b2_1",
+    level: "B2",
+    title: "Biophilic Urbanism and Future Cities",
+    uz: "Biofil shaharsozlik va kelajak shaharlari",
+    minutes: 4,
+    wordCount: 260,
+    text: "By 2050, demographic projections indicate that nearly seventy percent of humankind will inhabit sprawling metropolitan environments. Historically, unchecked urbanization has coincided with ecological degradation, oppressive concrete heat islands, and severe biodiversity loss. In response, visionary urbanists are developing biophilic urban architecture—a transformative paradigm that weaves living biological systems into the structural fabric of our skylines.\n\nBiophilic cities transcend decorative municipal gardens. Residential towers are designed with integrated vertical forests comprising thousands of indigenous shrubs and trees. These botanic facades capture carbon dioxide, filter particulate airborne matter, and attenuate acoustic urban noise.\n\nMicroclimatically, plant transpiration mitigates the urban heat island effect, diminishing summer surface temperatures by up to four degrees Celsius and drastically slashing cooling energy consumption.\n\nFurthermore, sustainable stormwater management utilizes permeable basalt surfaces and subterranean bio-swales that mimic natural wetlands, preventing torrential urban flooding while recharging aquifers.\n\nBeyond environmental metrics, environmental psychology validates that visual proximity to natural foliage accelerates psychological recovery from stress, stabilizes blood pressure, and cultivates civic empathy. Biophilic urbanism proves that civilizational density does not mandate ecological alienation.",
+    translation: "2050-yilga kelib, demografik ma'lumotlarga ko'ra, insoniyatning qariyb 70 foizi megapolislarda istiqomat qiladi. Tarixiy jihatdan, nazoratsiz shaharsozlik tabiatning yemirilishi, beton issiqlik orollari va biologik xilma-xillikning yo'qolishi bilan kechgan. Bunga javoban, zamonaviy me'morlar biofil shaharsozlik — tirik biologik tizimlarni shahar osmono'par binolari bilan birlashtiruvchi yangi me'moriy yechimni taklif qilmoqdalar.\n\nBiofil shaharlar shunchaki bezakli xiyobonlardan ancha ustundir. Aholi yashaydigan osmono'par binolar minglab mahalliy daraxt va butalardan iborat vertikal o'rmonlar bilan qoplanadi. Ushbu yashil fasadlar karbonat angidridni yutadi, havoni mayda chang zarralaridan tozalaydi va shahar shovqinini kamaytiradi.\n\nO'simliklarning namlik ajratishi shahar issiqlik oroli effektini yumshatadi, yozgi haroratni to'rt darajagacha pasaytiradi va konditsionerlar sarflaydigan elektr quvvatini sezilarli darajada tejaydi.\n\nBundan tashqari, yomg'ir suvlarini boshqarishda g'ovakli tosh qoplamalar va tabiiy botqoqliklarga o'xshash yerosti drenaj tizimlaridan foydalaniladi, bu esa toshqinlarning oldini oladi va yerosti suv zaxiralarini to'ldiradi.\n\nEkologik foydadan tashqari, psixologik tadqiqotlar tabiat bilan doimiy vizual aloqada bo'lish ruhiy zo'riqishni tezda yengishga, qon bosimini me'yorlashtirishga va insonlar o'rtasida mehr-oqibatni kuchaytirishga xizmat qilishini ko'rsatmoqda.",
+    vocab: [
+      { word: "degradation", pos: "noun", ipa: "/ ˌdeɡ.rəˈdeɪ.ʃən /", uz: "yemirilish, qashshoqlashish", def: "The process in which the quality or integrity of something is destroyed." },
+      { word: "attenuate", pos: "verb", ipa: "/ əˈten.ju.eɪt /", uz: "susaytirmoq, pasaytirmoq", def: "To reduce the force, intensity, or acoustic volume of something." },
+      { word: "permeable", pos: "adj.", ipa: "/ ˈpɜː.mi.ə.bəl /", uz: "o'tkazuvchan, suv singdiruvchi", def: "Allowing liquids or gases to pass through porous membranes or spaces." },
+      { word: "alienation", pos: "noun", ipa: "/ ˌeɪ.li.əˈneɪ.ʃən /", uz: "begonalashuv, uzilish", def: "The feeling of being isolated or separated from environment or society." }
+    ],
+    questions: [
+      {
+        q: "What fundamental premise defines biophilic urban architecture?",
+        options: ["Replacing all human workers with automated drones", "Weaving living biological systems and vertical foliage into urban architecture", "Banning all multistory buildings in city centers", "Building cities entirely underground"],
+        correct: 1,
+        exp: "Matnda: 'weaves living biological systems into the structural fabric of our skylines'."
+      },
+      {
+        q: "How do vertical botanical facades mitigate the urban heat island effect?",
+        options: ["Through reflective aluminum foil", "Through plant transpiration that cools temperatures by up to 4 degrees Celsius", "By circulating ice water through pipes", "By creating continuous artificial wind"],
+        correct: 1,
+        exp: "Matnda: 'plant transpiration mitigates the urban heat island effect, diminishing summer surface temperatures by up to four degrees Celsius'."
+      },
+      {
+        q: "What psychological benefit does proximity to greenery offer urban inhabitants?",
+        options: ["It induces immediate sleep", "It accelerates stress recovery, stabilizes blood pressure, and nurtures empathy", "It increases appetite for sugar", "It prevents humans from speaking loudly"],
+        correct: 1,
+        exp: "Matnda: 'visual proximity to natural foliage accelerates psychological recovery from stress, stabilizes blood pressure, and cultivates civic empathy'."
+      }
+    ]
+  },
+  {
+    id: "read_b2_2",
+    level: "B2",
+    title: "Algorithmic Ethics and Autonomous Systems",
+    uz: "Algoritmik axloq va avtonom tizimlar",
+    minutes: 5,
+    wordCount: 270,
+    text: "As artificial intelligence transitions from bounded experimental laboratories to mission-critical domains including algorithmic sentencing, medical triage, and autonomous navigation, societies are forced to confront profound moral dilemmas. Engineers have historically treated algorithms as impartial mathematical instruments. However, contemporary data science demonstrates that machine learning models are fundamentally mirrors reflecting historical inequities.\n\nWhen algorithms ingest decades of historical hiring or policing data, they identify statistical correlations that inherently reflect ingrained human biases. Without proactive algorithmic auditing, predictive tools codify and automate past discrimination under a veneer of mathematical objectivity.\n\nCompounding this challenge is the opacity of deep neural networks—frequently described as the 'black-box problem'. In multi-layered transformer models, millions of non-linear parameter weights interact in ways that elude human interpretability.\n\nWhen an automated diagnostic tool misidentifies a malignant tumor or an autonomous vehicle makes a fatal navigational compromise, assigning moral liability and legal accountability becomes exceptionally intricate. Does culpability rest with the model developer, the deploying hospital, or the opaque software itself?\n\nAddressing these questions requires interdisciplinary governance that marries computer science with constitutional jurisprudence and moral philosophy, ensuring that technological progress honors universal human dignity.",
+    translation: "Sun'iy intellekt laboratoriya tajribalaridan tibbiy tashxis, sud hukmlari va avtonom transport kabi inson hayoti uchun mas'uliyatli sohalarga kirib borar ekan, jamiyat chuqur axloqiy muammolarga duch kelmoqda. Dasturchilar uzoq vaqt davomida algoritmlarni beg'araz va xolis matematik vosita deb hisoblashgan. Biroq, zamonaviy ma'lumotlar ilmi shuni ko'rsatmoqdaki, mashinaviy o'rganish modellari insoniyat tarixidagi ijtimoiy tengsizliklarning o'ziga xos ko'zgusidir.\n\nAlgoritmlar o'tgan o'n yilliklardagi ishga qabul qilish yoki huquq-tartibot ma'lumotlarini tahlil qilganda, ular o'tmishdagi noxolis insoniy qarorlarni o'zida aks ettirgan statistik bog'liqliklarni o'zlashtiradi. Maxsus tekshiruv va nazorat bo'lmasa, bunday dasturlar matematik xolislik niqobi ostida kamsitishlarni avtomatlashtirib qo'yishi mumkin.\n\nMuammoni yanada chuqurlashtiruvchi omil — bu chuqur neyron tarmoqlarining 'qora quti' (black-box) deb ataluvchi tushunarsizligidir. Ko'p qatlamli modellarda millionlab parametrlar inson aqli bilan to'liq tushuntirib bo'lmaydigan darajada murakkab aloqada ishlaydi.\n\nAgar tibbiy algoritm xavfli o'simtani aniqlashda xato qilsa yoki avtopilotdagi avtomobil halokatga uchrasa, qonuniy va axloqiy javobgarlikni kimga yuklash kerak? Ayb dastur ishlab chiquvchisidami, uni xarid qilgan shifoxonadami yoki tushunarsiz dasturiy ta'minotning o'zidami?\n\nBu savollarga javob topish dasturlash sohasini huquqshunoslik va axloq falsafasi bilan birlashtirgan mustahkam qonuniy nazoratni talab qiladi, toki texnologik taraqqiyot inson sha'ni va huquqlariga to'liq xizmat qilsin.",
+    vocab: [
+      { word: "impartial", pos: "adj.", ipa: "/ ɪmˈpɑː.ʃəl /", uz: "xolis, beg'araz", def: "Treating all rivals or disputants equally; fair and unbiased." },
+      { word: "veneer", pos: "noun", ipa: "/ vəˈnɪər /", uz: "yuzaki niqob, parda", def: "An attractive appearance that disguises true reality." },
+      { word: "culpability", pos: "noun", ipa: "/ ˌkʌl.pəˈbɪl.ə.ti /", uz: "aybdorlik, javobgarlik", def: "Responsibility for a fault, crime, or wrongdoing." },
+      { word: "jurisprudence", pos: "noun", ipa: "/ ˌdʒʊə.rɪsˈpruː.dəns /", uz: "huquqshunoslik, qonunchilik ilmi", def: "The theory, philosophy, and practical application of law." }
+    ],
+    questions: [
+      {
+        q: "Why can predictive machine learning algorithms perpetuate human bias?",
+        options: ["Because computer servers overheat frequently", "Because models ingest historical data shaped by past societal prejudices", "Because mathematics is inherently biased against science", "Because programmers intentionally inject malicious code"],
+        correct: 1,
+        exp: "Matnda: 'When algorithms ingest decades of historical hiring or policing data, they identify statistical correlations that inherently reflect ingrained human biases'."
+      },
+      {
+        q: "What does the 'black-box problem' refer to in artificial neural networks?",
+        options: ["The physical casing that surrounds supercomputers", "The opacity and difficulty of interpreting multi-layered non-linear parameters", "A power outage inside a data center", "The total absence of data storage"],
+        correct: 1,
+        exp: "Matnda: 'In multi-layered transformer models, millions of non-linear parameter weights interact in ways that elude human interpretability'."
+      },
+      {
+        q: "Why is assigning liability intricate when an autonomous system fails?",
+        options: ["Because software is free of charge", "Because determining whether responsibility lies with the engineer, user, or opaque model is legally and morally complex", "Because courts do not handle technical cases", "Because robots possess sovereign immunity"],
+        correct: 1,
+        exp: "Matnda: 'Does culpability rest with the model developer, the deploying hospital, or the opaque software itself?'."
+      }
+    ]
+  },
+  {
+    id: "read_b2_3",
+    level: "B2",
+    title: "Epistemic Humility and Critical Thinking",
+    uz: "Epistemik kamtarlik va tanqidiy fikrlash",
+    minutes: 5,
+    wordCount: 265,
+    text: "In an information landscape dominated by algorithmic echo chambers, deepfake synthesizers, and emotionally polarized feeds, the capacity for rigorous critical discernment has ceased to be an intellectual luxury; it has become an indispensable civic armor.\n\nCognitive psychology highlights that the human intellect is naturally vulnerable to confirmation bias: our subconscious predisposition to eagerly absorb narratives that validate our pre-existing worldviews while reflexively discarding contradictory evidence.\n\nTo transcend these cognitive distortions, philosophers champion 'epistemic humility'—the conscious recognition that our personal knowledge is inherently incomplete, culturally conditioned, and susceptible to fallacy.\n\nEpistemic humility does not signify cynicism or paralyzing skepticism. Rather, it demands an active, disciplined methodology: scrutinizing evidentiary claims, identifying unstated premises in provocative rhetoric, and deliberately seeking out intellectually robust opposing viewpoints.\n\nWhen we cultivate the courage to hold our beliefs tentatively and revise them in the face of rigorous empirical evidence, we liberate ourselves from dogmatic manipulation and foster genuine democratic deliberation.",
+    translation: "Algoritmik aks-sado xonalari, sun'iy intellekt orqali yasalgan soxta videolar (deepfakes) va hissiyotlarga asoslangan axborot oqimlari davrida tanqidiy fikrlash qobiliyati shunchaki intellektual fazilat emas, balki fuqarolik himoya qalqoniga aylandi.\n\nKognitiv psixologiya inson aqli 'tasdiqlash moyilligi' (confirmation bias) oldida zaif ekanligini ta'kidlaydi: biz mavjud qarashlarimizni quvvatlovchi xabarlarni bajonidil qabul qilamiz, ammo ularga zid bo'lgan dalillarni o'ylamasdan rad etamiz.\n\nUshbu aqliy adashishlarni yengib o'tish uchun mutafakkirlar 'epistemik kamtarlik'ni ilgari suradilar — bu o'z bilimlarimizning to'liq emasligini, madaniy qarashlarimiz ta'sirida shakllanganini va xatolardan xoli emasligini ongli ravishda tan olishdir.\n\nEpistemik kamtarlik har narsadan shubhalanuvchi befarqlikni anglatmaydi. Aksincha, u qat'iy va izchil yondashuvni talab qiladi: dalillarni chuqur tekshirish, shov-shuvli sarlavhalar ortidagi yashirin maqsadlarni aniqlash va o'z qarashlariga zid bo'lgan jiddiy dalillarni ataylab o'rganish.\n\nO'z fikrlarimizni qat'iy aqida deb bilmay, ishonchli faktlar asosida ularni o'zgartira olishga jur'at etsakgina, biz o'zimizni manipulyatsiyalardan asraymiz va jamiyatda sog'lom tafakkurni qaror toptiramiz.",
+    vocab: [
+      { word: "discernment", pos: "noun", ipa: "/ dɪˈsɜːn.mənt /", uz: "farqlash qobiliyati, ziyraklik", def: "The ability to judge well and distinguish truth from falsehood." },
+      { word: "predisposition", pos: "noun", ipa: "/ ˌpriː.dɪs.pəˈzɪʃ.ən /", uz: "moyillik, moyillik ko'rsatish", def: "A liability or tendency to think or act in a particular way." },
+      { word: "fallacy", pos: "noun", ipa: "/ ˈfæl.ə.si /", uz: "xato fikr, yanglish xulosa", def: "A mistaken belief, especially one based on unsound argument." },
+      { word: "dogmatic", pos: "adj.", ipa: "/ dɒɡˈmæt.ɪk /", uz: "aqidaparast, ko'r-ko'rona", def: "Asserting opinions in an arrogant or rigidly unquestioning manner." }
+    ],
+    questions: [
+      {
+        q: "What psychological vulnerability causes humans to favor information that agrees with existing beliefs?",
+        options: ["Photographic memory overload", "Confirmation bias", "Algorithmic decay", "Temporary amnesia"],
+        correct: 1,
+        exp: "Matnda: 'confirmation bias: our subconscious predisposition to eagerly absorb narratives that validate our pre-existing worldviews'."
+      },
+      {
+        q: "What is the core principle of 'epistemic humility'?",
+        options: ["Believing that all truth is completely unknowable", "Acknowledging that one's personal knowledge is incomplete and fallible", "Refusing to read any news headlines", "Agreeing with every person without argument"],
+        correct: 1,
+        exp: "Matnda: 'the conscious recognition that our personal knowledge is inherently incomplete, culturally conditioned, and susceptible to fallacy'."
+      },
+      {
+        q: "How does intellectual humility safeguard individuals in modern society?",
+        options: ["It frees them from dogmatic manipulation and fosters thoughtful deliberation", "It helps them win online disputes without listening", "It speeds up social media reading", "It eliminates the need for scientific evidence"],
+        correct: 0,
+        exp: "Matnda: 'liberate ourselves from dogmatic manipulation and foster genuine democratic deliberation'."
+      }
+    ]
+  }
+];
+
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var home = $("home"), reader = $("reader"), stage = $("stage"), track = $("track");
@@ -3146,6 +4087,22 @@ var LISTENING_DATA = [
   var lisResultHeading = $("lisResultHeading"), lisResultDesc = $("lisResultDesc");
   var lisRetryBtn = $("lisRetryBtn"), lisToggleTranscriptBtn = $("lisToggleTranscriptBtn");
   var lisTranscriptBox = $("lisTranscriptBox"), lisTranscriptContent = $("lisTranscriptContent");
+
+  /* ---------- Reading Elements ---------- */
+  var tabReading = $("tabReading"), readingSection = $("readingSection");
+  var readLevelsEl = $("readLevels"), readListEl = $("readTopics");
+  var readingReader = $("readingReader"), readBackBtn = $("readBackBtn");
+  var readHeaderLevel = $("readHeaderLevel"), readHeaderTitle = $("readHeaderTitle");
+  var readFontSm = $("readFontSm"), readFontMd = $("readFontMd"), readFontLg = $("readFontLg");
+  var readListenBtn = $("readListenBtn"), readListenBtnLabel = $("readListenBtnLabel");
+  var readTranslateToggleBtn = $("readTranslateToggleBtn");
+  var readCardLevel = $("readCardLevel"), readCardTime = $("readCardTime");
+  var readCardTitle = $("readCardTitle"), readCardUz = $("readCardUz");
+  var readArticle = $("readArticle");
+  var readTranslationBox = $("readTranslationBox"), readTranslationContent = $("readTranslationContent");
+  var readVocabSection = $("readVocabSection"), readVocabGrid = $("readVocabGrid");
+  var readQuestionsEl = $("readQuestions");
+  var readCheckQuizBtn = $("readCheckQuizBtn"), readRetryQuizBtn = $("readRetryQuizBtn"), readQuizResult = $("readQuizResult");
 
   /* ---------- Vocabulary Elements ---------- */
   var tabVocabulary = $("tabVocabulary"), vocabularySection = $("vocabularySection");
@@ -4135,11 +5092,19 @@ var LISTENING_DATA = [
   function setAppMode(mode) {
     APP_MODE = mode;
     try { localStorage.setItem("fc-app-mode", APP_MODE); } catch (e) {}
+    stopAllAudioPlayback();
+    stopVoice();
+    stopLisAudio();
+    stopReadingAudio();
 
     tabSpeaking.classList.toggle("active", mode === "speaking");
     tabSpeaking.setAttribute("aria-selected", mode === "speaking" ? "true" : "false");
     tabListening.classList.toggle("active", mode === "listening");
     tabListening.setAttribute("aria-selected", mode === "listening" ? "true" : "false");
+    if (tabReading) {
+      tabReading.classList.toggle("active", mode === "reading");
+      tabReading.setAttribute("aria-selected", mode === "reading" ? "true" : "false");
+    }
     if (tabVocabulary) {
       tabVocabulary.classList.toggle("active", mode === "vocabulary");
       tabVocabulary.setAttribute("aria-selected", mode === "vocabulary" ? "true" : "false");
@@ -4147,6 +5112,9 @@ var LISTENING_DATA = [
 
     speakingSection.hidden = mode !== "speaking";
     listeningSection.hidden = mode !== "listening";
+    if (readingSection) {
+      readingSection.hidden = mode !== "reading";
+    }
     if (vocabularySection) {
       vocabularySection.hidden = mode !== "vocabulary";
     }
@@ -4154,6 +5122,9 @@ var LISTENING_DATA = [
     if (mode === "listening") {
       renderLisLevels();
       renderLisTopics();
+    } else if (mode === "reading") {
+      renderReadLevels();
+      renderReadTopics();
     } else if (mode === "vocabulary") {
       renderVocabLevels();
       renderVocabContent();
@@ -4162,6 +5133,9 @@ var LISTENING_DATA = [
 
   tabSpeaking.addEventListener("click", function () { setAppMode("speaking"); });
   tabListening.addEventListener("click", function () { setAppMode("listening"); });
+  if (tabReading) {
+    tabReading.addEventListener("click", function () { setAppMode("reading"); });
+  }
   if (tabVocabulary) {
     tabVocabulary.addEventListener("click", function () { setAppMode("vocabulary"); });
   }
@@ -4626,6 +5600,401 @@ var LISTENING_DATA = [
   }
 
   lisBack.addEventListener("click", closeListeningReader);
+
+  /* ============================================================
+     READING (MUTOLAA) SECTION
+     ============================================================ */
+  var READ_LEVEL = "A1";
+  try {
+    var storedReadLevel = localStorage.getItem("fc-read-level");
+    if (storedReadLevel) READ_LEVEL = storedReadLevel;
+  } catch (e) {}
+
+  var READ_STORAGE_KEY = "fc-reading-scores";
+  var activeReadTopic = null;
+  var userReadAnswers = {};
+  var readQuizChecked = false;
+  var readIsTranslationOpen = false;
+  var readFontSize = "md";
+  try {
+    var storedFontSize = localStorage.getItem("fc-read-font");
+    if (storedFontSize) readFontSize = storedFontSize;
+  } catch (e) {}
+
+  var readUtterance = null;
+  var readIsPlaying = false;
+  var readKeepAlive = null;
+
+  function clearReadKeepAlive() {
+    if (readKeepAlive) {
+      clearInterval(readKeepAlive);
+      readKeepAlive = null;
+    }
+  }
+
+  function startReadKeepAlive() {
+    clearReadKeepAlive();
+    readKeepAlive = setInterval(function () {
+      if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 9000);
+  }
+
+  function stopReadingAudio() {
+    clearReadKeepAlive();
+    if (window.speechSynthesis) {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+    readIsPlaying = false;
+    if (readListenBtn) {
+      readListenBtn.classList.remove("active");
+      if (readListenBtnLabel) readListenBtnLabel.textContent = "Ovozli tinglash";
+    }
+  }
+
+  function toggleReadingAudio() {
+    if (!activeReadTopic) return;
+    if (readIsPlaying) {
+      stopReadingAudio();
+      return;
+    }
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+      alert("Brauzeringiz ovoz sintezini qo'llab-quvvatlamaydi.");
+      return;
+    }
+    stopAllAudioPlayback();
+    stopVoice();
+    stopLisAudio();
+
+    var cleanText = activeReadTopic.text.replace(/\n+/g, " ").trim();
+    var u = new SpeechSynthesisUtterance(cleanText);
+    u.lang = "en-US";
+    u.rate = 0.95;
+    u.pitch = 1.0;
+    var v = pickVoice();
+    if (v) { u.voice = v; u.lang = v.lang; }
+
+    u.onstart = function () {
+      readIsPlaying = true;
+      if (readListenBtn) {
+        readListenBtn.classList.add("active");
+        if (readListenBtnLabel) readListenBtnLabel.textContent = "To'xtatish";
+      }
+      startReadKeepAlive();
+    };
+
+    u.onend = function () {
+      stopReadingAudio();
+    };
+
+    u.onerror = function () {
+      stopReadingAudio();
+    };
+
+    readUtterance = u;
+    window.speechSynthesis.speak(u);
+  }
+
+  function getReadResults() {
+    try {
+      var raw = localStorage.getItem(READ_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveReadResult(topicId, score, total) {
+    var results = getReadResults();
+    results[topicId] = {
+      score: score,
+      total: total,
+      pct: Math.round((score / total) * 100),
+      date: Date.now()
+    };
+    try {
+      localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(results));
+    } catch (e) {}
+  }
+
+  function renderReadLevels() {
+    if (!readLevelsEl) return;
+    readLevelsEl.innerHTML = "";
+    LEVELS.forEach(function (lv) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "level";
+      b.setAttribute("aria-pressed", lv.code === READ_LEVEL ? "true" : "false");
+      b.innerHTML = '<span class="code"></span><span class="lab"></span>';
+      b.querySelector(".code").textContent = lv.code;
+      b.querySelector(".lab").textContent = lv.lab;
+      b.addEventListener("click", function () {
+        READ_LEVEL = lv.code;
+        try { localStorage.setItem("fc-read-level", READ_LEVEL); } catch (e) {}
+        renderReadLevels();
+        renderReadTopics();
+      });
+      readLevelsEl.appendChild(b);
+    });
+  }
+
+  function renderReadTopics() {
+    if (!readListEl) return;
+    readListEl.innerHTML = "";
+    var filtered = READING_DATA.filter(function (it) { return it.level === READ_LEVEL; });
+    var results = getReadResults();
+
+    if (filtered.length === 0) {
+      readListEl.innerHTML = '<li style="padding: 24px 0; color: var(--muted);">Ushbu daraja uchun matnlar tez kunda qo\'shiladi.</li>';
+      return;
+    }
+
+    filtered.forEach(function (item) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "topic";
+
+      var res = results[item.id];
+      var badgeHtml = "";
+      if (res) {
+        badgeHtml = '<span class="read-badge-done">' + (res.score === res.total ? '&#10003; ' : '') + res.score + '/' + res.total + '</span>';
+      }
+
+      b.innerHTML = '<span class="t"><span class="name"></span><span class="uz"></span></span>' +
+                    '<span class="lis-meta-wrap">' + badgeHtml + '<span class="meta"></span></span>';
+
+      b.querySelector(".name").textContent = item.title;
+      b.querySelector(".uz").textContent = item.uz;
+      b.querySelector(".meta").textContent = item.minutes + " daq \u00b7 " + item.wordCount + " so'z";
+
+      b.addEventListener("click", function () {
+        openReadingTopic(item);
+      });
+
+      li.appendChild(b);
+      readListEl.appendChild(li);
+    });
+  }
+
+  function setReadingFontSize(size) {
+    readFontSize = size;
+    try { localStorage.setItem("fc-read-font", readFontSize); } catch (e) {}
+    if (readArticle) {
+      readArticle.setAttribute("data-size", size);
+    }
+    if (readFontSm) readFontSm.classList.toggle("active", size === "sm");
+    if (readFontMd) readFontMd.classList.toggle("active", size === "md");
+    if (readFontLg) readFontLg.classList.toggle("active", size === "lg");
+  }
+
+  function renderReadQuestions() {
+    if (!readQuestionsEl || !activeReadTopic) return;
+    readQuestionsEl.innerHTML = "";
+    var letters = ["A", "B", "C", "D"];
+
+    activeReadTopic.questions.forEach(function (qObj, qIdx) {
+      var card = document.createElement("div");
+      card.className = "read-q-card";
+      card.id = "readQC_" + qIdx;
+
+      var title = document.createElement("h3");
+      title.className = "read-q-title";
+      title.innerHTML = '<span class="read-q-num">#' + (qIdx + 1) + '</span> <span>' + escapeHtml(qObj.q) + '</span>';
+      card.appendChild(title);
+
+      var optionsWrap = document.createElement("div");
+      optionsWrap.className = "read-q-options";
+
+      qObj.options.forEach(function (optText, optIdx) {
+        var optBtn = document.createElement("button");
+        optBtn.type = "button";
+        optBtn.className = "read-opt-btn" + (userReadAnswers[qIdx] === optIdx ? " selected" : "");
+        optBtn.id = "readOpt_" + qIdx + "_" + optIdx;
+        optBtn.innerHTML = '<span class="read-opt-letter">' + letters[optIdx] + '</span> <span>' + escapeHtml(optText) + '</span>';
+
+        optBtn.addEventListener("click", function () {
+          if (readQuizChecked) return;
+          userReadAnswers[qIdx] = optIdx;
+          card.querySelectorAll(".read-opt-btn").forEach(function (b) { b.classList.remove("selected"); });
+          optBtn.classList.add("selected");
+        });
+
+        optionsWrap.appendChild(optBtn);
+      });
+
+      card.appendChild(optionsWrap);
+
+      var expBox = document.createElement("div");
+      expBox.className = "read-q-exp";
+      expBox.id = "readExp_" + qIdx;
+      expBox.style.display = "none";
+      expBox.innerHTML = '<strong>Tushuntirish:</strong> ' + escapeHtml(qObj.exp);
+      card.appendChild(expBox);
+
+      readQuestionsEl.appendChild(card);
+    });
+  }
+
+  function renderReadVocab() {
+    if (!readVocabGrid || !activeReadTopic) return;
+    readVocabGrid.innerHTML = "";
+    activeReadTopic.vocab.forEach(function (v) {
+      var card = document.createElement("div");
+      card.className = "read-vocab-card";
+
+      var top = document.createElement("div");
+      top.className = "read-vocab-top";
+      top.innerHTML = '<span class="read-vocab-word">' + escapeHtml(v.word) + '</span> <span class="read-vocab-pos">' + escapeHtml(v.pos) + '</span>';
+      card.appendChild(top);
+
+      var ipa = document.createElement("span");
+      ipa.className = "read-vocab-ipa";
+      ipa.textContent = v.ipa;
+      card.appendChild(ipa);
+
+      var uz = document.createElement("span");
+      uz.className = "read-vocab-uz";
+      uz.textContent = v.uz;
+      card.appendChild(uz);
+
+      var def = document.createElement("span");
+      def.className = "read-vocab-def";
+      def.textContent = v.def;
+      card.appendChild(def);
+
+      readVocabGrid.appendChild(card);
+    });
+  }
+
+  function checkReadQuiz() {
+    if (!activeReadTopic) return;
+    var totalQ = activeReadTopic.questions.length;
+    var answeredCount = Object.keys(userReadAnswers).length;
+    if (answeredCount < totalQ) {
+      alert("Iltimos, tekshirishdan oldin barcha savollarga (" + totalQ + " ta) javob belgilang.");
+      return;
+    }
+
+    readQuizChecked = true;
+    var score = 0;
+
+    activeReadTopic.questions.forEach(function (qObj, qIdx) {
+      var selected = userReadAnswers[qIdx];
+      var isCorrect = (selected === qObj.correct);
+      if (isCorrect) score++;
+
+      var exp = $("readExp_" + qIdx);
+      if (exp) exp.style.display = "block";
+
+      qObj.options.forEach(function (_, optIdx) {
+        var optEl = $("readOpt_" + qIdx + "_" + optIdx);
+        if (!optEl) return;
+        optEl.disabled = true;
+        if (optIdx === qObj.correct) {
+          optEl.classList.add("correct");
+        } else if (optIdx === selected && !isCorrect) {
+          optEl.classList.add("wrong");
+        }
+      });
+    });
+
+    saveReadResult(activeReadTopic.id, score, totalQ);
+
+    if (readCheckQuizBtn) readCheckQuizBtn.hidden = true;
+    if (readRetryQuizBtn) readRetryQuizBtn.hidden = false;
+
+    if (readQuizResult) {
+      readQuizResult.hidden = false;
+      var pct = Math.round((score / totalQ) * 100);
+      readQuizResult.textContent = "Natijangiz: " + score + " / " + totalQ + " (" + pct + "%) - " + (score === totalQ ? "A'lo darajada tushundingiz!" : "Javoblarni tahlil qiling va qayta urinib ko'ring.");
+    }
+  }
+
+  function resetReadQuiz() {
+    userReadAnswers = {};
+    readQuizChecked = false;
+    if (readCheckQuizBtn) readCheckQuizBtn.hidden = false;
+    if (readRetryQuizBtn) readRetryQuizBtn.hidden = true;
+    if (readQuizResult) readQuizResult.hidden = true;
+    renderReadQuestions();
+  }
+
+  function toggleReadingTranslation() {
+    readIsTranslationOpen = !readIsTranslationOpen;
+    if (readTranslationBox) readTranslationBox.hidden = !readIsTranslationOpen;
+    if (readTranslateToggleBtn) {
+      readTranslateToggleBtn.classList.toggle("active", readIsTranslationOpen);
+    }
+  }
+
+  function openReadingTopic(topic) {
+    stopAllAudioPlayback();
+    stopVoice();
+    stopLisAudio();
+    stopReadingAudio();
+
+    activeReadTopic = topic;
+    userReadAnswers = {};
+    readQuizChecked = false;
+    readIsTranslationOpen = false;
+
+    if (readHeaderLevel) readHeaderLevel.textContent = topic.level;
+    if (readHeaderTitle) readHeaderTitle.textContent = topic.title;
+
+    if (readCardLevel) readCardLevel.textContent = topic.level;
+    if (readCardTime) readCardTime.textContent = topic.minutes + " daqiqa \u00b7 " + topic.wordCount + " so'z";
+    if (readCardTitle) readCardTitle.textContent = topic.title;
+    if (readCardUz) readCardUz.textContent = topic.uz;
+
+    // Render Article Paragraphs
+    if (readArticle) {
+      var paragraphs = topic.text.split(/\n\n+/).filter(Boolean);
+      readArticle.innerHTML = paragraphs.map(function (p) {
+        return '<p class="read-p">' + escapeHtml(p.trim()) + '</p>';
+      }).join("");
+    }
+
+    // Render Translation
+    if (readTranslationContent) {
+      var trParagraphs = topic.translation.split(/\n\n+/).filter(Boolean);
+      readTranslationContent.innerHTML = trParagraphs.map(function (p) {
+        return '<p>' + escapeHtml(p.trim()) + '</p>';
+      }).join("");
+    }
+    if (readTranslationBox) readTranslationBox.hidden = true;
+    if (readTranslateToggleBtn) readTranslateToggleBtn.classList.remove("active");
+
+    setReadingFontSize(readFontSize);
+    renderReadVocab();
+    resetReadQuiz();
+
+    home.hidden = true;
+    if (readingReader) readingReader.hidden = false;
+    document.body.classList.add("locked");
+    window.scrollTo(0, 0);
+  }
+
+  function closeReadingTopic() {
+    stopReadingAudio();
+    activeReadTopic = null;
+    if (readingReader) readingReader.hidden = true;
+    home.hidden = false;
+    document.body.classList.remove("locked");
+    renderReadTopics();
+  }
+
+  // Reading Listeners
+  if (readBackBtn) readBackBtn.addEventListener("click", closeReadingTopic);
+  if (readFontSm) readFontSm.addEventListener("click", function () { setReadingFontSize("sm"); });
+  if (readFontMd) readFontMd.addEventListener("click", function () { setReadingFontSize("md"); });
+  if (readFontLg) readFontLg.addEventListener("click", function () { setReadingFontSize("lg"); });
+  if (readListenBtn) readListenBtn.addEventListener("click", toggleReadingAudio);
+  if (readTranslateToggleBtn) readTranslateToggleBtn.addEventListener("click", toggleReadingTranslation);
+  if (readCheckQuizBtn) readCheckQuizBtn.addEventListener("click", checkReadQuiz);
+  if (readRetryQuizBtn) readRetryQuizBtn.addEventListener("click", resetReadQuiz);
 
   /* ============================================================
      VOCABULARY (LUG'AT) SECTION
@@ -5201,6 +6570,10 @@ var LISTENING_DATA = [
         e.preventDefault();
         toggleLisPlay();
       }
+      return;
+    }
+    if (activeReadTopic && !readingReader.hidden) {
+      if (e.key === "Escape") closeReadingTopic();
       return;
     }
     if (!S) return;
